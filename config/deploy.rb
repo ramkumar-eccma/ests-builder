@@ -1,14 +1,14 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
-set :application, 'ksa-demo'
+set :application, 'ests'
 set :repo_url, 'git@github.com:ramkumar-eccma/ests-builder.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, '/var/www/ksa-demo'
+set :deploy_to, '/var/www/ests'
 
 # Default value for :scm is :git
 set :scm, :git
