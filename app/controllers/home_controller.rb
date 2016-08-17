@@ -220,9 +220,12 @@ class HomeController < ApplicationController
                 else
                     @reject = "("+@reject+")"  
                 end
-                @modal_prop = ConceptDn.where("language_code = ? AND concept_type_ID = ? AND term_content!= ? AND concept_ID not in #{@reject}", 'en','0161-1#CT-02#1','').select(:term_content,:concept_ID,:term_ID,:definition_ID,:term_organization_name,:definition_content,:language_name).distinct.order(term_content: :asc).limit(1000)
+                @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef"]).distinct.order(term_content: :asc).limit(1000)
+
+                # @modal_prop = ConceptDn.where("language_code = ? AND concept_type_ID = ? AND term_content!= ? AND concept_ID not in #{@reject}", 'en','0161-1#CT-02#1','').select(:term_content,:concept_ID,:term_ID,:definition_ID,:term_organization_name,:definition_content,:language_name).distinct.order(term_content: :asc).limit(1000)
             else
-                @modal_prop = ConceptDn.where("language_code = ? AND concept_type_ID = ? AND term_content!= ? ", 'en','0161-1#CT-02#1','').select(:term_content,:concept_ID,:term_ID,:definition_ID,:term_organization_name,:definition_content,:language_name).distinct.order(term_content: :asc).limit(1000)            
+                @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef"]).distinct.order(term_content: :asc).limit(1000)
+                # @modal_prop = ConceptDn.where("language_code = ? AND concept_type_ID = ? AND term_content!= ? ", 'en','0161-1#CT-02#1','').select(:term_content,:concept_ID,:term_ID,:definition_ID,:term_organization_name,:definition_content,:language_name).distinct.order(term_content: :asc).limit(1000)            
             end
                 
 
