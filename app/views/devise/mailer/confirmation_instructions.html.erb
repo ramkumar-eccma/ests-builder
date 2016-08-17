@@ -1,0 +1,20 @@
+<%- if I18n.locale== :ar %>
+
+	<p>أهلا بك <%= @email %>!</p>
+
+	<p>يمكنك تأكيد البريد الإلكتروني حسابك من خلال الرابط أدناه :</p>
+
+	<p><%= link_to 'تأكيد حسابي', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<% else %>
+
+	<p>Welcome <%= @email %>!</p>
+
+	<p>You can confirm your account email through the link below:</p>
+
+	<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<% end -%>
+
+
+

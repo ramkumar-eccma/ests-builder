@@ -1,0 +1,146 @@
+<style>
+  a {
+     color: #5B0100; 
+    text-decoration: none;
+}
+</style>
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div>
+        <div>
+          <img alt="image" class="" src="<%= image_url 'loginlogo4.png' %> " height="100px" style="margin:0 auto"/>
+        </div>
+        <br>
+        <div style="/* IE10+ */ 
+background-image: -ms-linear-gradient(left, #cfe7fa 0%, #6393c1 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(left, #cfe7fa 0%, #6393c1 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(left, #cfe7fa 0%, #6393c1 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #cfe7fa), color-stop(100, #6393c1));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(left, #cfe7fa 0%, #6393c1 100%);
+
+/* W3C Markup */ 
+background-image: linear-gradient(to right, #cfe7fa 0%, #6393c1 100%);">
+        <div style="padding:20px;">
+        <h4 class="hide">
+    		<%- if I18n.locale== :ar %>
+	            <span class="">
+	              <% @ar_welcome = Language.select("language_property").where("language_id = ? AND controller_name = ? AND page_name = ? AND language_type = ? ", '1','sessions','new.html.erb','ar')%>
+	              <% @ar_welcome.each do |ar_welcome|%>
+	              <%= ar_welcome.language_property %>
+	               <% end %>
+	            </span>
+	          <% else %>
+	            <span class="">
+	              <% @en_welcome = Language.select("language_property").where("language_id = ? AND controller_name = ? AND page_name = ? AND language_type = ? ", '1','sessions','new.html.erb','en')%>
+	              <% @en_welcome.each do |en_welcome|%>
+	              <%= en_welcome.language_property %>
+	               <% end %>
+	            </span>
+	          <% end -%>        	
+        </h4>
+
+		<h2>
+			<%- if I18n.locale== :ar %>
+	            <span class="">
+	              <% @ar_welcome = Language.select("language_property").where("language_id = ? AND controller_name = ? AND page_name = ? AND language_type = ? ", '8','confirmations','new.html.erb','ar')%>
+	              <% @ar_welcome.each do |ar_welcome|%>
+	              <%= ar_welcome.language_property %>
+	               <% end %>
+	            </span>
+	          <% else %>
+	            <span class="">
+	              <% @en_welcome = Language.select("language_property").where("language_id = ? AND controller_name = ? AND page_name = ? AND language_type = ? ", '8','confirmations','new.html.erb','en')%>
+	              <% @en_welcome.each do |en_welcome|%>
+	              <%= en_welcome.language_property %>
+	               <% end %>
+	            </span>
+	          <% end -%>  
+		</h2>
+		<br>
+		<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+		  <%= devise_error_messages! %>
+
+		  <div class="form-group">
+			   	<%- if I18n.locale== :ar %>
+					<%= f.email_field :email,class:'form-control', autofocus: true,placeholder:'توفير البريد الإلكتروني الخاص بك صحيح',required:"required"%>
+				<% else %>
+					<%= f.email_field :email,class:'form-control', autofocus: true,placeholder:'Provide your valid email',required:"required"%>
+	          	<% end -%> 
+		  </div>
+
+		  <div class="actions">
+		    <%- if I18n.locale== :ar %>
+				<%= f.submit "إعادة إرسال تعليمات تأكيدا",class:"btn btn-success block full-width m-b" %>
+			<% else %>
+				<%= f.submit "Resend",class:"btn btn-success block full-width m-b" %>
+			<% end -%>
+		  </div>
+		<% end %>
+		<div class="row">
+			<div class="col-lg-6">
+				<%- if controller_name != 'sessions' %>
+				  	<%- if I18n.locale== :ar %>
+						<h4 class="pull-left"><%= link_to "تسجيل الدخول", new_session_path(resource_name) %></h4>
+					<% else %>
+						<h4 class="pull-left"><%= link_to "Log in", new_session_path(resource_name) %></h4>
+					<% end -%>
+				   <br />
+				<% end -%>
+			</div>
+			<div class="col-lg-6">
+				<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+				  <%- if I18n.locale== :ar %>
+						<h4 class="pull-right"><%= link_to "سجل", new_registration_path(resource_name), class: 'text-danger'%></h4>
+					<% else %>
+						<h4 class="pull-right text-danger"><%= link_to "Sign up", new_registration_path(resource_name), class: 'text-danger'%></h4>
+					<% end -%>
+				  <br />
+				<% end -%>
+			</div>
+		</div>
+		<hr>
+		<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+		  	 <%- if I18n.locale== :ar %>
+				<%= link_to "هل نسيت كلمة المرور؟", new_password_path(resource_name) %>
+			<% else %>
+				<%= link_to "Forgot your password?", new_password_path(resource_name) %>
+			<% end -%>
+		  	<br />
+		<% end -%>	
+		<%= render "devise/shared/links" %>
+ 	</div>
+ 	</div>
+ 	</div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

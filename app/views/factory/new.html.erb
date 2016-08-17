@@ -1,0 +1,368 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+        <!-- <img alt="image" class="img-responsive" src="<%= image_url 'headerlogo.jpg' %> " height="50px" /> -->
+        <div class="clearfix"></div><br>
+         <ol class="breadcrumb" style="background:#F3F3F4; padding:10px;">
+            <li>
+              <%- if I18n.locale== :ar %>
+                <span class="">
+                    <a href="<%= url_for :controller => 'home', :action => 'index' %>">الصفحة الرئيسية</a>                   
+                </span>
+              <% else %>
+                <span class="">
+                 <a href="<%= url_for :controller => 'home', :action => 'index' %>">Home</a>
+                </span>
+              <% end -%>
+            </li>
+             <li class="active">
+                <%- if I18n.locale== :ar %>
+                <span class="">
+                  مصنع
+                </span>
+              <% else %>
+                <span class="">
+                 Factory
+                </span>
+              <% end -%>
+            </li>
+        </ol>
+        
+    </div>
+</div>
+<%= form_tag(factory_new_path,:method => "post", class: "navbar-form") do %>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row"> 
+      <div class="col-lg-8">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <%- if I18n.locale== :ar %>
+                <span class="">
+                <% @ar_factory = Language.select("language_property").where("language_id = ?  AND language_type = ? ", '28','ar')%>
+                <% @ar_factory.each do |ar_factory|%>
+                <%= ar_factory.language_property %>
+                <% end %>
+                </span>
+              <% else %>
+                <span class="">
+                <% @en_factory = Language.select("language_property").where("language_id = ?  AND language_type = ? ", '28','en')%>
+                <% @en_factory.each do |en_factory|%>
+                <%= en_factory.language_property %>
+                <% end %>
+                </span>
+              <% end -%>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <table>
+                          <tr>
+                          <% @factory_temp.each do |a| %>
+                            <% if a['property']=='Factory_Name'%>
+                              <td>
+                              <div class="col-lg-2">                                              
+                                  <label for=""> <%= a['property'] %></label>
+                              </div>
+                              </td>
+                              <td>
+                              <div class="col-lg-4">                                              
+                                  <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                              </div>
+                              </td>                      
+                            <% end %>
+                            <% if a['property']=='Factory_website'%>
+                              <td>
+                              <div class="col-lg-2">                                              
+                                  <label  for=""> <%= a['property'] %></label>
+                              </div>
+                              </td>
+                              <td>
+                              <div class="col-lg-4">                                              
+                                  <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                              </div>
+                              </td>                      
+                            <% end %>
+                          <% end %> 
+                          </tr>
+                        </table>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-warning">
+            <div class="panel-heading">
+              <%- if I18n.locale== :ar %>
+                <span class="">
+                <% @ar_factory = Language.select("language_property").where("language_id = ?  AND language_type = ? ", '29','ar')%>
+                <% @ar_factory.each do |ar_factory|%>
+                <%= ar_factory.language_property %>
+                <% end %>
+                </span>
+              <% else %>
+                <span class="">
+                <% @en_factory = Language.select("language_property").where("language_id = ?  AND language_type = ? ", '29','en')%>
+                <% @en_factory.each do |en_factory|%>
+                <%= en_factory.language_property %>
+                <% end %>
+                </span>
+              <% end -%>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <table>
+                          <tr>
+                          <% @factory_temp.each do |a| %>
+                            <% if a['property']=='Physical_Address'%>
+                              <td>
+                              <div class="col-lg-2">                                              
+                                  <label for=""> <%= a['property'] %></label>
+                              </div>
+                              </td>
+                              <td>
+                              <div class="col-lg-4">                                              
+                                  <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                              </div>
+                              </td>                      
+                            <% end %>
+                            <% end %>
+                            <% @factory_temp.each do |a| %>
+                            <% if a['property']=='City'%>
+                              <td>
+                              <div class="col-lg-2">                                              
+                                  <label  for=""> <%= a['property'] %></label>
+                              </div>
+                              </td>
+                              <td>
+                              <div class="col-lg-4">                                              
+                                  <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                              </div>
+                              </td>                      
+                            <% end %>
+                          <% end %> 
+                          </tr>
+                          <tr><td>&nbsp;</td></tr>
+                          <tr>
+                          <% @factory_temp.each do |a| %>
+                            <% if a['property']=='District'%>
+                              <td>
+                              <div class="col-lg-2">                                              
+                                  <label for=""> <%= a['property'] %></label>
+                              </div>
+                              </td>
+                              <td>
+                              <div class="col-lg-4">                                              
+                                  <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                              </div>
+                              </td>                      
+                            <% end %>
+                            <% end %>
+                            <% @factory_temp.each do |a| %>
+                            <% if a['property']=='Postal_Code'%>
+                              <td>
+                              <div class="col-lg-2">                                              
+                                  <label  for=""> <%= a['property'] %></label>
+                              </div>
+                              </td>
+                              <td>
+                              <div class="col-lg-4">                                              
+                                  <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                              </div>
+                              </td>                      
+                            <% end %>
+                          <% end %> 
+                          </tr> 
+                          <tr><td>&nbsp;</td></tr>
+                          <tr>
+                          <% @factory_temp.each do |a| %>
+                            <% if a['property']=='POB'%>
+                              <td>
+                              <div class="col-lg-2">                                              
+                                  <label for=""> <%= a['property'] %></label>
+                              </div>
+                              </td>
+                              <td>
+                              <div class="col-lg-4">                                              
+                                  <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                              </div>
+                              </td>                      
+                            <% end %>
+                            <% end %>
+                            <% @factory_temp.each do |a| %>
+                            <% if a['property']=='POB_City'%>
+                              <td>
+                              <div class="col-lg-2">                                              
+                                  <label  for=""> <%= a['property'] %></label>
+                              </div>
+                              </td>
+                              <td>
+                              <div class="col-lg-4">                                              
+                                  <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                              </div>
+                              </td>                      
+                            <% end %>
+                          <% end %> 
+                          </tr>
+                          <tr><td>&nbsp;</td></tr>
+                          <tr>
+                          <% @factory_temp.each do |a| %>
+                            <% if a['property']=='POB_PC'%>
+                              <td>
+                              <div class="col-lg-2">                                              
+                                  <label for=""> <%= a['property'] %></label>
+                              </div>
+                              </td>
+                              <td>
+                              <div class="col-lg-4">                                              
+                                  <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                              </div>
+                              </td>                      
+                            <% end %>
+                            <% end %>
+                            <% @factory_temp.each do |a| %>
+                            <% if a['property']=='GPS_Coordinates'%>
+                              <td>
+                              <div class="col-lg-2">                                              
+                                  <label  for=""> <%= a['property'] %></label>
+                              </div>
+                              </td>
+                              <td>
+                              <div class="col-lg-4">                                              
+                                  <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                              </div>
+                              </td>                      
+                            <% end %>
+                          <% end %> 
+                          </tr>
+                          <tr><td>&nbsp;</td></tr>
+                          <tr>
+                          <% @factory_temp.each do |a| %>
+                            <% if a['property']=='State_Provice_code'%>
+                              <td>
+                              <div class="col-lg-2">                                              
+                                  <label for=""> <%= a['property'] %></label>
+                              </div>
+                              </td>
+                              <td>
+                              <div class="col-lg-4">                                              
+                                  <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                              </div>
+                              </td>                      
+                            <% end %>
+                            <% end %>
+                            <% @factory_temp.each do |a| %>
+                            <% if a['property']=='Block_No'%>
+                              <td>
+                              <div class="col-lg-2">                                              
+                                  <label  for=""> <%= a['property'] %></label>
+                              </div>
+                              </td>
+                              <td>
+                              <div class="col-lg-4">                                              
+                                  <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                              </div>
+                              </td>                      
+                            <% end %>
+                          <% end %> 
+                          </tr>
+                          <tr><td>&nbsp;</td></tr>
+                          <tr>
+                          <% @factory_temp.each do |a| %>
+                            <% if a['property']=='License_Status'%>
+                              <td>
+                              <div class="col-lg-2">                                              
+                                  <label for=""> <%= a['property'] %></label>
+                              </div>
+                              </td>
+                              <td>
+                              <div class="col-lg-4">                                              
+                                  <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                              </div>
+                              </td>                      
+                            <% end %>
+                            <% end %>
+                            <% @factory_temp.each do |a| %>
+                            <% if a['property']=='No_of_Employees'%>
+                              <td>
+                              <div class="col-lg-2">                                              
+                                  <label  for=""> <%= a['property'] %></label>
+                              </div>
+                              </td>
+                              <td>
+                              <div class="col-lg-4">                                              
+                                  <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                              </div>
+                              </td>                      
+                            <% end %>
+                          <% end %> 
+                          </tr>
+                        </table>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="col-md-4">
+        <div class="ibox collapsed border-bottom" style="border:1px solid #0C78B8;">
+            <div class="ibox-title" style="background:#0C78B8;">
+                <h5 style="color:#f3f3f4 !important;"><%- if I18n.locale== :ar %>
+                      <span class="">
+                    <% @ar_rp = Language.select("language_property").where("language_id = ?  AND language_type = ? ", '30','ar')%>
+                        <% @ar_rp.each do |ar_rp|%>
+                        <%= ar_rp.language_property %>
+                         <% end %>
+                      </span>
+                    <% else %>
+                      <span class="">
+                        <% @en_rp = Language.select("language_property").where("language_id = ?  AND language_type = ? ", '30','en')%>
+                        <% @en_rp.each do |en_rp|%>
+                        <%= en_rp.language_property %>
+                         <% end %>
+                      </span>
+                  <% end -%></h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up" style="color:#f3f3f4 !important;"></i>
+                    </a>
+                </div>
+            </div>  
+            <div class="ibox-content" style="border:1px solid #1C84C6;">
+              <table>
+                  <tr>
+                  <% @factory_temp.each do |a| %>
+                    <% if a['property']=='Responsible_Party_Name'%>
+                      <td>
+                      <div class="col-lg-2">                                              
+                          <label for=""> <%= a['property'] %></label>
+                      </div>
+                      </td>
+                      <td>
+                      <div class="col-lg-4">                                              
+                          <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                      </div>
+                      </td>                      
+                    <% end %>
+                    <% if a['property']=='Factory_website'%>
+                      <td>
+                      <div class="col-lg-2">                                              
+                          <label  for=""> <%= a['property'] %></label>
+                      </div>
+                      </td>
+                      <td>
+                      <div class="col-lg-4">                                              
+                          <input type="text" class="form-control" name="<%= a['property'] %>" id="<%= a['property'] %>" >  
+                      </div>
+                      </td>                      
+                    <% end %>
+                  <% end %> 
+                  </tr>
+                </table>
+            </div>
+          </div>
+      </div>
+    </div>      
+</div>      
+<% end %>

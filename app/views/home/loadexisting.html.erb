@@ -1,0 +1,92 @@
+<% if @enable %>
+<%= @enable %>
+<% end %>
+<% if @newigid %>
+<%= @split %>
+<% end %>
+<% if @term_content %>
+	<table class="table table-bordered dataTables" id="prop">               
+        <thead >
+          <tr style="background-color: #dedede; !important">
+            <th style="width: 35%;">Property</th>
+            <th style="width: 5%;">&nbsp;</th>
+            <th style="width: 35%;">Value</th>
+            <th style="width: 25%;">Source</th>
+            <th class="hide">Mandatory</th>
+          </tr>
+        </thead>
+        <tbody>       
+        
+      <% @i=1 %>
+    	<% @load.each do |result_all|%>
+          <tr id="pr<%= @i %>" class="text">
+            <td>
+            <input type="hidden" id="test<%= @i %>" value="<%= @i %>"/>
+			       <span id="dynamiclink<%= @i %>"><b> <%= link_to result_all.property , {:controller => :home,:action => :dictionary_detail, :esci => Base64.encode64(result_all.propertyRef)}, :target => "_blank",:def =>'' %> <span class="text-danger" style="font-size: 16px;" %>  </b></span>
+            <input readonly type="text" class="form-control input-sm prop_name hide dupcheck" id="prop_name<%= @i %>" name="prop_name[]" required="required" value="<%= result_all.property %>">
+            &nbsp;&nbsp;&nbsp;
+            <a data-toggle="modal" href="#modal-prop" data-id="1" class="modal_prop pull-right hide">BROWSE</a>
+
+            <input class="hide" type="text" name="prop_concept_ID[]" id="prop_concept_ID<%= @i %>" value="<%= result_all.propertyRef %>">
+            <input class="hide" type="text" name="prop_term_ID[]" id="prop_term_ID<%= @i %>" value="<%= result_all.termID %>">
+            <input class="hide" type="text" name="prop_definition_ID[]" id="prop_definition_ID<%= @i %>" value="<%= result_all.definitionID %>">
+            <input class="hide" type="text" name="prop_term_organization_name[]" id="prop_term_organization_name<%= @i %>">
+            <input class="hide" type="text" name="prop_definition_content[]" id="prop_definition_content<%= @i %>" value="<%= result_all.Property_Definition %>">
+            <input class="hide" type="text" name="prop_language_name[]" id="prop_language_name<%= @i %>">
+            </td>
+            <td> 
+            <input type="button" style="display: none;" class="btn btn-xs btn-info btn-circle" value="+" name="add1" id="add<%= @i %>" onClick="add_ro(<%= @i %>);" title="Add property">  
+
+            <input type="button" class="btn btn-xs btn-danger btn-circle remove" value="-" name="remove<%= @i %>" id="remove<%= @i %>" onClick="removerow(<%= @i %>);" title="Delete property">
+            </td>
+            <td><input type="text" class="form-control input-sm" id="prop_value<%= @i %>" name="prop_value[]" style="width: 100% !important;"></td>
+            <td><input type="text" class="form-control input-sm" id="prop_source<%= @i %>" name="prop_source[]" style="width: 100% !important;"></td>
+            <td class="hide">
+              <select name="prop_mandatory[]" class="form-control input-sm" id="prop_mandatory<%= @i %>">
+                <option value="NO">NO</option><option value="YES">YES</option>
+              </select>
+              </td>
+          </tr>
+          <% @i=@i+1 %> 
+      	<% end %>
+        <input type="text" value="<%= @i-1 %>" id="plusbtn" class="plusbtn hide">
+        </tbody>
+      </table>
+<% end %>
+<% if @backorg %>
+	<table class="table table-bordered dataTables" id="prop">                
+        <thead>
+          <tr style="background-color: #dedede; !important">
+           <th style="width: 35%;">Property</th>
+            <th style="width: 5%;">&nbsp;</th>
+            <th style="width: 35%;">Value</th>
+            <th style="width: 25%;">Source</th>
+            <th class="hide">Mandatory</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="pr1" class="text">
+            <td>
+			<input type="hidden" id="test1" />
+            <span id="dynamiclink1"></span><input type="text" class="form-control input-sm prop_name hide dupcheck" id="prop_name1" name="prop_name[]" required="required"
+            >&nbsp;&nbsp;&nbsp;
+            <a data-toggle="modal" href="#modal-prop" data-id="1" class="modal_prop pull-right">BROWSE</a>
+            <input class="hide" type="text" name="prop_concept_ID[]" id="prop_concept_ID1">
+            <input class="hide" type="text" name="prop_term_ID[]" id="prop_term_ID1">
+            <input class="hide" type="text" name="prop_definition_ID[]" id="prop_definition_ID1">
+            <input class="hide" type="text" name="prop_term_organization_name[]" id="prop_term_organization_name1">
+            <input class="hide" type="text" name="prop_definition_content[]" id="prop_definition_content1">
+            <input class="hide" type="text" name="prop_language_name[]" id="prop_language_name1">
+            </td>
+            <td> <input type="button" class="btn btn-xs btn-info btn-circle" value="+" name="add1" id="add1" onClick="add_ro(1);" title="Add property"></td>
+            <td><input type="text" class="form-control input-sm" id="prop_value1" name="prop_value[]" style="width: 100% !important;"></td>
+            <td><input type="text" class="form-control input-sm" id="prop_source1" name="prop_source[]" style="width: 100% !important;"></td>
+            <td class="hide">
+              <select name="prop_mandatory[]" class="form-control input-sm" id="prop_mandatory1">
+                <option value="NO">NO</option><option value="YES">YES</option>
+              </select>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+<% end %>

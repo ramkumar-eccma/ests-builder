@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eSTS</title>
+    <!-- Include style per-controller - vendor plugins -->
+    <%#= stylesheet_link_tag params[:controller] if ::Rails.application.assets.find_asset("#{params[:controller]}.css.scss") %>
+    <!-- Main css styles -->
+    <%- if I18n.locale== :ar %>
+        <%= stylesheet_link_tag    'applicationrtls', media: 'all', 'data-turbolinks-track' => true %>
+        <% else %>
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <% end -%>
+    <!-- Main javascript files -->
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <style>
+    .borderlesstext {
+            border: 0;
+            background:transparent;
+        }
+    .borderless {
+            border-bottom:0px !important;
+        }
+        .borderless th, .borderless td {
+            border: 0px !important;
+        }
+        .borderless {
+            border:0px !important;
+        }
+        .custom-tab .nav-tabs > li.active > a, .tabs-container .nav-tabs > li.active > a:hover, .tabs-container .nav-tabs > li.active > a:focus{
+            background-color: #1C84C6;
+            color: white;
+        }        
+        .check{
+            background-image: url("<%= image_url 'login1.jpg' %>") !important;
+        }
+        .btn-circle {
+            width: 20px;
+            height: 20px;
+            padding: 3px 0;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 12px;
+            line-height: 0.42857;
+        }
+    </style>
+</head>
+<%- if I18n.locale== :ar %>
+    <body class="pace-done top-navigation rtls boxed-layout">
+    <% else %>
+    <body class="pace-done top-navigation boxed-layout" >
+<% end -%>
+    <!-- Wrapper-->
+    <div id="wrapper wrapper-content" class="white-bg check" id="check">
+        <% if user_signed_in? %>
+            <!-- Navigation -->
+            <%#= render 'layouts/navigation' %>
+            <!-- Page wraper -->
+            <div id="page-wrapper" class="gray-bg">
+
+                <!-- Page wrapper -->
+                <%= render 'layouts/topnavbar_2' %>
+                   
+                <!-- Main view  -->
+                <%= yield %>
+                <!-- Footer -->
+                <%= render 'layouts/footer' %>
+
+            </div>
+            <!-- End page wrapper-->
+        <% else %>
+            <%= yield %>
+            </br>
+            <div class="col-md-4"></div>
+            <div class="col-md-4 hide">
+            <%- if I18n.locale== :ar %>
+                <p style="text-align:center;"><%= link_to_unless I18n.locale == :en, "English", locale: :en %> | العربية</p>
+            <% else %>  
+                <p style="text-align:center;"> English | <%= link_to_unless I18n.locale == :de, "العربية", locale: :ar %></p>
+            <% end -%></div>
+            <div class="col-md-4"></div>
+        <% end %>   
+    </div>
+    <!-- End wrapper-->
+    <%#= javascript_include_tag params[:controller] if ::Rails.application.assets.find_asset("#{params[:controller]}.js.coffee") %>
+    <!-- Include javascript per-view -->
+    <!-- For demo purpose we include javascript in view but you can easily start SeedProject and organize it with Rails asset pipeline as you want -->
+    <%= yield :javascript %>
+</body>
+</html>

@@ -1,0 +1,73 @@
+# production:
+#   adapter: mysql2
+#   database: ests_db_online
+#   pool: 5
+#   timeout: 5000
+#   host: 192.168.0.110
+#   username: conn
+#   password: 
+
+# development:
+#   adapter: mysql2
+#   database: ests_db
+#   pool: 5
+#   timeout: 5000
+#   host: 192.168.0.8
+#   port: 3306
+#   username: conn
+#   password: 
+
+etsr_production:
+  adapter: mysql2
+  database: etsr_beta_new_loc
+  timeout: 5000
+  host: 72.47.192.194
+  # port: 3306
+  username: emdv
+  password: emdv123
+
+etsr_development:
+  adapter: mysql2
+  database: etsr
+  timeout: 5000
+  host: 192.168.0.8
+  port: 3306
+  username: conn
+  password: 
+
+production:
+  adapter: mysql2
+  database: ests_db
+  pool: 5
+  timeout: 5000
+  host: 72.47.192.194
+  username: ests
+  password: eccmadb@54321
+
+development:
+  adapter: mysql2
+  database: ests_db
+  pool: 5
+  timeout: 5000
+  host: 72.47.192.194
+  username: ests
+  password: eccmadb@54321
+
+etsr_production:
+  adapter: mysql2
+  database: etsr_beta_new
+  timeout: 5000
+  host: 72.47.192.194
+  # port: 3306
+  username: emdv
+  password: emdv123
+
+etsr_development:
+  adapter: mysql2
+  database: etsr_beta_new
+  timeout: 5000
+  host: 72.47.192.194
+  # port: 3306
+  username: emdv
+  password: emdv123
+  

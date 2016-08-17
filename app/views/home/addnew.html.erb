@@ -1,0 +1,1120 @@
+<style>
+ /* input[type="text"] {
+    
+}*/
+</style>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">      
+          <div class="clearfix"></div><br><br><br><br>
+         <ol class="breadcrumb" style="background:#F3F3F4; padding:6px;">
+            <li>
+              <%- if I18n.locale== :ar %>
+                <span class="">
+                    <a href="<%= url_for :controller => 'home', :action => 'index' %>">الصفحة الرئيسية</a>                   
+                </span>
+              <% else %>
+                <span class="">
+                 <a href="<%= url_for :controller => 'home', :action => 'index' %>">Home</a>
+                </span>
+              <% end -%>
+              
+            </li>
+             <li class="active">
+                <%- if I18n.locale== :ar %>
+                <span class="">
+                    <a href="<%= url_for :controller => 'home', :action => 'addnew' %>">إضافة قالب جديد</a>                   
+                </span>
+              <% else %>
+                <span class="">
+                 <a href="<%= url_for :controller => 'home', :action => 'addnew' %>">Add New Item</a>                   
+                </span>
+              <% end -%>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title" style="background:#1C84C6;color:#f3f3f4 !important;">
+                <span class="">Add New Item</span>
+                <input type="button" class="btn btn-xs btn-danger pull-right" value="Reset" onclick="resetclass()">
+                </div>
+                <div class="ibox-content" style="border:1px solid #1C84C6;">
+                <%= form_tag(addnew_path,:method => "post",class: "navbar-form",:multipart => true, name: "mainform", id: "mainform") do %>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <table class="table table-bordered">
+                      <tr>
+                        <td><b>eSTS ID</b></td>
+                        <td>
+                        <label>ECCMA.eTSR:<%= @max_no %></label>
+                        <input type="hidden" name="igid" id="igid" class="form-control input-sm " value="<%= @igid %>">
+                        <input type="hidden" name="old_igid" id="old_igid" class="form-control input-sm " value="<%= @igid %>">
+                        <input type="hidden" name="cmm" class="form-control input-sm" id="cmm" value="<%= @max_no %>">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                        <b>Part No</b>
+                        </td> 
+                        <td>  
+                          <div class="input-group" style="width: 100%;">
+                            <span class="input-group-addon"> 
+                                <b><%= current_user.name.upcase %>:</b>
+                            </span> 
+                            <input  type="text" name="material_id" class="form-control input-sm" id="material_id" style="width: 100%;">
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                        <b>Class Name<font color="#FF0000">*</font></b>
+                        </td>
+                        <td align="right">
+                        <div id="linkdic"></div>     
+                        <div id="classlink" align="left"></div>                  
+                        <input type="text" name="term_content" id="term_content" required="required" class="form-control input-sm hide">
+                        <input class="hide"  type="text" name="concept_ID" id="concept_ID">
+                        <input class="hide"  type="text" name="term_ID" id="term_ID">
+                        <input class="hide"  type="text" name="definition_ID" id="definition_ID">
+                        <input class="hide"  type="text" name="term_organization_name" id="term_organization_name">
+                        <input class="hide"  type="text" name="definition_content" id="definition_content">
+                        <input class="hide"  type="text" name="language_name" id="language_name">
+                        <!--  <input type="button" name="class_btn" value="BROWSE" onclick="getclass();" %>-->
+                        <a data-toggle="modal" href="#modal-form" style="margin-left: ;">BROWSE</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                        <b>Description</b>
+                        </td>
+                        <td>
+                        <input type="text" name="legacy" id="legacy" class="form-control input-sm" style="width: 100%;">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><b>Image</b></td>
+                        <td>
+                            <input type="file" id="pictureInput" name="pictureInput">
+                            <img src="" alt="" id ="imgprev" width = "40" height = "40" class="img-thumbnail">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><b>Country of orgin</b></td>
+                        <td>
+                          
+                          <div class="row"><div class="col-md-12">
+                            <select name="country_orgin" id="country_orgin" class="form-control chosen-select" style="width: 100%;">
+                                <option value="">select</option>
+                                <option value="Afghanistan">Afghanistan</option>
+                                <option value="Albania">Albania</option>
+                                <option value="Algeria">Algeria</option>
+                                <option value="American Samoa">American Samoa</option>
+                                <option value="Andorra">Andorra</option>
+                                <option value="Angola">Angola</option>
+                                <option value="Anguilla">Anguilla</option>
+                                <option value="Antartica">Antarctica</option>
+                                <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Armenia">Armenia</option>
+                                <option value="Aruba">Aruba</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Austria">Austria</option>
+                                <option value="Azerbaijan">Azerbaijan</option>
+                                <option value="Bahamas">Bahamas</option>
+                                <option value="Bahrain">Bahrain</option>
+                                <option value="Bangladesh">Bangladesh</option>
+                                <option value="Barbados">Barbados</option>
+                                <option value="Belarus">Belarus</option>
+                                <option value="Belgium">Belgium</option>
+                                <option value="Belize">Belize</option>
+                                <option value="Benin">Benin</option>
+                                <option value="Bermuda">Bermuda</option>
+                                <option value="Bhutan">Bhutan</option>
+                                <option value="Bolivia">Bolivia</option>
+                                <option value="Bosnia and Herzegowina">Bosnia and Herzegowina</option>
+                                <option value="Botswana">Botswana</option>
+                                <option value="Bouvet Island">Bouvet Island</option>
+                                <option value="Brazil">Brazil</option>
+                                <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+                                <option value="Brunei Darussalam">Brunei Darussalam</option>
+                                <option value="Bulgaria">Bulgaria</option>
+                                <option value="Burkina Faso">Burkina Faso</option>
+                                <option value="Burundi">Burundi</option>
+                                <option value="Cambodia">Cambodia</option>
+                                <option value="Cameroon">Cameroon</option>
+                                <option value="Canada">Canada</option>
+                                <option value="Cape Verde">Cape Verde</option>
+                                <option value="Cayman Islands">Cayman Islands</option>
+                                <option value="Central African Republic">Central African Republic</option>
+                                <option value="Chad">Chad</option>
+                                <option value="Chile">Chile</option>
+                                <option value="China">China</option>
+                                <option value="Christmas Island">Christmas Island</option>
+                                <option value="Cocos Islands">Cocos (Keeling) Islands</option>
+                                <option value="Colombia">Colombia</option>
+                                <option value="Comoros">Comoros</option>
+                                <option value="Congo">Congo</option>
+                                <option value="Congo">Congo, the Democratic Republic of the</option>
+                                <option value="Cook Islands">Cook Islands</option>
+                                <option value="Costa Rica">Costa Rica</option>
+                                <option value="Cota D'Ivoire">Cote d'Ivoire</option>
+                                <option value="Croatia">Croatia (Hrvatska)</option>
+                                <option value="Cuba">Cuba</option>
+                                <option value="Cyprus">Cyprus</option>
+                                <option value="Czech Republic">Czech Republic</option>
+                                <option value="Denmark">Denmark</option>
+                                <option value="Djibouti">Djibouti</option>
+                                <option value="Dominica">Dominica</option>
+                                <option value="Dominican Republic">Dominican Republic</option>
+                                <option value="East Timor">East Timor</option>
+                                <option value="Ecuador">Ecuador</option>
+                                <option value="Egypt">Egypt</option>
+                                <option value="El Salvador">El Salvador</option>
+                                <option value="Equatorial Guinea">Equatorial Guinea</option>
+                                <option value="Eritrea">Eritrea</option>
+                                <option value="Estonia">Estonia</option>
+                                <option value="Ethiopia">Ethiopia</option>
+                                <option value="Falkland Islands">Falkland Islands (Malvinas)</option>
+                                <option value="Faroe Islands">Faroe Islands</option>
+                                <option value="Fiji">Fiji</option>
+                                <option value="Finland">Finland</option>
+                                <option value="France">France</option>
+                                <option value="France Metropolitan">France, Metropolitan</option>
+                                <option value="French Guiana">French Guiana</option>
+                                <option value="French Polynesia">French Polynesia</option>
+                                <option value="French Southern Territories">French Southern Territories</option>
+                                <option value="Gabon">Gabon</option>
+                                <option value="Gambia">Gambia</option>
+                                <option value="Georgia">Georgia</option>
+                                <option value="Germany">Germany</option>
+                                <option value="Ghana">Ghana</option>
+                                <option value="Gibraltar">Gibraltar</option>
+                                <option value="Greece">Greece</option>
+                                <option value="Greenland">Greenland</option>
+                                <option value="Grenada">Grenada</option>
+                                <option value="Guadeloupe">Guadeloupe</option>
+                                <option value="Guam">Guam</option>
+                                <option value="Guatemala">Guatemala</option>
+                                <option value="Guinea">Guinea</option>
+                                <option value="Guinea-Bissau">Guinea-Bissau</option>
+                                <option value="Guyana">Guyana</option>
+                                <option value="Haiti">Haiti</option>
+                                <option value="Heard and McDonald Islands">Heard and Mc Donald Islands</option>
+                                <option value="Holy See">Holy See (Vatican City State)</option>
+                                <option value="Honduras">Honduras</option>
+                                <option value="Hong Kong">Hong Kong</option>
+                                <option value="Hungary">Hungary</option>
+                                <option value="Iceland">Iceland</option>
+                                <option value="India">India</option>
+                                <option value="Indonesia">Indonesia</option>
+                                <option value="Iran">Iran (Islamic Republic of)</option>
+                                <option value="Iraq">Iraq</option>
+                                <option value="Ireland">Ireland</option>
+                                <option value="Israel">Israel</option>
+                                <option value="Italy">Italy</option>
+                                <option value="Jamaica">Jamaica</option>
+                                <option value="Japan">Japan</option>
+                                <option value="Jordan">Jordan</option>
+                                <option value="Kazakhstan">Kazakhstan</option>
+                                <option value="Kenya">Kenya</option>
+                                <option value="Kiribati">Kiribati</option>
+                                <option value="Democratic People's Republic of Korea">Korea, Democratic People's Republic of</option>
+                                <option value="Korea">Korea, Republic of</option>
+                                <option value="Kuwait">Kuwait</option>
+                                <option value="Kyrgyzstan">Kyrgyzstan</option>
+                                <option value="Lao">Lao People's Democratic Republic</option>
+                                <option value="Latvia">Latvia</option>
+                                <option value="Lebanon">Lebanon</option>
+                                <option value="Lesotho">Lesotho</option>
+                                <option value="Liberia">Liberia</option>
+                                <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
+                                <option value="Liechtenstein">Liechtenstein</option>
+                                <option value="Lithuania">Lithuania</option>
+                                <option value="Luxembourg">Luxembourg</option>
+                                <option value="Macau">Macau</option>
+                                <option value="Macedonia">Macedonia, The Former Yugoslav Republic of</option>
+                                <option value="Madagascar">Madagascar</option>
+                                <option value="Malawi">Malawi</option>
+                                <option value="Malaysia">Malaysia</option>
+                                <option value="Maldives">Maldives</option>
+                                <option value="Mali">Mali</option>
+                                <option value="Malta">Malta</option>
+                                <option value="Marshall Islands">Marshall Islands</option>
+                                <option value="Martinique">Martinique</option>
+                                <option value="Mauritania">Mauritania</option>
+                                <option value="Mauritius">Mauritius</option>
+                                <option value="Mayotte">Mayotte</option>
+                                <option value="Mexico">Mexico</option>
+                                <option value="Micronesia">Micronesia, Federated States of</option>
+                                <option value="Moldova">Moldova, Republic of</option>
+                                <option value="Monaco">Monaco</option>
+                                <option value="Mongolia">Mongolia</option>
+                                <option value="Montserrat">Montserrat</option>
+                                <option value="Morocco">Morocco</option>
+                                <option value="Mozambique">Mozambique</option>
+                                <option value="Myanmar">Myanmar</option>
+                                <option value="Namibia">Namibia</option>
+                                <option value="Nauru">Nauru</option>
+                                <option value="Nepal">Nepal</option>
+                                <option value="Netherlands">Netherlands</option>
+                                <option value="Netherlands Antilles">Netherlands Antilles</option>
+                                <option value="New Caledonia">New Caledonia</option>
+                                <option value="New Zealand">New Zealand</option>
+                                <option value="Nicaragua">Nicaragua</option>
+                                <option value="Niger">Niger</option>
+                                <option value="Nigeria">Nigeria</option>
+                                <option value="Niue">Niue</option>
+                                <option value="Norfolk Island">Norfolk Island</option>
+                                <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+                                <option value="Norway">Norway</option>
+                                <option value="Oman">Oman</option>
+                                <option value="Pakistan">Pakistan</option>
+                                <option value="Palau">Palau</option>
+                                <option value="Panama">Panama</option>
+                                <option value="Papua New Guinea">Papua New Guinea</option>
+                                <option value="Paraguay">Paraguay</option>
+                                <option value="Peru">Peru</option>
+                                <option value="Philippines">Philippines</option>
+                                <option value="Pitcairn">Pitcairn</option>
+                                <option value="Poland">Poland</option>
+                                <option value="Portugal">Portugal</option>
+                                <option value="Puerto Rico">Puerto Rico</option>
+                                <option value="Qatar">Qatar</option>
+                                <option value="Reunion">Reunion</option>
+                                <option value="Romania">Romania</option>
+                                <option value="Russia">Russian Federation</option>
+                                <option value="Rwanda">Rwanda</option>
+                                <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option> 
+                                <option value="Saint LUCIA">Saint LUCIA</option>
+                                <option value="Saint Vincent">Saint Vincent and the Grenadines</option>
+                                <option value="Samoa">Samoa</option>
+                                <option value="San Marino">San Marino</option>
+                                <option value="Sao Tome and Principe">Sao Tome and Principe</option> 
+                                <option value="Saudi Arabia">Saudi Arabia</option>
+                                <option value="Senegal">Senegal</option>
+                                <option value="Seychelles">Seychelles</option>
+                                <option value="Sierra">Sierra Leone</option>
+                                <option value="Singapore">Singapore</option>
+                                <option value="Slovakia">Slovakia (Slovak Republic)</option>
+                                <option value="Slovenia">Slovenia</option>
+                                <option value="Solomon Islands">Solomon Islands</option>
+                                <option value="Somalia">Somalia</option>
+                                <option value="South Africa">South Africa</option>
+                                <option value="South Georgia">South Georgia and the South Sandwich Islands</option>
+                                <option value="Span">Spain</option>
+                                <option value="SriLanka">Sri Lanka</option>
+                                <option value="St. Helena">St. Helena</option>
+                                <option value="St. Pierre and Miguelon">St. Pierre and Miquelon</option>
+                                <option value="Sudan">Sudan</option>
+                                <option value="Suriname">Suriname</option>
+                                <option value="Svalbard">Svalbard and Jan Mayen Islands</option>
+                                <option value="Swaziland">Swaziland</option>
+                                <option value="Sweden">Sweden</option>
+                                <option value="Switzerland">Switzerland</option>
+                                <option value="Syria">Syrian Arab Republic</option>
+                                <option value="Taiwan">Taiwan, Province of China</option>
+                                <option value="Tajikistan">Tajikistan</option>
+                                <option value="Tanzania">Tanzania, United Republic of</option>
+                                <option value="Thailand">Thailand</option>
+                                <option value="Togo">Togo</option>
+                                <option value="Tokelau">Tokelau</option>
+                                <option value="Tonga">Tonga</option>
+                                <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                                <option value="Tunisia">Tunisia</option>
+                                <option value="Turkey">Turkey</option>
+                                <option value="Turkmenistan">Turkmenistan</option>
+                                <option value="Turks and Caicos">Turks and Caicos Islands</option>
+                                <option value="Tuvalu">Tuvalu</option>
+                                <option value="Uganda">Uganda</option>
+                                <option value="Ukraine">Ukraine</option>
+                                <option value="United Arab Emirates">United Arab Emirates</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="United States">United States</option>
+                                <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+                                <option value="Uruguay">Uruguay</option>
+                                <option value="Uzbekistan">Uzbekistan</option>
+                                <option value="Vanuatu">Vanuatu</option>
+                                <option value="Venezuela">Venezuela</option>
+                                <option value="Vietnam">Viet Nam</option>
+                                <option value="Virgin Islands (British)">Virgin Islands (British)</option>
+                                <option value="Virgin Islands (U.S)">Virgin Islands (U.S.)</option>
+                                <option value="Wallis and Futana Islands">Wallis and Futuna Islands</option>
+                                <option value="Western Sahara">Western Sahara</option>
+                                <option value="Yemen">Yemen</option>
+                                <option value="Yugoslavia">Yugoslavia</option>
+                                <option value="Zambia">Zambia</option>
+                                <option value="Zimbabwe">Zimbabwe</option>
+                          </select>
+
+                          </div>
+
+                          <div class="col-md-12">
+                              <br><input type="file" class="pull-left" id="originInput" name="originInput">  
+
+                          </div>
+                          </div>
+                            
+                        </td>
+                      </tr>
+                      <!-- <tr>
+                        <td><b>Country of origin</b></td>
+                        <td>
+                           
+                            <br>
+                            <img src="" alt="" id ="imgorigin" width = "80" height = "80" class="img-responsive">
+                        </td>
+                      </tr> -->
+                    </table>
+                    </div>
+                    <div class="col-md-8">
+                      <div id="loaddataview"></div>      
+                  <div id="resetpreview">     
+                  <table class="table table-bordered dataTables" id="prop">                
+                    <thead>
+                      <tr style="background-color: #dedede; !important">
+                        <th style="width: 35%;">Property</th>
+                        <th style="width: 5%;">&nbsp;</th>
+                        <th style="width: 35%;">Value</th>
+                        <th style="width: 25%;">Source</th>
+                        <th class="hide">Mandatory</th>
+                      </tr>
+                    </thead>  
+
+                     <tbody>
+                      <tr id="pr1" class="text">
+                        <td>
+                        <input type="hidden" id="test1" />
+                        <span id="dynamiclink1"></span>
+                        <input type="text" class="form-control input-sm prop_name hide dupcheck" id="prop_name1" name="prop_name[]" required="required"
+                        >&nbsp;&nbsp;&nbsp;
+                        <a data-toggle="modal" href="#modal-prop" data-id="1" class="modal_prop pull-right">BROWSE</a>
+                        <!-- <a data-toggle="modal" href="#modal-prop" data-id="1" class="modal_prop pull-right" onclick="resetvalue(1);">BROWSE</a> -->
+                        <input class="hide" type="text" name="prop_concept_ID[]" id="prop_concept_ID1">
+                        <input class="hide" type="text" name="prop_term_ID[]" id="prop_term_ID1">
+                        <input class="hide" type="text" name="prop_definition_ID[]" id="prop_definition_ID1">
+                        <input class="hide" type="text" name="prop_term_organization_name[]" id="prop_term_organization_name1">
+                        <input class="hide" type="text" name="prop_definition_content[]" id="prop_definition_content1">
+                        <input class="hide" type="text" name="prop_language_name[]" id="prop_language_name1">
+                        </td>
+                        <td> <input type="button" class="btn btn-xs btn-info btn-circle" value="+" name="add1" id="add1" onClick="add_ro(1);" title="Add property">    </td>
+                        <td><input type="text" class="form-control input-sm" id="prop_value1" name="prop_value[]" style="width: 100% !important;"></td>
+                        <td><input type="text" class="form-control input-sm" id="prop_source1" name="prop_source[]" style="width: 100% !important;"></td>
+                        <td class="hide">
+                          <select name="prop_mandatory[]" class="form-control input-sm" id="prop_mandatory1">
+                            <option value="NO">NO</option><option value="YES">YES</option>
+                          </select>
+                          </td>
+                      </tr>
+                    </tbody>
+                  </table> 
+                  </div> 
+                  <span id="submit"></span>
+                    </div>
+                  </div> 
+                  
+                  <!-- <input type='submit' class="btn btn-success pull-left" style=" padding-right:10px;" id= "class_prop" name="class_prop" value="Submit"> <br> <br> -->
+
+                  <% end %> 
+                  <input type="hidden" id="changeoccur" class="changeoccur">
+                  <input type="hidden" id="changetemp" class="changetemp">
+                  <input type="hidden" id="changeigid" name="changeigid">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modal-form">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="border:2px solid #1C84C6;">
+        <div class="modal-header" style="background:#1C84C6;color:#f3f3f4 !important;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"  style="color:#f3f3f4 !important;"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="gridSystemModalLabel" style="color:#f3f3f4 !important;">Class Names</h4>
+        </div>
+        <%= form_tag(addnew_path,:method => "post", id: "searchclass") do %>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="">Search Class Name</label>
+                      <input type="text"  name="class_name" id="class_name" class="form-control input-sm">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="">Operation</label>
+                      <select name="query" id="query" class="form-control input-sm">
+                         <option value="startwith">start with</option>
+                         <option value="like">contains</option>
+                         <option value="=">equal to</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="">Organization</label>
+                      <select name="organization" id="organization" class="form-control input-sm">
+                      <option value="">select</option>
+                         <% @org.each do |org|%>
+                          <option value="<%= org.term_organization_name %>"><%= org.term_organization_name %></option>
+                        <% end %>
+                      </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="">Language</label>
+                      <select name="language" id="language" class="form-control input-sm">
+                      <option value="">select</option>
+                        <% @lang.each do |lang|%>                          
+                          <option value="<%= lang.language_code %>" <% if lang.language_code=="en" %>selected<% end %>><%= lang.language_name %></option>
+                        <% end %>
+                      </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="">&nbsp;</label><br>
+                      <input type="submit" class="btn btn-success" value="Search" name="search">
+                      <input type="button" class="btn btn-danger" value="Show All" name="reset" id="reset" onclick="class_btn(id)">
+                    </div>
+                </div>                
+            </div>  
+            <br>
+            <div class="row">
+              <div class="col-md-12">
+                <span class="text-danger">It shows only top 100 results</span><br>
+                  <div id="loading_img" align="center">
+                    <img src="assets/loader.gif" alt="" id ="imgprev1" width = "80" height = "80" class="img-responsive">
+                  </div><br>
+               <div id="preview"></div>                          
+                                   
+              </div>
+            </div>
+        </div>  
+        <% end %>
+    </div>
+  </div>
+</div>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modal-prop">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="border:2px solid #1C84C6;">
+        <div class="modal-header" style="background:#1C84C6;color:#f3f3f4 !important;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"  style="color:#f3f3f4 !important;"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="gridSystemModalLabel" style="color:#f3f3f4 !important;">Property Names</h4>
+        </div>
+        <%= form_tag(addnew_path,:method => "post", id: "search_prop") do %>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="">Search Property Name</label>
+                      <input type="hidden" name="auto_inc" id="auto_inc">
+                      <input type="text"  name="property_name" id="property_name" class="form-control input-sm"/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="">Operation</label>
+                      <select name="query" id="query" class="form-control input-sm">
+                         <option value="startwith">start with</option>
+                         <option value="like">contains</option>
+                         <option value="=">equal to</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="">Organization</label>
+                      <select name="organization_prop" id="organization_prop" class="form-control input-sm">
+                      <option value="">select</option>
+                         <% @org.each do |org|%>
+                          <option value="<%= org.term_organization_name %>"><%= org.term_organization_name %></option>
+                        <% end %>
+                      </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="">Language</label>
+                      <select name="language_prop" id="language_prop" class="form-control input-sm">
+                      <option value="">select</option>
+                        <% @lang.each do |lang|%>
+                          <option value="<%= lang.language_code %>" <% if lang.language_code=="en" %>selected<% end %>><%= lang.language_name %></option>
+                        <% end %>
+                      </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="">&nbsp;</label><br>
+                      <input type="submit" class="btn btn-success" value="Search" name="search_prop">
+                      <input type="hidden" name="class_prop">
+                      <input type="button" class="btn btn-danger" value="Show All" name="reset_prop" id="reset" onclick="prop(id)">
+                    </div>
+                </div>                
+            </div>  
+            <br>
+            <div class="row">
+              <div class="col-md-12 pane">
+                <span class="text-danger">It shows only top 100 results</span><br>
+                  <div id="loading_img1" align="center">
+                    <img src="assets/loader1.gif" alt="" id ="imgprev2" width = "80" height = "80" class="img-responsive">
+                  </div>
+                 <div id="preview-prop"></div>
+              </div>
+            </div>
+        </div>  
+        <% end %>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+function ajaxindicatorstart(text)
+{
+    if(jQuery('body').find('#resultLoading').attr('id') != 'resultLoading'){
+    jQuery('body').append('<div id="resultLoading" style="display:none"><div><img src="assets/ajax-loader.gif"><div>'+text+'</div></div><div class="bg"></div></div>');
+    }
+
+    jQuery('#resultLoading').css({
+        'width':'100%',
+        'height':'100%',
+        'position':'fixed',
+        'z-index':'10000000',
+        'top':'0',
+        'left':'0',
+        'right':'0',
+        'bottom':'0',
+        'margin':'auto'
+    });
+
+    jQuery('#resultLoading .bg').css({
+        'background':'#000000',
+        'opacity':'0.7',
+        'width':'100%',
+        'height':'100%',
+        'position':'absolute',
+        'top':'0'
+    });
+
+    jQuery('#resultLoading>div:first').css({
+        'width': '250px',
+        'height':'75px',
+        'text-align': 'center',
+        'position': 'fixed',
+        'top':'0',
+        'left':'0',
+        'right':'0',
+        'bottom':'0',
+        'margin':'auto',
+        'font-size':'16px',
+        'z-index':'10',
+        'color':'#ffffff'
+
+    });
+
+    jQuery('#resultLoading .bg').height('100%');
+       jQuery('#resultLoading').fadeIn(300);
+    jQuery('body').css('cursor', 'wait');
+}
+
+function ajaxindicatorstop()
+{
+    jQuery('#resultLoading .bg').height('100%');
+       jQuery('#resultLoading').fadeOut(300);
+    jQuery('body').css('cursor', 'default');
+}
+
+  $(function() {  
+    $('#pictureInput').on('change', function(event) {
+      var files = event.target.files;
+      // var image = files[0]
+      var image = $("#pictureInput")[0].files[0];
+      var reader = new FileReader();
+      reader.onload = function(file) {
+      $('#imgprev').attr('src',file.target.result)
+      };
+      reader.readAsDataURL(image);
+      console.log(files);
+    });
+
+    // $('#originInput').on('change', function(event) {
+    //   var files = event.target.files;
+    //   // var image = files[0]
+    //   var image = $("#originInput")[0].files[0];
+    //   var reader = new FileReader();
+    //   reader.onload = function(file) {
+    //   $('#imgorigin').attr('src',file.target.result)
+    //   };
+    //   reader.readAsDataURL(image);
+    //   console.log(files);
+    // });
+
+  });
+// $(document).ready(function(){
+//     $(document).ajaxStart(function(event, request, settings) {
+//         $('#loading_img').show();
+//     });
+
+//     $(document).ajaxStop(function(event, request, settings) {
+//         $('#loading_img').hide();
+//     });
+// });
+// $(document).ready(function(){
+//     $(document).ajaxStart(function(event, request, settings) {
+//         $('#loading_img1').show();
+//     });
+
+//     $(document).ajaxStop(function(event, request, settings) {
+//         $('#loading_img1').hide();
+//     });
+// });
+
+//Get the class and load the property if available in right side
+  function getclass(test)
+  {
+    $('#modal-form').modal('hide');
+    $("#loading_img").show();
+    //var classname=val;
+    search_class=test.split("||");
+    var concept_ID = search_class[1];
+    document.getElementById("term_content").value = search_class[0];
+    document.getElementById("concept_ID").value = search_class[1];
+    document.getElementById("term_ID").value = search_class[2];
+    document.getElementById("definition_ID").value = search_class[3];
+    document.getElementById("term_organization_name").value = search_class[4];
+    document.getElementById("definition_content").value = search_class[5];
+    document.getElementById("language_name").value = search_class[10];
+    // document.getElementById("language_code").value = search_class[10];
+    var loadexist = search_class[7];
+    var igid = search_class[8]
+    document.getElementById("igid").value= search_class[8];
+    document.getElementById("changeigid").value= search_class[8];
+    document.getElementById("classlink").innerHTML= "<a  target='_blank' href='dictionary_detail?esci="+search_class[9]+"'>"+search_class[0]+"</a>";
+    // alert(test);
+    if (loadexist=='S'){
+         $("#loading_img").hide();
+        ajaxindicatorstart('loading data.. please wait..');
+
+      var term_content = document.getElementById("term_content").value
+      $.ajax({
+        type: 'get',
+        url: 'loadexisting',
+        data: { term_content:term_content,igid:igid },
+        success: function(data)
+        {
+            ajaxindicatorstop();
+
+           $('#loaddataview').html(data);
+           // $('#resetpreview').css("display","none");
+           $("#resetpreview").empty();
+          var r = $('#plusbtn').val()
+          // alert(r);
+          $("#add"+r).css("display","block");
+          $("#remove"+r).css("display","none");
+          document.getElementById("changeoccur").value = 1;
+          document.getElementById("submit").innerHTML='<span class="text-success"><h3><input type="checkbox" name="upload_etsr" id="upload_etsr"/>&nbsp;&nbsp; <i class="fa fa-share"></i> Move to eTSR</h3></span> <input type="hidden" name="template" value="newtemplate"/><br /><input type="submit" class="btn btn-success pull-left" style=" padding-right:10px;" id= "class_prop" name="class_prop" value="Submit"> <br> <br>';
+        }
+      });
+    }
+    else{
+      var backorg = 0
+       $("#loading_img").hide();
+      $.ajax({
+        type: 'get',
+        url: 'loadexisting',
+        data: { backorg:backorg },
+        success: function(data)
+        {  
+           $('#resetpreview').html(data);
+           // $('#resetpreview').css("display","none");
+           $("#loaddataview").empty();
+           document.getElementById("changeoccur").value = 0;
+        }
+      });    
+    }
+  }
+
+function resetclass()
+{
+  var backorg = 0
+      $.ajax({
+        type: 'get',
+        url: 'loadexisting',
+        data: { backorg:backorg },
+        success: function(data)
+        {  
+           $('#resetpreview').html(data);
+           // $('#resetpreview').css("display","none");
+           $("#loaddataview").empty();
+           document.getElementById("changeoccur").value = 0;
+        }
+      });   
+}
+function resetigid()
+{
+  var ig = document.getElementById("changeigid").value;
+  // alert(ig);
+  if (ig!=0) {
+    document.getElementById("igid").value = ig;
+    document.getElementById("template").value = "existtemplate";
+    $('#class_prop').css("display","block");
+  }   
+}
+
+
+function getprop(prop,t)
+  {
+    var a = prop;
+    //alert(t);
+    document.getElementById("t"+t).style.display="none";
+    var v = document.getElementById('auto_inc').value;
+       
+    search_prop=a.split("||");
+    document.getElementById("reject"+t).value = search_prop[1];
+    document.getElementById("prop_name"+v).value = search_prop[0];
+    document.getElementById("dynamiclink"+v).innerHTML = "<a  target='_blank' href='dictionary_detail?esci="+search_prop[7]+"'>"+search_prop[0]+"</a>";
+    document.getElementById("prop_concept_ID"+v).value = search_prop[1];
+    document.getElementById("prop_term_ID"+v).value = search_prop[2];
+    document.getElementById("prop_definition_ID"+v).value = search_prop[3];
+    document.getElementById("prop_term_organization_name"+v).value = search_prop[4];
+    document.getElementById("prop_definition_content"+v).value = search_prop[5];
+    document.getElementById("prop_language_name"+v).value = search_prop[6];    
+    $('#modal-prop').modal('hide'); 
+    document.getElementById("test"+v).value = t;
+
+    var changeoccur = document.getElementById("changeoccur").value;
+    if (changeoccur==1 ) {
+      document.getElementById("changetemp").value='C';      
+    } 
+    else {
+      document.getElementById("changetemp").value='NC';
+    }
+    
+    if (document.getElementById("changetemp").value=='C' ) {
+       document.getElementById("submit").innerHTML='<div class="col-md-12 text-danger"><h3>We have noticed there are some changes in this template. Please choose the below options to update the changes.</h3></div><div class="col-lg-12"><span class="text-danger"><h3><input type="radio" name="template" value="existtemplate" onclick="resetigid();" required/>   Update the changes to the existing template.</h3></span></div><div class="col-lg-12"><span class="text-danger"><h3><input type="radio" name="template" value="newtemplate" required onclick="getbackigid();"/> Create this as a New template.</h3></span></div><div class="col-md-12">&nbsp;&nbsp;<span class="text-success"><h3><input type="checkbox"  name="upload_etsr" id="upload_etsr"/> <i class="fa fa-share"></i> Move to eTSR</h3></span> <input type="hidden" name="template" id="template" value="newtemplate"/><br /><input type="submit" class="btn btn-success pull-left" style=" padding-right:10px;" id= "class_prop" name="class_prop" value="Submit"></div><br> <br><br> <br><br> <br><br> <br>';
+
+    } 
+    else {
+      document.getElementById("submit").innerHTML='<span class="text-success"><h3><input type="checkbox"  name="upload_etsr" id="upload_etsr"/>&nbsp;&nbsp; <i class="fa fa-share"></i> Move to eTSR</h3></span> <input type="hidden" name="template" value="newtemplate"/><br /><input type="hidden" name="template" value="newtemplate"/><input type="submit" class="btn btn-success pull-left" style=" padding-right:10px;" id= "class_prop" name="class_prop" value="Submit">  <br> <br>';
+    }
+
+
+    var textValues = new Array();
+    $("input.dupcheck").each(function() {
+      
+      doesExisit = ($.inArray($(this).val(), textValues) == -1) ? false : true;
+      console.log(textValues)
+      if (!doesExisit) {
+          textValues.push($(this).val())
+      } 
+      else {
+        document.getElementById("reject"+t).value = '';
+        document.getElementById("prop_name"+v).value = '';
+        document.getElementById("prop_concept_ID"+v).value = '';
+        document.getElementById("prop_term_ID"+v).value = '';
+        document.getElementById("prop_definition_ID"+v).value = '';
+        document.getElementById("prop_term_organization_name"+v).value = '';
+        document.getElementById("prop_definition_content"+v).value = '';
+        document.getElementById("prop_language_name"+v).value = '';
+        document.getElementById("dynamiclink"+v).innerHTML = '';
+        alert('Duplicate property choosen');   
+        return false;
+      }
+    });
+  }
+
+
+
+function add_ro(va,v1)
+{
+    xyz=$('.text').length
+    v2=va;
+    va=+va+1;
+    var v=+va-1;
+    var test=$('#prop tr:last').attr('id');
+    var la=xyz+1;
+     // var a=test.substring(2);
+    // alert(test);
+    // alert(a);
+    if(document.getElementById("prop_name"+v2).value!="" && document.getElementById("term_content").value!="")
+    {
+    document.getElementById("add"+v).style.display = "none";
+    $("#remove"+v).css("display","block");
+    $('#prop').append('<tr id="pr'+va+'" class="text"><td><input type="hidden" id="test'+va+'" /><span id="dynamiclink'+va+'"></span><input type="text" class="form-control input-sm prop_name hide dupcheck" id="prop_name'+va+'" name="prop_name[]" required="required">&nbsp;&nbsp;&nbsp;<a data-toggle="modal" href="#modal-prop" data-id="'+va+'" class="modal_prop pull-right">BROWSE</a> <input class="hide " type="text" name="prop_concept_ID[]" id="prop_concept_ID'+va+'"><input type="text" name="prop_term_ID[]" id="prop_term_ID'+va+'" class="hide" ><input type="text" name="prop_definition_ID[]" id="prop_definition_ID'+va+'" class="hide" ><input type="text" name="prop_term_organization_name[]" id="prop_term_organization_name'+va+'" class="hide" ><input type="text" name="prop_definition_content[]" id="prop_definition_content'+va+'" class="hide"><input type="text" name="prop_language_name[]" id="prop_language_name'+va+'" class="hide" ></td><td><input type="button" class="btn btn-xs btn-info btn-circle" value="+" name="add'+va+'" id="add'+va+'" onClick="add_ro('+va+');" title="Add property"> <input type="button" class="btn btn-xs btn-danger btn-circle" style="display:" value="-" name="remove'+va+'" id="remove'+va+'" onClick="removetable('+va+');" title="Delete property"></td><td><input type="text" class="form-control input-sm" id="prop_value'+va+'" name="prop_value[]" style="width: 100% !important;"></td><td><input type="text" class="form-control input-sm" id="prop_source'+va+'" name="prop_source[]" style="width: 100% !important;"></td><td class="hide"><select name="prop_mandatory[]" class="form-control input-sm" id="prop_mandatory'+va+'"><option value="NO">NO</option><option value="YES">YES</option></select></td><td class="hide"> <input type="text" name="tab'+va+'" id="tab'+va+'"  value='+va+' /></td></tr>');
+    // var i=1,j=1;
+    // while(i<=a)
+    // {
+
+    //   if($("#pr"+i).is(":visible")) 
+    //   {
+    //      document.getElementById("prop_seq"+i).value=j;
+    //      j=j+1;
+    //   }
+    // i=i+1;
+    // }
+    // if(va==8)
+    // {
+    //   document.getElementById("br").style.display = "none";
+    // }
+    }
+    else
+    {
+      alert("Please Fill Existing row");
+    }
+}
+
+function getbackigid()
+{
+  var ig = document.getElementById("old_igid").value;
+  document.getElementById("igid").value = ig;
+  document.getElementById("template").value = "newtemplate";
+  $('#class_prop').css("display","block");
+}
+
+$(document).on("click", ".modal_prop", function () {
+     var auto_inc = $(this).data('id');
+     $(".modal-body #auto_inc").val( auto_inc );
+});
+
+$(document).ready(function(){  
+    $(document).on("click", "#class_prop", function () {
+      $('#class_prop').css("display","none");
+      var inputVal= $("#country_orgin").val();
+      var originInput= $("#originInput").val();
+      if(inputVal == "" && originInput=="") {
+        alert('Please select/browse the country of orgin');
+        $('#class_prop').css("display","block");
+        return false;
+      }
+      $('input[name^="prop_name"]').each(function() {
+          if ($(this).val() == "") {
+              alert('Please select the property added or remove before submit');
+              return false;
+          }
+      });
+      $('input[name^="term_content"]').each(function() {
+          if ($(this).val() == "") {
+              alert('Please select the class name');
+              return false;
+          }
+      });
+
+    }); 
+
+    $("#searchclass").submit(function(event) {  
+      event.preventDefault();   
+      $.post( 'modalclass?listall=0', $("#searchclass").serialize(),  
+      function( data ) {  
+        // alert('success');
+        $("#preview").html(data); 
+      });
+      $(document).ajaxStart(function(){
+        $("#loading_img").css("display","block");
+      });
+      $(document).ajaxStop(function(){
+        $("#loading_img").css("display","none");
+      });
+    });    
+
+}); 
+
+
+// function resetvalue(id){
+//   var r = document.getElementById("test"+id).value;
+//   jQuery('#reject'+r).val("");
+//  // document.getElementById('radio_con'+r).style.display = 'block'; 
+//  //document.getElementById("radio_con1").style.display="block";
+//   // alert(r);
+// }
+
+function removetable(id){
+  if (confirm('Are you sure you want to delete this?')) {
+    var v= id-1;
+    $('#add'+v).css("display","block");
+    var r = document.getElementById("test"+id).value;
+    jQuery('#reject'+r).val("");
+    // $("#reject"+r).css({"display": "block"});
+    jQuery('#pr'+id).remove();
+    $('#class_prop').css("display","block");
+    // var i=1,j=1;
+    // var test=$('#prop tr:last').attr(id);
+    //      var a=test.substring(2);
+    //      alert(r);
+    //     // alert(a);
+    //   while(i<=a)
+    //   {
+    //     //alert("i="+i);
+    //    if($("#pr"+i).is(":visible")) {
+    //     //alert("i1="+i);
+    //    // alert("yes");
+    //     document.getElementById("prop_seq"+i).value=j;
+    //     j=j+1;
+    //   }
+    //     i=i+1;
+    //   }
+    }
+}
+
+function removerow(id){
+  if (confirm('Are you sure you want to delete this?')) {
+    // var v= id-1;
+    // // document.getElementById("add"+v).style.display = "block";
+    // var r = document.getElementById("test"+id).value;
+    // jQuery('#reject'+r).val("");
+    // // $("#reject"+r).css({"display": "block"});
+    // alert(id);
+    jQuery('#pr'+id).remove();
+    var changeoccur = document.getElementById("changeoccur").value;
+      if (changeoccur==1) {document.getElementById("changetemp").value='C';} else {document.getElementById("changetemp").value='NC';}
+
+      if (document.getElementById("changetemp").value=='C' ) {
+           document.getElementById("submit").innerHTML='<div class="col-md-12 text-danger"><h3>We have noticed there are some changes in this template. Please choose the below options to update the changes.</h3></div><div class="col-lg-12"><span class="text-danger"><h3> <input type="radio" name="template" value="existtemplate" onclick="resetigid();" required/> Update the changes to the existing template.</h3></span></div><div class="col-lg-12"><span class="text-danger"><h3><input type="radio" name="template" value="newtemplate" required onclick="getbackigid();"/>  Create this as a New template.</h3></span>&nbsp;&nbsp;<span class="text-success"><h3><input type="checkbox"  name="upload_etsr" id="upload_etsr"/> <i class="fa fa-share"></i> Move to eTSR</h3></span></div><div class="col-md-12"><input type="submit" class="btn btn-success pull-left" style=" padding-right:10px;" id= "class_prop" name="class_prop" value="Submit"></div> <br> <br><br> <br><br> <br><br> <br>';
+
+        } 
+        else {
+          document.getElementById("submit").innerHTML='<input type="hidden" name="template" value="newtemplate"/><input type="submit" class="btn btn-success pull-left" style=" padding-right:10px;" id= "class_prop" name="class_prop" value="Submit"> <br> <br>';
+        }
+
+    }
+}
+
+function class_btn(dat){
+    $("#loading_img").show();
+  $.ajax({
+    type: 'get',
+    url: 'modalclass',
+    data: { listall:dat },
+    success: function(data)
+    {              
+        $("#loading_img").hide();
+        $('#preview').html(data);  
+    }
+});
+  
+}  
+
+//Initially list all the class at time loading
+
+$(function(){
+    $("#loading_img").show();
+  $.get('modalclass?listall=1', function(data) {
+    $("#loading_img").hide();
+    $('#preview').html(data);    // alert('asdf');  
+    
+  });
+});
+
+// ----------------------------
+
+$(document).ready(function(){  
+  $("#search_prop").submit(function(event) {  
+    event.preventDefault();   
+    $.post( 'modalprop?listprop=0', $("#search_prop").serialize(),  
+    function( data ) {  
+      // alert('success');
+      $("#preview-prop").html(data); 
+    });
+    $(document).ajaxStart(function(){
+        $("#loading_img1").css("display","block");
+      });
+      $(document).ajaxStop(function(){
+        $("#loading_img1").css("display","none");
+      });
+  }); 
+});  
+
+function prop(dat){  
+var z=$('.xyz').map( function(){return $(this).val(); }).get();  
+var rst='reset';    
+$("#loading_img1").show();
+    $.ajax({
+      type: 'get',
+      url: 'modalprop',
+      data: { 
+        listprop:rst,
+        reject:z 
+      },
+      success: function(data)
+      {
+        $("#loading_img1").hide();
+        $('#preview-prop').html(data);
+      }
+  });
+}  
+
+//Initially list all the property at time loading
+$(function(){
+    $("#loading_img1").show();
+  $.get('modalprop?listprop=1', function(data) {
+    $("#loading_img1").hide();
+    $('#preview-prop').html(data);
+    // alert('asdfa');    
+  });
+});
+
+
+      // $(function () {
+      //   $(document).on("click", ".pagination a", function () {
+      //       $.get(this.href, null, null, "script");
+      //       return false;
+      //   });
+      // });
+// function LoadPage(){
+//   $.get('modalclass', function(data) {
+//     $('#preview').html(data);
+//     alert('asdfa');
+//   });
+// }
+
+// $(document).ready(function(){  
+//     $("#mainform").submit(function(event) {  
+//       event.preventDefault();   
+//       $.post( 'modalclass', $("#mainform").serialize(),  
+//       function( data ) {  
+//          alert('success');
+//         // $("#preview").html(data); 
+//       });
+//     });     
+// }); 
+
+//  $(document).ready(function(){  
+//     $.ajaxSetup({
+//       headers: {
+//         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+//       }
+//     });
+
+//     $("#mainform").submit(function(event) {  
+//       event.preventDefault();   
+//       $.post('addnew', $("#mainform").serialize(),  
+
+//       function( data ) {  
+//         // $("#preview").html(data); 
+//          alert('success');
+//       }  
+//       );
+//     });  
+// });
+
+$(function() {
+    var config = {
+        '.chosen-select': {},
+        // '.chosen-select-deselect': { allow_single_deselect: true },
+        // '.chosen-select-no-single': { disable_search_threshold: 10 },
+        // '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+        // '.chosen-select-width': { width: "95%" }
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+});
+
+
+</script>
+<% end %>

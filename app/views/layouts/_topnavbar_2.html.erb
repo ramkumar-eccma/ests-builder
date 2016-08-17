@@ -1,0 +1,144 @@
+<style>
+#navbar{
+    margin-bottom: 0;
+    /*background-color: #1C84C6;    */
+    background-image: url("<%= image_url 'banner.jpg' %>") !important;
+    background-repeat:no-repeat;
+    /*background-size:contain;*/
+    background-position:center;
+    color: white;
+}
+/* this one goes for default images - bigger sizes */
+@media all and (min-width: 1024px) {
+    #navbar {
+        background-image: url("<%= image_url 'banner.jpg' %>") !important; /*in the case you have another image for this resolution*/
+        background-size: 1940px auto;
+    }
+}
+/* for default - too short - size */
+@media all and (max-width: 319px) {
+    #navbar {
+        background-image: url('my-image-very-small.png'); /*in the case you have another image for this resolution - usually you'll never have these sizes as for today*/
+        background-size: 200px 150px;
+    }
+}
+
+@media all and (max-width: 639px) and (min-width: 320px) {
+    #navbar {
+        background-image: url("<%= image_url 'banner.jpg' %>") !important; /*in the case you have another image for this resolution*/
+        background-size: 320px 240px;
+    }
+}
+
+@media all and (max-width: 799px) and (min-width: 640px) {
+    #navbar {
+        background-image: url('<%= image_url 'banner.jpg' %>'); /*in the case you have another image for this resolution*/
+        background-size: 640px 480px;
+    }
+}
+
+@media all and (max-width: 1023px) and (min-width: 800px) {
+    #navbar {
+        background-image: url("<%= image_url 'banner.jpg' %>") !important; /*in the case you have another image for this resolution*/
+        background-size: 800px 600px;
+    }
+}
+
+/* this will have no @media, so will apply for every resolution */
+#navbar {
+    background-repeat:no-repeat;
+    background-position:center;
+    width: 100%; /* assuming you want to expand your div in a screen-dependent way */
+}
+
+#navbar .nav > li > a {
+    padding: 15px 20px;
+    color: white;
+}
+#navbar .nav > li > a:hover {
+    padding: 15px 20px;
+    background-color: #3774A8;
+    color: white;
+}
+#navbar .nav > li.active{
+   /*border-radius: 5px;*/
+   background-color: #3774A8 !important;
+   color: #1C84C6;
+}
+.wrapper.wrapper-content {
+    padding: 20px 40px !important;
+}
+.breadcrumb > li a {
+    color: #1C84C6 !important;
+}
+</style>
+<div class="row border-bottom">
+    <nav class="navbar navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+            <i class="fa fa-reorder"></i>
+        </button>
+         <span>
+            <img alt="image" class="img-responsive" src="<%= image_url 'eSTS.png' %>" style="padding: 10px;padding-left: 40px;"/>
+        </span>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+        <ul class="nav navbar-nav" style="padding-left: 30px;">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><h3 style="padding-left: 19px; color: ;">eSTS-ECCMA Standard Technical Specification</h3></strong>
+            <li class="<% if controller.controller_name == "home" && controller.action_name == "index" %>active<%end%>">
+                <%= link_to "/" do %>
+                <i class="fa fa-dashboard"></i> <span class="nav-label">eSTS's</span>
+                <% end %>
+            </li>
+            <li class="<% if controller.controller_name == "home" && controller.action_name == "addnew" %>active<%end%>">
+                <%= link_to "/addnew" do %>
+                <i class="fa fa-plus"></i> <span class="nav-label">Add Item</span>
+                <% end %>
+            </li>
+            <li class="<% if controller.controller_name == "registrations" && controller.action_name == "edit" %>active<%end%> hide">
+                 <%- if I18n.locale== :ar %>
+                    <%= link_to '<i class="fa fa-user"></i> <span class="nav-label">تعديل الملف الشخصي</span>'.html_safe,  edit_user_registration_path %> 
+                  <% else %>
+                    <%= link_to '<i class="fa fa-user"></i> <span class="nav-label">Edit Profile</span>'.html_safe,  edit_user_registration_path %> 
+                <% end -%> 
+            </li>
+            <li class="<% if controller.controller_name == "home" && controller.action_name == "template_search" %>active<%end%> hide">
+                <%- if I18n.locale== :ar %>
+                    <%= link_to '<i class="fa fa-search"></i> <span class="nav-label">قالب البحث</span>'.html_safe, template_search_path %> 
+                <% else %>    
+                    <%= link_to '<i class="fa fa-search"></i> <span class="nav-label">Search Template</span>'.html_safe, template_search_path %> 
+                <% end -%>
+            </li>
+            <li>
+               <a href="http://eccma.org/etsr_ests" target="_blank"><i class="fa fa-search"></i> <span class="nav-label">View eTSR</span></a> 
+            </li>
+            <li class="<% if controller.controller_name == "setting" && controller.action_name == "index" %>active<%end%>">
+                <%- if I18n.locale== :ar %> 
+                    <%= link_to '<i class="fa fa-cog"></i> <span class="nav-label">إعدادات</span>'.html_safe, settings_path %>
+                <% else %>     
+                    <%= link_to '<i class="fa fa-cog"></i> <span class="nav-label">Settings</span>'.html_safe, settings_path %>
+                <% end -%> 
+            </li>
+        </ul>
+        <ul class="nav navbar-top-links navbar-right" style="padding-top: 30px;padding-left: 30px;">
+            <li>
+                <% if user_signed_in? %>
+                   <strong class="font-bold"><!-- <span style="color:#1C84C6;"> --><i class="fa fa-user"></i> <%= current_user.Organization_name.upcase %><!-- </span> --></strong>
+                    </span> <!-- <span class="text-muted text-xs block"><%= current_user.designation.upcase %></span> -->
+                <% end %>
+            </li>
+            <li>
+                <%- if I18n.locale== :ar %>
+                   <%= link_to ' تسجيل خروج <i class="fa fa-sign-out"></i>'.html_safe,  destroy_user_session_path, method: :delete  %>
+                  <% else %>
+                    <%= link_to ' Logout <i class="fa fa-sign-out"></i>'.html_safe,  destroy_user_session_path, method: :delete  %>
+                <% end -%>
+                 
+            </li>
+        </ul>
+    </div>
+</nav>
+<br>
+<br>
+<br>
+</div>

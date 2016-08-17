@@ -1,0 +1,62 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span>
+                        <img alt="image" width="100px" class="img-responsive" src="<%= image_url 'eSTS.png' %>"/>
+                    </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">                                
+                                <% if user_signed_in? %>
+                                   <strong class="font-bold"> <%= current_user.Organization_name.upcase %></strong>
+                                    </span> <!-- <span class="text-muted text-xs block"><%= current_user.designation.upcase %></span> -->
+                                <% end %>
+                        </span>
+                    </a>
+                    <!--ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="">Profile</a>
+                        </li>
+                        <li><a href="">Contacts</a>
+                        </li>
+                        <li><a href="">Mailbox</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="">Logout</a>
+                        </li>
+                    </ul-->
+                </div>
+                <div class="logo-element">
+                    eSTS
+                </div>
+            </li>
+            <li class="<%= 'active' if current_page?('/home/index') %>">
+                <%= link_to "/" do %>
+                <i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span>
+                <% end %>
+            </li>
+            <li class="<%= 'active' if current_page?('/home/addnew') %>">
+                <%= link_to "/addnew" do %>
+                <i class="fa fa-plus"></i> <span class="nav-label">Add Item</span>
+                <% end %>
+            </li>
+            <li class="<% if controller.controller_name == "registrations" && controller.action_name == "edit" %>active<%end%>">
+                 <%- if I18n.locale== :ar %>
+                    <%= link_to '<i class="fa fa-user"></i> <span class="nav-label">تعديل الملف الشخصي</span>'.html_safe,  edit_user_registration_path %> 
+                  <% else %>
+                    <%= link_to '<i class="fa fa-user"></i> <span class="nav-label">Edit Profile</span>'.html_safe,  edit_user_registration_path %> 
+                <% end -%> 
+            </li>
+            <li class="<% if controller.controller_name == "setting" && controller.action_name == "index" %>active<%end%>">
+                <%- if I18n.locale== :ar %> 
+                    <%= link_to '<i class="fa fa-cog"></i> <span class="nav-label">إعدادات</span>'.html_safe, settings_path %>
+                <% else %>     
+                    <%= link_to '<i class="fa fa-cog"></i> <span class="nav-label">Settings</span>'.html_safe, settings_path %>
+                <% end -%> 
+            </li>
+
+        </ul>
+
+    </div>
+</nav>

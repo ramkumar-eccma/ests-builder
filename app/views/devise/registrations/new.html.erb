@@ -1,0 +1,175 @@
+<style>
+  a {
+     color: #5B0100; 
+    text-decoration: none;
+}
+</style>
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div>
+        <div>
+          <!-- <img alt="image" class="" src="<%= image_url 'loginlogo4.png' %> " height="100px" style="margin:0 auto"/> -->
+        </div><br>
+        <br>
+        <div style="/* IE10+ */ 
+background-image: -ms-linear-gradient(left, #cfe7fa 0%, #6393c1 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(left, #cfe7fa 0%, #6393c1 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(left, #cfe7fa 0%, #6393c1 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #cfe7fa), color-stop(100, #6393c1));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(left, #cfe7fa 0%, #6393c1 100%);
+
+/* W3C Markup */ 
+background-image: linear-gradient(to right, #cfe7fa 0%, #6393c1 100%);">
+        <div style="padding:20px;">
+        <h2>
+          <%- if I18n.locale== :ar %>
+            <span class="">
+              <% @ar_Please = Language.select("language_property").where("language_id = ? AND controller_name = ? AND page_name = ? AND language_type = ? ", '6','registrations','new.html.erb','ar')%>
+              <% @ar_Please.each do |ar_Please|%>
+              <%= ar_Please.language_property %>
+               <% end %>
+            </span>
+          <% else %>
+            <span class="">
+              <% @en_Please = Language.select("language_property").where("language_id = ? AND controller_name = ? AND page_name = ? AND language_type = ? ", '6','registrations','new.html.erb','en')%>
+              <% @en_Please.each do |en_Please|%>
+              <%= en_Please.language_property %>
+               <% end %>
+            </span>
+          <% end -%>           
+        </h2><br>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        
+        <%= devise_error_messages! %>
+           <div class="form-group">
+            <%- if I18n.locale== :ar %>
+            <label class="pull-left">اسم</label>
+              <%= f.text_field  :name,class:'form-control', autofocus: true,placeholder:'',required:"required"%>
+            <% else %>
+            <label class="pull-left">Name</label>
+              <%= f.text_field  :name,class:'form-control', autofocus: true,placeholder:'',required:"required"%>
+            <% end -%>  
+            </div>
+
+            <div class="form-group">
+              <%- if I18n.locale== :ar %>
+              <label class="pull-left">البريد الإلكتروني</label>
+                <%= f.email_field :email,class:'form-control',placeholder:'',required:"required"%>
+              <% else %>
+              <label class="pull-left">Email</label>
+                <%= f.email_field :email,class:'form-control',placeholder:'',required:"required"%>
+              <% end -%>              
+            </div>
+
+            <div class="form-group">
+              <% if @validatable %>
+                <%- if I18n.locale== :ar %>
+                <label class="pull-left">الرمز السري(<small>يجب أن تكون كلمة المرور من 8 إلى 16 حرفا</small>)</label>
+                  <%= f.password_field :password,class:'form-control', autocomplete: "off", placeholder:'كلمة المرور 8 أحرف كحد أدنى',required:"required"%>
+                <% else %>
+                <label class="pull-left">Password <span class="text-danger">(<small>Password must be 8 to 16 char</small>)</span></label>
+                  <%= f.password_field :password,class:'form-control', autocomplete: "off", placeholder:'',required:"required"%>
+                <% end -%>
+              <% end %>
+            </div>
+
+            <div class="form-group">
+              <%- if I18n.locale== :ar %>
+               <label class="pull-left">تأكيد كلمة السر</label>
+                <%= f.password_field :password_confirmation,class:'form-control', autocomplete: "off" ,placeholder:'',required:"required"%>
+              <% else %>
+              <label class="pull-left">Confirm Password</label>
+                <%= f.password_field :password_confirmation,class:'form-control', autocomplete: "off" ,placeholder:'',required:"required"%>
+              <% end -%>
+            </div>
+            
+            <div class="form-group">
+             <%- if I18n.locale== :ar %>
+              <label class="pull-left">اسم المعمل</label>
+                <%= f.text_field :Organization_name,class:'form-control', placeholder:'',required:"required"%>
+              <% else %>
+               <label class="pull-left">Factory Name</label>
+                <%= f.text_field :Organization_name,class:'form-control', placeholder:'',required:"required"%>
+              <% end -%>
+            </div>
+            <div class="form-group">
+              <%- if I18n.locale== :ar %>
+               <label class="pull-left">اسم المؤسسة</label>
+                <%= f.text_field :designation,class:'form-control', placeholder:'',required:"required"%>
+              <% else %>
+              <label class="pull-left">Designation</label>
+                <%= f.text_field :designation,class:'form-control', placeholder:' ',required:"required"%>
+              <% end -%>
+            </div>
+          <div class="actions">
+            <%- if I18n.locale== :ar %>
+              <%= f.submit "سجل",class:"btn btn-success block full-width m-b"%>
+            <% else %>
+              <%= f.submit "Sign Up",class:"btn btn-success block full-width m-b"%>
+            <% end -%>            
+          </div>
+        <% end %>
+        <div class="row"> 
+          <div class="col-lg-8">
+            <p class="text-muted text-center pull-left"><small>
+              <%- if I18n.locale== :ar %>
+                <span class="">
+                  <% @ar_Please = Language.select("language_property").where("language_id = ? AND controller_name = ? AND page_name = ? AND language_type = ? ", '7','registrations','new.html.erb','ar')%>
+                  <% @ar_Please.each do |ar_Please|%>
+                  <%= ar_Please.language_property %>
+                   <% end %>
+                </span>
+              <% else %>
+                <span class="">
+                  <% @en_Please = Language.select("language_property").where("language_id = ? AND controller_name = ? AND page_name = ? AND language_type = ? ", '7','registrations','new.html.erb','en')%>
+                  <% @en_Please.each do |en_Please|%>
+                  <%= en_Please.language_property %>
+                   <% end %>
+                </span>
+              <% end -%>             
+            </small></p>
+          </div>
+          <div class="col-lg-4">
+            <%- if controller_name != 'sessions' %>
+              <%- if I18n.locale== :ar %>
+                <a class="text-danger pull-left" href="<%= url_for :controller => 'sessions', :action => 'new' %>">تسجيل الدخول</a>
+              <% else %>
+                <a class="text-danger pull-left" href="<%= url_for :controller => 'sessions', :action => 'new' %>">Login</a>
+              <% end -%> 
+
+            <% end -%>
+          </div>
+        </div>
+        <hr>
+      <%= render "devise/shared/links" %>
+  </div>
+  </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

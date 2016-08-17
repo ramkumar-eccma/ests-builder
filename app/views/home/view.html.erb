@@ -1,0 +1,1046 @@
+<style>
+.custom-tab .nav-tabs > li.active > a, .tabs-container .nav-tabs > li.active > a:hover, .tabs-container .nav-tabs > li.active > a:focus {
+    background-color: #1C84C6;
+    color: white !important;
+}
+table, th, td {
+    padding: 2px;
+}
+/*.img-center{
+    margin: 0 auto;
+}*/
+
+.ribbon {
+  position: absolute;
+  left: 10px; top: -5px;
+  z-index: 1;
+  overflow: hidden;
+  width: 75px; height: 75px;
+  text-align: right;
+}
+.ribbon span {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFF;
+  /*text-transform: uppercase;*/
+  text-align: center;
+  line-height: 20px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  width: 100px;
+  display: block;
+  background: #79A70A;
+  background: linear-gradient(#9BC90D 0%, #79A70A 100%);
+  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+  position: absolute;
+  top: 19px; left: -21px;
+}
+.ribbon span::before {
+  content: "";
+  position: absolute; left: 0px; top: 100%;
+  z-index: -1;
+  border-left: 3px solid #79A70A;
+  border-right: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #79A70A;
+}
+.ribbon span::after {
+  content: "";
+  position: absolute; right: 0px; top: 100%;
+  z-index: -1;
+  border-left: 3px solid transparent;
+  border-right: 3px solid #79A70A;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #79A70A;
+}
+
+</style>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+        <!-- <img alt="image" class="img-responsive" src="<%= image_url 'headerlogo.jpg' %> " height="50px" /> -->
+         <div class="clearfix"></div><br><br><br><br>
+         <ol class="breadcrumb" style="background:#F3F3F4; padding:6px;">
+            <li>
+              <%- if I18n.locale== :ar %>
+                <span class="">
+                    <a href="<%= url_for :controller => 'home', :action => 'index' %>">الصفحة الرئيسية</a>                   
+                </span>
+              <% else %>
+                <span class="">
+                 <a href="<%= url_for :controller => 'home', :action => 'index' %>">Home</a>
+                </span>
+              <% end -%>
+              
+            </li>
+             <li class="active">
+                <%- if I18n.locale== :ar %>
+                <span class="">
+                    ">عرض البند         
+                </span>
+              <% else %>
+                <span class="">
+                 View Item
+                </span>
+              <% end -%>
+            </li>
+        </ol>        
+    </div>
+</div>
+<%= form_tag(update_path,:method => "post", class: "navbar-form",:multipart => true,name:"myform") do  %>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+     <div class="col-lg-12">
+    
+        <% if flash[:success] %>
+          <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            <p><%= flash[:success] %></p>
+          </div>
+        <% end %> 
+        <% if flash[:alert] %>
+          <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            <p><%= flash[:alert] %></p>
+          </div>
+        <% end %>         
+        <div class="ibox">
+           <% a= @data.first %> 
+          <div class="ibox-title" style="background:#1C84C6; color:#f3f3f4 !important;">
+            <%- if I18n.locale== :ar %>
+              <h3><span class="pull-right">Item # <b><%= current_user.name.upcase %><%=a.material_id%></span>  <%=a.short_description%></b></h3>
+            <% else %>
+              <h3><span class="pull-right">Item # <b><%= current_user.name.upcase %>:<%=a.material_id%></span> <span style="padding-left: 30px;"><%=a.short_description%></span></b></h3>
+          </div>
+          <div class="ibox-content" style="border:1px solid #1C84C6;">            
+            <div class="row">
+                 <div class="col-lg-8">
+                 
+                  <div class="tabs-container">
+                      <div class="">
+                          <ul class="nav nav-tabs">
+                              <li class="active"><a data-toggle="tab" href="#tab-6">Technical Specification</a></li>
+                              <li class=""><a data-toggle="tab" href="#tab-7">Xml Format</a></li>
+                          </ul>
+                          <div class="tab-content ">
+                              <div id="tab-6" class="tab-pane active">
+                                  <div class="panel-body">
+                                      <!-- <table class="table borderless" id="change_class1" name="change_class1"> -->
+                                      <table class="" id="change_class1" name="change_class1" style="border:1px solid #ffffff">
+                                          <thead>
+                                            <tr style="background-color: #dedede">
+                                              <th style="width:20% !important;"><h3><span class=""><b><%=t('Property')%></b></span></h3></th>
+                                              <th style="width:5% !important;">&nbsp;</th>
+                                              <th style="width:30% !important;"><h3><span class=""><b><%=t('Value')%></b></span></h3></th>
+                                              <th style="width:35% !important;"><h3><span class=""><b><%=t('source')%></b></span></h3></th>
+                                              <th style="width:3% !important;">&nbsp;</th>
+                                              <th style="width:5% !important;">&nbsp;</th>
+                                            </tr>
+                                          </thead>
+                                          <tr>
+                                            <% @i=1 %>
+                                            <% a= @data.first %>
+                                              <td>
+                                                <b><h3><span class=""><b><%=t('Class')%></b></span></h3></b>
+                                              </td>
+                                              <td>&nbsp;</td>
+                                              <td>
+                                                <b> <%= link_to a.class_name , {:controller => :home,:action => :dictionary_detail, :term => '',:esci => Base64.encode64(a.class_id)}, :target => "_blank",:def =>'',:name => 'newclass',:id => 'newclass' %> <span class="text-danger" style="font-size: 16px;" %>  </b>
+                                                  <input type="hidden" name="class_name" id="class_name" value="<%= a.class_name %>">
+                                              </td>
+                                              <td>&nbsp;</td>
+                                              <td>&nbsp;</td>
+                                              <td>&nbsp;</td>
+                                           
+                                          </tr>
+                                            <% for a in @data1 %>
+                                              <% if a.value2=="VC"
+                                               @style="danger"
+                                              elsif a.value2=="VE"
+                                               @style="success"
+                                              else 
+                                               @style=""
+                                              end %>
+                                              <tr class="<%= @style %>" id="removerow<%= @i %>">
+                                                <td>
+                                                  <b> <%= link_to a.property , {:controller => :home,:action => :dictionary_detail, :esci => Base64.encode64(a.propertyRef) }, :target => "_blank",:def =>'' %> <span class="text-danger" style="font-size: 16px;" %>  </b>
+                                                </td>
+                                                <td>
+                                                  <input type="button" class="addCF btn btn-xs btn-success btn-circle mainadd<%=a['Seq']%>" name="add<%=a['Seq']%>" style="display: none;" id="addd<%=a['Seq']%>" onClick="add_ro(0);" value="+" title="Add property">
+
+                                                <%  data_count = @data_count.first %>
+                                                  <input type="hidden" value="<%= data_count.row %>" name="plusbtn" id="plusbtn">
+                                               
+
+                                                </td> 
+                                                <td>                 
+                                                    <%= text_field_tag "prop_value[]",a['value'],class: "form-control input-sm",style:"width: 100% !important"%>
+                                                    <%= hidden_field_tag "prop_name[]", a['property'] ,class: "dupcheck"%>
+                                                    <%= hidden_field_tag "prop_concept_ID[]", a['propertyRef']  %>
+                                                    <%= hidden_field_tag "prop_seq[]", a['Seq']%>
+                                                    <%= hidden_field_tag :cat_id, params[:cat_id], class: "form-control input-sm hide", value: params[:cat_id] %> 
+                                                    <%
+                                                    @xmlrg =XmlRg.where("igid = ? AND property = ?", a.igid, a.property)
+                                                    @xmlrg.each do |xmlrg|                
+                                                    %>
+                                                    <input class="hidden" type="text" name="prop_term_ID[]" id="prop_term_ID" value="<%= xmlrg.termID%>" >
+                                                    <input class="hidden" type="text" name="prop_definition_ID[]" id="prop_definition_ID" value="<%= xmlrg.definitionID%>">
+                                                    <input class="hidden" type="text" name="prop_term_organization_name[]" id="prop_term_organization_name" value="<%= xmlrg.definitionID%>">
+                                                    <input class="hidden" type="text" name="prop_definition_content[]" id="prop_definition_content" value="<%= xmlrg.Property_Definition%>">
+                                                    <%= hidden_field_tag "prop_language_name[]", a['language']%>                          
+                                                </td>  
+                                                <td>
+                                                    <%= text_field_tag "prop_source[]",a['source'],class: "form-control input-sm",style:"width: 100% !important"%> 
+                                                </td>
+                                                <td>
+                                                  <% if a['source']!="" %>
+                                                    <a href="http://<%= a['source']%>" target="_blank"><span class="fa fa-external-link pull-right" aria-hidden="true"></span></a>
+                                                  <% end %>
+                                                </td>
+                                                <td> 
+                                                    <span id="<%= @i %>" onClick="removetablerow(id);" title="Delete property"><i class="fa fa-trash text-danger pull-left"></i></span>
+                                                </td>
+                                              </tr>
+                                            <% end %>
+                                            <% @i=@i+1 %> 
+                                          <% end %>
+                                      </table> 
+                                      <br>
+                                      <table class="table borderless">
+                                        <tr>
+                                        <div id="submit"></div>
+                                          <td>&nbsp;</td>
+                                          <td>&nbsp;</td>
+                                          <td>
+                                          <div id="resetsub">
+                                              <% if @etsr_mm==1 %>
+                                                <span class="text-success"><h3><input type="checkbox" checked name="upload_etsr" id="upload_etsr"/>&nbsp;&nbsp; <i class="fa fa-share"></i> Move to eTSR</h3></span>
+                                              <%  else %>
+                                                  <span class="text-success"><h3><input type="checkbox" name="upload_etsr" id="upload_etsr"/>&nbsp;&nbsp; <i class="fa fa-share"></i> Move to eTSR</h3></span>
+                                              <% end  %>
+                                             <%- if I18n.locale== :ar %>
+                                                <span class="">
+                                                  <% @ar_button = Language.select("language_property").where("language_id = ? AND controller_name = ? AND page_name = ? AND language_type = ? ", '45','langs','view.html.erb','ar')%>
+                                                  <% @ar_button.each do |ar_button|%>
+                                                  <%= submit_tag ar_button.language_property, :class=>"btn btn btn-success pull-left resetsub", :style=>"margin:0;",:name=>"update" %>
+                                                   <% end %>
+                                                </span>
+                                              <% else %>
+                                                <span class="">
+                                                  <% @en_button = Language.select("language_property").where("language_id = ? AND controller_name = ? AND page_name = ? AND language_type = ? ", '45','langs','view.html.erb','en')%>
+                                                  <% @en_button.each do |en_button|%>
+                                                   <%= submit_tag en_button.language_property, :class=>"btn btn btn-success pull-left resetsub class_prop", :style=>"margin:0;",:name=>"update" ,:id=>"class_prop" %>
+                                                   <% end %>
+                                                </span>
+                                              <% end -%>
+                                          </div>
+                                          <!-- <input type="" id="changeoccur" class="changeoccur"> -->
+                                          </td>
+                                          <td><% if @etsr_mm==1 %>
+                                                &nbsp;&nbsp;<a title="Click here to delete" class="btn btn-xs btn-danger pull-right" href="<%= url_for :controller => 'home', :action => 'etsr',:id => params[:cat_id]  %>" onclick="return confirm('Are you sure you want to delete this item?')">Delete eTSR</a>
+                                              <% end  %></td>
+                                        </tr>
+                                      </table>
+                                  </div>
+                              </div>
+                              <div id="tab-7" class="tab-pane">
+                                  <div class="panel-body" id="copyxml">
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;cat:catalogue xmlns:cat="urn:iso:std:iso:ts:29002:-10:ed-1:tech:xml-schema:catalogue" xmlns:val="urn:iso:std:iso:ts:29002:-10:ed-1:tech:xml-schema:value" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:iso:std:iso:ts:29002:-10:ed-1:tech:xml-schema:catalogue c:\eOTD\XML-schema\catalogue.xsd"&gt;
+    <%for h in @data%>
+     &lt;!--<%= h.class_name %>--&gt;
+    &lt;cat:item class_ref="<%= h.class_id %>"&gt;
+    <%end%>
+    <%for v in @data1%>
+    &lt;!--<%= v.property %> : <%= v.value %>--&gt;
+    &lt;cat:property_value property_ref="<%= v.propertyRef %>"&gt;
+          &lt;val:string_value&gt;<%= v.value %>&lt;/val:string_value&gt;
+    &lt;/cat:property_value&gt;
+    <%end%>
+  &lt;/cat:item&gt;
+&lt;/cat:catalogue&gt;
+</pre>
+<span class="clip btn btn-success pull-right" data-clipboard-action="copy" data-clipboard-target="div#copyxml">Copy Xml Format</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+                <div class="col-md-4">
+                  <div class="row">
+                    <div class="col-md-12 col-lg-12 col-xs-12">
+                        <br>
+                          <% if @imagecount==0 %>
+                          <img alt="image" id='imgprev' style="width:150px; height: 150px;border: 1px solid #1C84C6;" class="img-responsive img-center" src="<%= image_url "noimage.jpg" %>"/>
+                          <%else%>
+                            <%@image.each do |img|%>                  
+                             <img alt="image" id ="imgprev" style="width:150px; height:150px;border: 1px solid #1C84C6;" class="img-responsive img-center" src="<%= image_url img.image_name %>"/>  
+                             <input type="hidden" id="imageurl" name="imageurl" value="<%= image_url img.image_name %>">
+                             <%#=File.basename(img.image_name)%>                   
+                            <% end %>
+                          <% end %> <br>
+                          
+                          <p class="pull-left"><i><%=a.datecreated%></i></p>
+                        </div>
+                        <div class="col-md-12">
+                        <br>
+                          <input type="file" id="pictureInput" name="pictureInput" >                          
+                        </div>
+                    <%  l = @len.first %>
+                      <% c = @data.first%>
+                        <div class="col-md-12">
+                          <p><b></b></p>
+                          <%= hidden_field_tag "cmm",c.cat_id %>
+                          <%= hidden_field_tag "old_cmm",c.cat_id %>
+                          <%= hidden_field_tag "igid",c.igid %>
+                          <input type="hidden" name="splitnew" id="splitnew">
+                          <%= hidden_field_tag "old_igid",c.igid %>
+                          <%= hidden_field_tag "material_id",c.material_id %>
+                          <%=hidden_field_tag "concept_ID",c.class_id %>
+                          <%=hidden_field_tag "legacy",c.legacy_description %>
+                          <% @concept=ConceptDn.where("concept_ID = ? and language_code =? OR language_name=?",c.class_id,c.language,c.language).select(:definition_content,:language_name,:term_ID,:language_code)
+                          for con in @concept %>
+                          <%=hidden_field_tag "definition_content",con.definition_content %>
+                          <%=hidden_field_tag "language_name",con.language_code %>
+                          <%=hidden_field_tag "term_ID",con.term_ID %>
+                          <% end %>                         
+
+                          <%=hidden_field_tag "len_sd",l.length_SD %>
+                        </div>
+                        <div class="col-md-12">
+                          <p class=""><%=c.long_description%></p>
+                          <%=hidden_field_tag "len_ld",l.length_LD %>
+                        </div>
+                   
+                     
+                  </div>
+                <!-- </div>  
+                 <div class="col-md-2" style="border-right: 1px solid #E4E4E4;"> -->
+                    <div class="row"> 
+                        <div class="col-md-4 col-lg-6 col-xs-12">
+                         <br> <img id='imageresourceqr' alt="image" class="img-responsive img-center" src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://eccma.org/etsr_ests/search.php?cat_id=ECCMA.eTSR:<%= @cat_id %>' />
+                            <div class="row">
+                              <div class="col-md-12">
+                                <br>
+                                <p class=""><b>ECCMA.eTSR:<%=a.cat_id%></b></p>                                
+                              </div>
+                            </div>
+                          <% end %>
+                        </div>
+                        <div class="col-md-8 col-lg-6 col-xs-12">
+                            <%  org = @data.first%>
+                              <% if org.sts == "N"%>
+                                <h3><b>Country of origin:<span class="text-danger"> 
+                                </span></b></h3>
+                                <select name="country_orgin" id="country_orgin" class="form-control chosen-select" style="width: 100%;">
+                                  <option value="<%= org.source_name %>" selected><%= org.source_name %></option>
+                                  <option value="Afghanistan">Afghanistan</option>
+                                  <option value="Albania">Albania</option>
+                                  <option value="Algeria">Algeria</option>
+                                  <option value="American Samoa">American Samoa</option>
+                                  <option value="Andorra">Andorra</option>
+                                  <option value="Angola">Angola</option>
+                                  <option value="Anguilla">Anguilla</option>
+                                  <option value="Antartica">Antarctica</option>
+                                  <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                                  <option value="Argentina">Argentina</option>
+                                  <option value="Armenia">Armenia</option>
+                                  <option value="Aruba">Aruba</option>
+                                  <option value="Australia">Australia</option>
+                                  <option value="Austria">Austria</option>
+                                  <option value="Azerbaijan">Azerbaijan</option>
+                                  <option value="Bahamas">Bahamas</option>
+                                  <option value="Bahrain">Bahrain</option>
+                                  <option value="Bangladesh">Bangladesh</option>
+                                  <option value="Barbados">Barbados</option>
+                                  <option value="Belarus">Belarus</option>
+                                  <option value="Belgium">Belgium</option>
+                                  <option value="Belize">Belize</option>
+                                  <option value="Benin">Benin</option>
+                                  <option value="Bermuda">Bermuda</option>
+                                  <option value="Bhutan">Bhutan</option>
+                                  <option value="Bolivia">Bolivia</option>
+                                  <option value="Bosnia and Herzegowina">Bosnia and Herzegowina</option>
+                                  <option value="Botswana">Botswana</option>
+                                  <option value="Bouvet Island">Bouvet Island</option>
+                                  <option value="Brazil">Brazil</option>
+                                  <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+                                  <option value="Brunei Darussalam">Brunei Darussalam</option>
+                                  <option value="Bulgaria">Bulgaria</option>
+                                  <option value="Burkina Faso">Burkina Faso</option>
+                                  <option value="Burundi">Burundi</option>
+                                  <option value="Cambodia">Cambodia</option>
+                                  <option value="Cameroon">Cameroon</option>
+                                  <option value="Canada">Canada</option>
+                                  <option value="Cape Verde">Cape Verde</option>
+                                  <option value="Cayman Islands">Cayman Islands</option>
+                                  <option value="Central African Republic">Central African Republic</option>
+                                  <option value="Chad">Chad</option>
+                                  <option value="Chile">Chile</option>
+                                  <option value="China">China</option>
+                                  <option value="Christmas Island">Christmas Island</option>
+                                  <option value="Cocos Islands">Cocos (Keeling) Islands</option>
+                                  <option value="Colombia">Colombia</option>
+                                  <option value="Comoros">Comoros</option>
+                                  <option value="Congo">Congo</option>
+                                  <option value="Congo">Congo, the Democratic Republic of the</option>
+                                  <option value="Cook Islands">Cook Islands</option>
+                                  <option value="Costa Rica">Costa Rica</option>
+                                  <option value="Cota D'Ivoire">Cote d'Ivoire</option>
+                                  <option value="Croatia">Croatia (Hrvatska)</option>
+                                  <option value="Cuba">Cuba</option>
+                                  <option value="Cyprus">Cyprus</option>
+                                  <option value="Czech Republic">Czech Republic</option>
+                                  <option value="Denmark">Denmark</option>
+                                  <option value="Djibouti">Djibouti</option>
+                                  <option value="Dominica">Dominica</option>
+                                  <option value="Dominican Republic">Dominican Republic</option>
+                                  <option value="East Timor">East Timor</option>
+                                  <option value="Ecuador">Ecuador</option>
+                                  <option value="Egypt">Egypt</option>
+                                  <option value="El Salvador">El Salvador</option>
+                                  <option value="Equatorial Guinea">Equatorial Guinea</option>
+                                  <option value="Eritrea">Eritrea</option>
+                                  <option value="Estonia">Estonia</option>
+                                  <option value="Ethiopia">Ethiopia</option>
+                                  <option value="Falkland Islands">Falkland Islands (Malvinas)</option>
+                                  <option value="Faroe Islands">Faroe Islands</option>
+                                  <option value="Fiji">Fiji</option>
+                                  <option value="Finland">Finland</option>
+                                  <option value="France">France</option>
+                                  <option value="France Metropolitan">France, Metropolitan</option>
+                                  <option value="French Guiana">French Guiana</option>
+                                  <option value="French Polynesia">French Polynesia</option>
+                                  <option value="French Southern Territories">French Southern Territories</option>
+                                  <option value="Gabon">Gabon</option>
+                                  <option value="Gambia">Gambia</option>
+                                  <option value="Georgia">Georgia</option>
+                                  <option value="Germany">Germany</option>
+                                  <option value="Ghana">Ghana</option>
+                                  <option value="Gibraltar">Gibraltar</option>
+                                  <option value="Greece">Greece</option>
+                                  <option value="Greenland">Greenland</option>
+                                  <option value="Grenada">Grenada</option>
+                                  <option value="Guadeloupe">Guadeloupe</option>
+                                  <option value="Guam">Guam</option>
+                                  <option value="Guatemala">Guatemala</option>
+                                  <option value="Guinea">Guinea</option>
+                                  <option value="Guinea-Bissau">Guinea-Bissau</option>
+                                  <option value="Guyana">Guyana</option>
+                                  <option value="Haiti">Haiti</option>
+                                  <option value="Heard and McDonald Islands">Heard and Mc Donald Islands</option>
+                                  <option value="Holy See">Holy See (Vatican City State)</option>
+                                  <option value="Honduras">Honduras</option>
+                                  <option value="Hong Kong">Hong Kong</option>
+                                  <option value="Hungary">Hungary</option>
+                                  <option value="Iceland">Iceland</option>
+                                  <option value="India">India</option>
+                                  <option value="Indonesia">Indonesia</option>
+                                  <option value="Iran">Iran (Islamic Republic of)</option>
+                                  <option value="Iraq">Iraq</option>
+                                  <option value="Ireland">Ireland</option>
+                                  <option value="Israel">Israel</option>
+                                  <option value="Italy">Italy</option>
+                                  <option value="Jamaica">Jamaica</option>
+                                  <option value="Japan">Japan</option>
+                                  <option value="Jordan">Jordan</option>
+                                  <option value="Kazakhstan">Kazakhstan</option>
+                                  <option value="Kenya">Kenya</option>
+                                  <option value="Kiribati">Kiribati</option>
+                                  <option value="Democratic People's Republic of Korea">Korea, Democratic People's Republic of</option>
+                                  <option value="Korea">Korea, Republic of</option>
+                                  <option value="Kuwait">Kuwait</option>
+                                  <option value="Kyrgyzstan">Kyrgyzstan</option>
+                                  <option value="Lao">Lao People's Democratic Republic</option>
+                                  <option value="Latvia">Latvia</option>
+                                  <option value="Lebanon">Lebanon</option>
+                                  <option value="Lesotho">Lesotho</option>
+                                  <option value="Liberia">Liberia</option>
+                                  <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
+                                  <option value="Liechtenstein">Liechtenstein</option>
+                                  <option value="Lithuania">Lithuania</option>
+                                  <option value="Luxembourg">Luxembourg</option>
+                                  <option value="Macau">Macau</option>
+                                  <option value="Macedonia">Macedonia, The Former Yugoslav Republic of</option>
+                                  <option value="Madagascar">Madagascar</option>
+                                  <option value="Malawi">Malawi</option>
+                                  <option value="Malaysia">Malaysia</option>
+                                  <option value="Maldives">Maldives</option>
+                                  <option value="Mali">Mali</option>
+                                  <option value="Malta">Malta</option>
+                                  <option value="Marshall Islands">Marshall Islands</option>
+                                  <option value="Martinique">Martinique</option>
+                                  <option value="Mauritania">Mauritania</option>
+                                  <option value="Mauritius">Mauritius</option>
+                                  <option value="Mayotte">Mayotte</option>
+                                  <option value="Mexico">Mexico</option>
+                                  <option value="Micronesia">Micronesia, Federated States of</option>
+                                  <option value="Moldova">Moldova, Republic of</option>
+                                  <option value="Monaco">Monaco</option>
+                                  <option value="Mongolia">Mongolia</option>
+                                  <option value="Montserrat">Montserrat</option>
+                                  <option value="Morocco">Morocco</option>
+                                  <option value="Mozambique">Mozambique</option>
+                                  <option value="Myanmar">Myanmar</option>
+                                  <option value="Namibia">Namibia</option>
+                                  <option value="Nauru">Nauru</option>
+                                  <option value="Nepal">Nepal</option>
+                                  <option value="Netherlands">Netherlands</option>
+                                  <option value="Netherlands Antilles">Netherlands Antilles</option>
+                                  <option value="New Caledonia">New Caledonia</option>
+                                  <option value="New Zealand">New Zealand</option>
+                                  <option value="Nicaragua">Nicaragua</option>
+                                  <option value="Niger">Niger</option>
+                                  <option value="Nigeria">Nigeria</option>
+                                  <option value="Niue">Niue</option>
+                                  <option value="Norfolk Island">Norfolk Island</option>
+                                  <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+                                  <option value="Norway">Norway</option>
+                                  <option value="Oman">Oman</option>
+                                  <option value="Pakistan">Pakistan</option>
+                                  <option value="Palau">Palau</option>
+                                  <option value="Panama">Panama</option>
+                                  <option value="Papua New Guinea">Papua New Guinea</option>
+                                  <option value="Paraguay">Paraguay</option>
+                                  <option value="Peru">Peru</option>
+                                  <option value="Philippines">Philippines</option>
+                                  <option value="Pitcairn">Pitcairn</option>
+                                  <option value="Poland">Poland</option>
+                                  <option value="Portugal">Portugal</option>
+                                  <option value="Puerto Rico">Puerto Rico</option>
+                                  <option value="Qatar">Qatar</option>
+                                  <option value="Reunion">Reunion</option>
+                                  <option value="Romania">Romania</option>
+                                  <option value="Russia">Russian Federation</option>
+                                  <option value="Rwanda">Rwanda</option>
+                                  <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option> 
+                                  <option value="Saint LUCIA">Saint LUCIA</option>
+                                  <option value="Saint Vincent">Saint Vincent and the Grenadines</option>
+                                  <option value="Samoa">Samoa</option>
+                                  <option value="San Marino">San Marino</option>
+                                  <option value="Sao Tome and Principe">Sao Tome and Principe</option> 
+                                  <option value="Saudi Arabia">Saudi Arabia</option>
+                                  <option value="Senegal">Senegal</option>
+                                  <option value="Seychelles">Seychelles</option>
+                                  <option value="Sierra">Sierra Leone</option>
+                                  <option value="Singapore">Singapore</option>
+                                  <option value="Slovakia">Slovakia (Slovak Republic)</option>
+                                  <option value="Slovenia">Slovenia</option>
+                                  <option value="Solomon Islands">Solomon Islands</option>
+                                  <option value="Somalia">Somalia</option>
+                                  <option value="South Africa">South Africa</option>
+                                  <option value="South Georgia">South Georgia and the South Sandwich Islands</option>
+                                  <option value="Span">Spain</option>
+                                  <option value="SriLanka">Sri Lanka</option>
+                                  <option value="St. Helena">St. Helena</option>
+                                  <option value="St. Pierre and Miguelon">St. Pierre and Miquelon</option>
+                                  <option value="Sudan">Sudan</option>
+                                  <option value="Suriname">Suriname</option>
+                                  <option value="Svalbard">Svalbard and Jan Mayen Islands</option>
+                                  <option value="Swaziland">Swaziland</option>
+                                  <option value="Sweden">Sweden</option>
+                                  <option value="Switzerland">Switzerland</option>
+                                  <option value="Syria">Syrian Arab Republic</option>
+                                  <option value="Taiwan">Taiwan, Province of China</option>
+                                  <option value="Tajikistan">Tajikistan</option>
+                                  <option value="Tanzania">Tanzania, United Republic of</option>
+                                  <option value="Thailand">Thailand</option>
+                                  <option value="Togo">Togo</option>
+                                  <option value="Tokelau">Tokelau</option>
+                                  <option value="Tonga">Tonga</option>
+                                  <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                                  <option value="Tunisia">Tunisia</option>
+                                  <option value="Turkey">Turkey</option>
+                                  <option value="Turkmenistan">Turkmenistan</option>
+                                  <option value="Turks and Caicos">Turks and Caicos Islands</option>
+                                  <option value="Tuvalu">Tuvalu</option>
+                                  <option value="Uganda">Uganda</option>
+                                  <option value="Ukraine">Ukraine</option>
+                                  <option value="United Arab Emirates">United Arab Emirates</option>
+                                  <option value="United Kingdom">United Kingdom</option>
+                                  <option value="United States">United States</option>
+                                  <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+                                  <option value="Uruguay">Uruguay</option>
+                                  <option value="Uzbekistan">Uzbekistan</option>
+                                  <option value="Vanuatu">Vanuatu</option>
+                                  <option value="Venezuela">Venezuela</option>
+                                  <option value="Vietnam">Viet Nam</option>
+                                  <option value="Virgin Islands (British)">Virgin Islands (British)</option>
+                                  <option value="Virgin Islands (U.S)">Virgin Islands (U.S.)</option>
+                                  <option value="Wallis and Futana Islands">Wallis and Futuna Islands</option>
+                                  <option value="Western Sahara">Western Sahara</option>
+                                  <option value="Yemen">Yemen</option>
+                                  <option value="Yugoslavia">Yugoslavia</option>
+                                  <option value="Zambia">Zambia</option>
+                                  <option value="Zimbabwe">Zimbabwe</option>
+                            </select>
+                              <% else %>
+                                <h3><b>Country of origin:</b></h3>
+                                <a href="<%= image_url org.source_image %>"><p>Click here to download</p></a> 
+                                <input type="file" id="originInput" name="originInput"> 
+                                <input type="hidden" id="imageurlco" name="imageurlco" value="<%= image_url org.source_image %>"> 
+                             
+                            <% end %>
+                        </div>
+                    </div> 
+                </div>             
+            </div>
+            <% if @etsr_mm==1%>
+              <div class="ribbon"><span>eTSR</span></div>
+            <%end%>
+          </div>
+        </div>
+    </div>     
+  </div>
+</div>
+   <br>
+<% end %>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modal-prop">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="border:2px solid #8A6D3B;">
+        <div class="modal-header" style="background:#8A6D3B;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"  style="color:#f3f3f4 !important;"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="gridSystemModalLabel" style="color:#f3f3f4 !important;">Property Names</h4>
+        </div>
+        <%= form_tag(addnew_path,:method => "post", id: "search_prop") do %>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                    <input type="hidden" name="auto_inc" id="auto_inc">
+                      <label for="">Search Property Name</label>
+                      <input type="text"  name="property_name" id="property_name" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="">Operation</label>
+                      <select name="query" id="query" class="form-control">
+                         <option value="startwith">start with</option>
+                         <option value="like">contains</option>
+                         <option value="=">equal to</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="">Organization</label>
+                      <select name="organization_prop" id="organization_prop" class="form-control">
+                      <option value="">select</option>
+                         <% @org.each do |org|%>
+                          <option value="<%= org.term_organization_name %>"><%= org.term_organization_name %></option>
+                        <% end %>
+                      </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="">Language</label>
+                      <select name="language_prop" id="language_prop" class="form-control">
+                      <option value="">select</option>
+                        <% @lang.each do |lang|%>
+                          <option value="<%= lang.language_code %>" <% if lang.language_code=="en" %>selected<% end %>><%= lang.language_name %></option>
+                        <% end %>
+                      </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="">&nbsp;</label><br>
+                      <input type="submit" class="btn btn-success" value="Search" name="search_prop">
+                      <input type="hidden" name="class_prop">
+                      <input type="button" class="btn btn-danger" value="Show All" name="reset_prop" id="reset" onclick="prop(id)">
+                    </div>
+                </div>                
+            </div>  
+            <br>
+            <div class="row">
+              <div class="col-md-12 pane">
+                <span class="text-danger">It shows only top 100 results</span><br>
+                 <div id="image1" align="center">
+                <img alt="image" class="img-responsive" src="<%= image_url 'loader.gif' %> " height="80px" id="imgprev1" />   
+                 </div><br>
+                 <div id="preview-prop"></div>
+              </div>
+            </div>
+
+        </div>  
+        <% end %>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Existing Template</h4>
+      </div>
+      <div class="modal-body">
+          <table class="table table-bordered dataTables">
+            <thead>
+              <tr>
+                <th>Seq</th>
+                <th>Property</th>
+                <th>Property Ref</th>
+              </tr>
+            </thead>  
+            <%  r = @data_count.first%>
+            <% @xml=XmlRg.where("igid = ? and datedeleted = ?",r.igid,'0000-00-00 00:00:00').order(row: :asc) %>
+              <% for d in @xml %>                             
+                  <tbody>
+                    <tr>
+                      <td><%= d.row%></td>
+                      <td><%= d.property%></td>
+                      <td><%= d.propertyRef%></td>
+                    </tr>
+                  </tbody>
+              <% end %>
+           
+          </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-md btn-success" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<% content_for :javascript do %>
+<script type="text/javascript">
+ $(window).load(function() { $("#spinner").fadeOut("slow"); })
+function ajaxindicatorstart(text)
+{
+    if(jQuery('body').find('#resultLoading').attr('id') != 'resultLoading'){
+    jQuery('body').append('<div id="resultLoading" style="display:none"><div><img alt="image" class="img-responsive" src="<%= image_url 'ajax-loader.gif' %> " height="50px" /><div>'+text+'</div></div><div class="bg"></div></div>');
+    }
+
+    jQuery('#resultLoading').css({
+        'width':'100%',
+        'height':'100%',
+        'position':'fixed',
+        'z-index':'10000000',
+        'top':'0',
+        'left':'0',
+        'right':'0',
+        'bottom':'0',
+        'margin':'auto'
+    });
+
+    jQuery('#resultLoading .bg').css({
+        'background':'#000000',
+        'opacity':'0.7',
+        'width':'100%',
+        'height':'100%',
+        'position':'absolute',
+        'top':'0'
+    });
+
+    jQuery('#resultLoading>div:first').css({
+        'width': '250px',
+        'height':'75px',
+        'text-align': 'center',
+        'position': 'fixed',
+        'top':'0',
+        'left':'0',
+        'right':'0',
+        'bottom':'0',
+        'margin':'auto',
+        'font-size':'16px',
+        'z-index':'10',
+        'color':'#ffffff'
+
+    });
+
+    jQuery('#resultLoading .bg').height('100%');
+       jQuery('#resultLoading').fadeIn(300);
+    jQuery('body').css('cursor', 'wait');
+}
+
+function ajaxindicatorstop()
+{
+    jQuery('#resultLoading .bg').height('100%');
+       jQuery('#resultLoading').fadeOut(300);
+    jQuery('body').css('cursor', 'default');
+}
+$(document).ready(function(){ 
+  $(".clip").click(function(){        
+    var clipboard = new Clipboard('.clip');
+      clipboard.on('success', function(e) {
+          console.log(e);
+      });
+      clipboard.on('error', function(e) {
+          console.log(e);
+      });
+    alert("Copied successfully");
+  }); 
+});
+
+$(function() {
+  $('#pictureInput').on('change', function(event) {
+    var files = event.target.files;
+    var image = files[0]
+    var reader = new FileReader();
+    reader.onload = function(file) {
+    $('#imgprev').attr('src',file.target.result)
+    };
+    reader.readAsDataURL(image);
+    console.log(files);
+  });
+});
+function getprop(prop,t)
+{
+
+    // $("#image1").show();
+  var a = prop;
+  // document.getElementById("t"+t).style.display="none";
+  var v = document.getElementById('auto_inc').value;
+  // alert(v);
+  search_prop=a.split("||");
+  document.getElementById("reject"+t).value = search_prop[1];
+    document.getElementById("prop_name"+v).value = search_prop[0];
+    document.getElementById("dynamiclink"+v).innerHTML = "<a  target='_blank' href='dictionary_detail?esci="+search_prop[7]+"'>"+search_prop[0]+"</a>";
+    document.getElementById("prop_concept_ID"+v).value = search_prop[1];
+    document.getElementById("prop_term_ID"+v).value = search_prop[2];
+    document.getElementById("prop_definition_ID"+v).value = search_prop[3];
+    document.getElementById("prop_term_organization_name"+v).value = search_prop[4];
+    document.getElementById("prop_definition_content"+v).value = search_prop[5];
+    document.getElementById("prop_language_name"+v).value = search_prop[6];      
+  $('#modal-prop').modal('hide'); 
+  document.getElementById("test"+v).value = t;
+  //document.getElementById("changeoccur").value = 1;
+  // alert(search_prop[2]);
+
+ var textValues = new Array();
+    $("input.dupcheck").each(function() {
+      
+      doesExisit = ($.inArray($(this).val(), textValues) == -1) ? false : true;
+      console.log(textValues)
+      if (!doesExisit) {
+          textValues.push($(this).val())
+          document.getElementById("submit").innerHTML='<div class="col-md-12 text-danger"><h3>We have noticed there are some changes in this template. Please choose the below options to update the changes.</h3></div><div class="col-lg-12"><span class="text-danger"><h3><input type="radio" name="template" value="existtemplate" required onclick="getbackigid();"/>  Update the changes to the existing template. <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal">View Existing Template</button></h3></span></div><div class="col-lg-12"><span class="text-danger"><h3><input type="radio" name="template" value="newtemplate" required onclick="resetigid();"/> Create this as a New template.</h3></span><% if @etsr_mm==1 %><span class="text-success"><h3><input type="checkbox" checked name="upload_etsr" id="upload_etsr"/>&nbsp;&nbsp; <i class="fa fa-share"></i> Update to eTSR</h3></span><%  else %><span class="text-success"><h3><input type="checkbox" name="upload_etsr" id="upload_etsr"/>&nbsp;&nbsp; <i class="fa fa-share"></i> Move to eTSR</h3></span><% end  %></div><div class="col-md-12"><input type="submit" class="btn btn-success pull-left class_prop" style=" padding-right:10px;" id= "update_prop" name="update_prop" value="Submit"></div><br> <br><br> <br><br> <br><br> <br>';
+          $("#resetsub").empty();
+      } 
+      else {
+        alert('Duplicate property choosen');
+        document.getElementById("reject"+t).value = '';
+        document.getElementById("prop_name"+v).value = '';
+        document.getElementById("prop_concept_ID"+v).value = '';
+        document.getElementById("prop_term_ID"+v).value = '';
+        document.getElementById("prop_definition_ID"+v).value = '';
+        document.getElementById("prop_term_organization_name"+v).value = '';
+        document.getElementById("prop_definition_content"+v).value = '';
+        document.getElementById("prop_language_name"+v).value = '';
+        document.getElementById("dynamiclink"+v).innerHTML = '';
+        document.getElementById("changeoccur").value = '';
+           
+        return false;
+      }
+    });
+
+}
+
+function getbackigid()
+{
+  var ig = document.getElementById("old_igid").value;
+  var old_cmm = document.getElementById("old_cmm").value;
+  // // alert(ig);
+  // if (ig!=0) {
+  document.getElementById("igid").value = ig;
+  document.getElementById("cmm").value = old_cmm;
+  $('.class_prop').css("display","block");
+  // }   
+}
+function resetigid()
+{
+  $.ajax({
+    type: 'get',
+    url: 'loadexisting',
+    data: { newigid:'newigid' },
+    success: function(data)
+    {
+      $('#splitnew').val(data);
+      var a = document.getElementById("splitnew").value;
+      splitnew=a.split("||");
+      document.getElementById("igid").value = splitnew[0];
+      document.getElementById("cmm").value = splitnew[1];
+      $('.class_prop').css("display","block");
+    }
+  });
+  // var ig = document.getElementById("changeigid").value;
+  // // alert(ig);
+  // if (ig!=0) {
+  //   document.getElementById("igid").value = ig;
+  // }   
+}
+
+function add_ro(va)
+{
+  v2=va;
+  // alert(v2);
+  va=+va+1;
+  var v=+va-1;    
+  // alert(va);
+   // alert(v);    
+    if (v2==0) {       
+      var r = document.getElementById("plusbtn").value;
+      $("#addd"+r).css("display","none");
+      $("#add"+v).css("display","none");      
+      $("#remove"+v).css("display","block");
+       $('#change_class1').append('<tr id="pr'+va+'" class="text"><td><input type="hidden" id="test'+va+'" /><span id="dynamiclink'+va+'"></span><input type="text" class="form-control prop_name hide dupcheck" id="prop_name'+va+'" name="prop_name[]" required="required">&nbsp;&nbsp;&nbsp;<a data-toggle="modal" href="#modal-prop" data-id="'+va+'" class="modal_prop pull-right" onclick="resetvalue('+va+');">BROWSE</a> <input class="hide " type="text" name="prop_concept_ID[]" id="prop_concept_ID'+va+'"><input type="text" name="prop_term_ID[]" id="prop_term_ID'+va+'" class="hide" ><input type="text" name="prop_definition_ID[]" id="prop_definition_ID'+va+'" class="hide" ><input type="text" name="prop_term_organization_name[]" id="prop_term_organization_name'+va+'" class="hide" ><input type="text" name="prop_definition_content[]" id="prop_definition_content'+va+'" class="hide"><input type="text" name="prop_language_name[]" id="prop_language_name'+va+'" class="hide" ></td><td><input type="button" class="btn btn-xs btn-info btn-circle" value="+" name="add'+va+'" id="add'+va+'" onClick="add_ro('+va+');" title="Add property"> &nbsp;&nbsp;<input type="button" class="btn btn-xs btn-danger btn-circle" style="display:" value="-" name="remove'+va+'" id="remove'+va+'" onClick="removetable('+va+');" title="Delete property"></td><td><input type="text" class="form-control input-sm" id="prop_value'+va+'" name="prop_value[]" style="width: 100% !important;"></td><td><input type="text" class="form-control input-sm" id="prop_source'+va+'" name="prop_source[]" style="width: 100% !important;"></td><td class=""><select name="prop_mandatory[]" class="form-control hide" id="prop_mandatory'+va+'"><option value="NO">NO</option><option value="YES">YES</option></select></td><td class="hide"> <input type="text" name="tab'+va+'" id="tab'+va+'"  value='+va+' /></td></tr>');
+    } 
+    else {
+      if(document.getElementById("prop_name"+v2).value!="")
+      {
+      $("#add"+v).css("display","none");
+      $("#remove"+v).css("display","block");
+      // document.getElementById("add"+v).style.display = "none";     
+      $('#change_class1').append('<tr id="pr'+va+'" class="text"><td><input type="hidden" id="test'+va+'" /><span id="dynamiclink'+va+'"></span><input type="text" class="form-control prop_name hide dupcheck" id="prop_name'+va+'" name="prop_name[]" required="required">&nbsp;&nbsp;&nbsp;<a data-toggle="modal" href="#modal-prop" data-id="'+va+'" class="modal_prop pull-right" onclick="resetvalue('+va+');">BROWSE</a> <input class="hide " type="text" name="prop_concept_ID[]" id="prop_concept_ID'+va+'"><input type="text" name="prop_term_ID[]" id="prop_term_ID'+va+'" class="hide" ><input type="text" name="prop_definition_ID[]" id="prop_definition_ID'+va+'" class="hide" ><input type="text" name="prop_term_organization_name[]" id="prop_term_organization_name'+va+'" class="hide" ><input type="text" name="prop_definition_content[]" id="prop_definition_content'+va+'" class="hide"><input type="text" name="prop_language_name[]" id="prop_language_name'+va+'" class="hide" ></td><td><input type="button" class="btn btn-xs btn-info btn-circle" value="+" name="add'+va+'" id="add'+va+'" onClick="add_ro('+va+');" title="Add property"> &nbsp;&nbsp;<input type="button" class="btn btn-xs btn-danger btn-circle" style="display:" value="-" name="remove'+va+'" id="remove'+va+'" onClick="removetable('+va+');" title="Delete property"></td><td><input type="text" class="form-control input-sm" id="prop_value'+va+'" name="prop_value[]" style="width: 100% !important;"></td><td><input type="text" class="form-control input-sm" id="prop_source'+va+'" name="prop_source[]" style="width: 100% !important;"></td><td class=""><select name="prop_mandatory[]" class="form-control hide" id="prop_mandatory'+va+'"><option value="NO">NO</option><option value="YES">YES</option></select></td><td class="hide"> <input type="text" name="tab'+va+'" id="tab'+va+'"  value='+va+' /></td></tr>');
+      
+      }
+      else
+      {
+        alert("Please Fill Existing row");
+      }
+    }
+}
+
+function removetablerow(id){
+  if (confirm('Are you sure you want to delete this?')) {
+    var p = document.getElementById("plusbtn").value;
+    var v = id;
+    // alert(p);
+    // alert(v);
+    if(v==p) {
+      d=v-1;
+      // alert(d);
+      $('#plusbtn').val(d);
+      $('.mainadd'+d).css("display","block");
+    }  
+    jQuery('#removerow'+id).remove();
+     document.getElementById("submit").innerHTML='<div class="col-md-12 text-danger"><h3>We have noticed there are some changes in this template. Please choose the below options to update the changes.</h3></div><div class="col-lg-12"><span class="text-danger"><h3><input type="radio" name="template" value="existtemplate" required onclick="getbackigid();"/>  Update the changes to the existing template. <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal">View Existing Template</button></h3></span></div><div class="col-lg-12"><span class="text-danger"><h3><input type="radio" name="template" value="newtemplate" required onclick="resetigid();"/> Create this as a New template.</h3></span><% if @etsr_mm==1 %><span class="text-success"><h3><input type="checkbox" checked name="upload_etsr" id="upload_etsr"/>&nbsp;&nbsp; <i class="fa fa-share"></i> Update to eTSR</h3></span><%  else %><span class="text-success"><h3><input type="checkbox" name="upload_etsr" id="upload_etsr"/>&nbsp;&nbsp; <i class="fa fa-share"></i> Move to eTSR</h3></span><% end  %></div><div class="col-md-12"><input type="submit" class="btn btn-success pull-left class_prop" style=" padding-right:10px;" id= "update_prop" name="update_prop" value="Submit"></div><br> <br><br> <br><br> <br><br> <br>';
+            $("#resetsub").empty();
+  }
+}
+
+function removetable(id){
+  if (confirm('Are you sure you want to delete this?')) {
+    var v= id-1;
+    if (id==1) {
+      var p = document.getElementById("plusbtn").value;
+      // alert(p);
+      $('.mainadd'+p).css("display","block");
+    }
+    else{
+      $('#add'+v).css("display","block");
+    }  
+    var r = document.getElementById("test"+id).value;
+    jQuery('#reject'+r).val("");
+    // $("#reject"+r).css({"display": "block"});
+    jQuery('#pr'+id).remove();
+    $('.class_prop').css("display","block");
+  }
+}
+
+$(document).on("click", ".modal_prop", function () {
+     var auto_inc = $(this).data('id');
+     $(".modal-body #auto_inc").val( auto_inc );
+});
+
+$(document).ready(function(){  
+  $(document).on("click", ".class_prop", function () {
+    $('.class_prop').css("display","none");
+      $('input[name^="prop_name"]').each(function() {
+          if ($(this).val() == "") {
+              alert('Please select the property added or remove before submit');
+              return false;
+          }
+      });
+  }); 
+
+  $("#search_prop").submit(function(event) {  
+    event.preventDefault();   
+    $.post( 'modalprop?listprop=0', $("#search_prop").serialize(),  
+    function( data ) {  
+      // alert('success');
+      $("#preview-prop").html(data); 
+    });
+    $(document).ajaxStart(function(){
+        $("#image1").css("display","block");
+      });
+      $(document).ajaxStop(function(){
+        $("#image1").css("display","none");
+      });
+  }); 
+  var r = document.getElementById("plusbtn").value;
+  $(".mainadd"+r).css("display","block");
+});  
+
+function prop(dat){  
+     // $("#image1").show();
+    $.ajax({
+      type: 'get',
+      url: 'modalprop',
+      data: { listprop:dat },
+      success: function(data)
+      {
+
+
+           $("#image1").hide();
+          $('#preview-prop').html(data);
+      }
+   
+
+  });
+}  
+
+$(function(){
+        // ajaxindicatorstart('loading data.. please wait..');
+xhr.abort();
+  $.get('modalprop?listprop=1', function(data) {
+    $('#preview-prop').html(data);
+    // ajaxindicatorstop();
+       $("#image1").hide();
+    // alert('asdfa');    
+  });
+});
+
+$(function() {
+    var config = {
+        '.chosen-select': {},
+        // '.chosen-select-deselect': { allow_single_deselect: true },
+        // '.chosen-select-no-single': { disable_search_threshold: 10 },
+        // '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+        // '.chosen-select-width': { width: "95%" }
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+});
+// $(document).ready(function(){
+//   $(".addCF").click(function(){
+//      $("#box").css("display","block");
+//     $("#addproperty").append('<tr valign="top"><th scope="row"><label for="customFieldName">Custom Field</label></th><td><input type="text" class="code" id="customFieldName" name="customFieldName[]" value="" placeholder="Input Name" /> &nbsp; <input type="text" class="code" id="customFieldValue" name="customFieldValue[]" value="" placeholder="Input Value" /> &nbsp; <a href="javascript:void(0);" class="remCF">Remove</a></td></tr>');
+//   });
+//     $("#addproperty").on('click','.remCF',function(){
+//         $(this).parent().parent().remove();
+//     });
+// });
+
+
+// function imgres()
+// {
+// $('#imagepreview').attr('src', $('#imageresource').attr('src')); 
+// $('#imagemodal').modal('show'); 
+// }
+
+// function imgresqr()
+// {
+// $('#imagepreviewqr').attr('src', $('#imageresourceqr').attr('src')); 
+// $('#imagemodalqr').modal('show'); 
+// }
+</script>
+
+<% end %>
+    
+

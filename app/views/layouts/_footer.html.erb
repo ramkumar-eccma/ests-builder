@@ -1,0 +1,11 @@
+<div class="footer">
+    <div class="pull-right">
+        <strong>Email me:</strong>
+    	<%= mail_to "info@eccma.org" do %>
+	  	 	<span>info@eccma.org</span>
+		<% end %>
+    </div>
+    <div>
+        <strong>Copyright</strong> <%= link_to "Eccma", "http://www.eccma.org/", target: '_blank' %> &copy; <%= Time.now.year %>
+    </div>
+</div>

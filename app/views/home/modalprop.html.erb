@@ -1,0 +1,48 @@
+<div style="overflow-y: scroll;max-height:500px;">
+  <div id="wait" style="display: none;" align="center"><img alt="image" class="img-responsive" src="<%= image_url '142.gif' %>" /></div> 
+  <table class="table table-bordered dataTables-example" id="#example">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th width="20%">Property ID</th>
+        <th>Property Name</th>
+        <th>Organization</th>
+        <th width="20%">Language</th>
+      </tr> 
+    </thead> 
+    <tbody>  
+    <% @i=0 %>
+        <% @modal_prop.each do |modal_prop|%>
+        <%
+          @term_content=modal_prop.term_content
+          @concept_Id=modal_prop.concept_ID
+          @term_ID=modal_prop.term_ID
+          @definition_ID=modal_prop.definition_ID
+          @term_organization_name=modal_prop.term_organization_name
+          @definition_content=modal_prop.definition_content
+          @decode=Base64.encode64(@concept_Id)
+          @a = modal_prop.propertyRef
+
+          # @enable = XmlRg.where("propertyRef = ? AND datedeleted = ?", @concept_Id,'0000-00-00 00').count
+          if @a=="" || @a==nil
+            @textclr="" 
+          else
+            @textclr="success"
+          end
+          
+           @concept_name =  @term_content + "||" + @concept_Id + "||" + @term_ID + "||" + @definition_ID + "||" + @term_organization_name + "||" + @definition_content + "||" + modal_prop.language_name+ "||" + @decode           
+
+        %>
+          <tr id="t<%=@i %>" class="<%= @textclr %>">
+              <td><input type="radio" name="radio_con" id="radio_con<%= @i %>" value="<%= @concept_name %>" onclick="getprop(value,<%= @i %>); return false;" ></td>
+              <td><%= modal_prop.concept_ID %></td>
+              <td><%= modal_prop.term_content %></td>
+              <td><%= modal_prop.term_organization_name %> <input type="text" class="xyz hide" name="reject[]" id="reject<%= @i %>"></td>
+              <td><%= modal_prop.language_name %></td>
+          </tr>
+          <% @i=@i+1 %>      
+        <% end %>        
+    </tbody>                  
+</table>  
+</div>
+
