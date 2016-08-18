@@ -121,18 +121,18 @@ class HomeController < ApplicationController
             @language_prop = params[:language_prop]
             @query = params[:query]
 
-            if params[:reject]
-                @reject = params[:reject].reject(&:blank?)
-                @reject = @reject.map(&:inspect).join(', ')
-                # @reject = @reject.to_s.gsub('"', '')
-                if @reject ==""
-                   @reject = "('"+@reject+"')" 
-                else
-                    @reject = "("+@reject+")"  
-                end  
-            else 
-                @reject="('')"  
-            end          
+            # if params[:reject]
+            #     @reject = params[:reject].reject(&:blank?)
+            #     @reject = @reject.map(&:inspect).join(', ')
+            #     # @reject = @reject.to_s.gsub('"', '')
+            #     if @reject ==""
+            #        @reject = "('"+@reject+"')" 
+            #     else
+            #         @reject = "("+@reject+")"  
+            #     end  
+            # else 
+            #     @reject="('')"  
+            # end          
             
             if @query=="like"
                 if @property_name!=''  && @organization_prop!='' && @language_prop!=''
@@ -211,22 +211,22 @@ class HomeController < ApplicationController
                 end            
             end           
         elsif @listprop == 'reset'
-            if params[:reject]
-                @reject = params[:reject].reject(&:blank?)
-                @reject = @reject.map(&:inspect).join(', ')
-                # @reject = @reject.to_s.gsub('"', '')
-                if @reject ==""
-                   @reject = "('"+@reject+"')" 
-                else
-                    @reject = "("+@reject+")"  
-                end
-                @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef"]).distinct.order(term_content: :asc).limit(1000)
+            # if params[:reject]
+            #     @reject = params[:reject].reject(&:blank?)
+            #     @reject = @reject.map(&:inspect).join(', ')
+            #     # @reject = @reject.to_s.gsub('"', '')
+            #     if @reject ==""
+            #        @reject = "('"+@reject+"')" 
+            #     else
+            #         @reject = "("+@reject+")"  
+            #     end
+            #     @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef"]).distinct.order(term_content: :asc).limit(1000)
 
-                # @modal_prop = ConceptDn.where("language_code = ? AND concept_type_ID = ? AND term_content!= ? AND concept_ID not in #{@reject}", 'en','0161-1#CT-02#1','').select(:term_content,:concept_ID,:term_ID,:definition_ID,:term_organization_name,:definition_content,:language_name).distinct.order(term_content: :asc).limit(1000)
-            else
-                @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef"]).distinct.order(term_content: :asc).limit(1000)
+            #     # @modal_prop = ConceptDn.where("language_code = ? AND concept_type_ID = ? AND term_content!= ? AND concept_ID not in #{@reject}", 'en','0161-1#CT-02#1','').select(:term_content,:concept_ID,:term_ID,:definition_ID,:term_organization_name,:definition_content,:language_name).distinct.order(term_content: :asc).limit(1000)
+            # else
+                @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where a.language_code='en' and a.concept_type_ID='0161-1#CT-02#1' and a.term_content!='' ORDER BY `b`.`Class_Name` DESC Limit 100"]) 
                 # @modal_prop = ConceptDn.where("language_code = ? AND concept_type_ID = ? AND term_content!= ? ", 'en','0161-1#CT-02#1','').select(:term_content,:concept_ID,:term_ID,:definition_ID,:term_organization_name,:definition_content,:language_name).distinct.order(term_content: :asc).limit(1000)            
-            end
+            # end
                 
 
             
