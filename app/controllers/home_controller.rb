@@ -607,7 +607,7 @@ class HomeController < ApplicationController
             end
              if @temp_decide==0
                   
-                    @corp_ignames=CorpIgname.create(username: current_user.name,realname: current_user.name,igid: @igid,igversion: '',igversion: '',igref: @igid,Class_id: @concept_ID,Class_Name: @term_content,Class_Definition: @definition_content,Source: '',Source_registry: '',Source_builder: '',Uploaded_Filename: '',Private: '',igid_ref: '0',Done: '',Files_generated: '',ixml_file: '',organization_ID: current_user.Organization_ID,Copy_From: '',datecreated: Time.now)
+                    @corp_ignames=CorpIgname.create(username: current_user.name,realname: current_user.name,igid: @igid,igversion: '',igref: @igid,Class_id: @concept_ID,Class_Name: @term_content,Class_Definition: @definition_content,Source: '',Source_registry: '',Source_builder: '',Uploaded_Filename: '',Private: '',igid_ref: '0',Done: '',Files_generated: '',ixml_file: '',organization_ID: current_user.Organization_ID,Copy_From: '',datecreated: Time.now)
                    
             end     
             # return false
@@ -913,7 +913,7 @@ class HomeController < ApplicationController
 
                     @rxml_value_up = RxmlValue.where("cat_id = ?", @id)
                     @rxml_value_up.each do |rxml_value_beta|
-                        @up_rxml_value_beta = EtsrRxmlValue.create(row: rxml_value_beta.row,Seq: rxml_value_beta.Seq,igid: rxml_value_beta.igid,cat_id: @etsr_cmm,Class: rxml_value_beta.Class,classref: rxml_value_beta.classref,propertyRef: rxml_value_beta.propertyRef,property: rxml_value_beta.property,value: rxml_value_beta.value,datecreated: rxml_value_beta.datecreated,datecreated: Time.now,source: rxml_value_beta.source,language: rxml_value_beta.language)
+                        @up_rxml_value_beta = EtsrRxmlValue.create(row: rxml_value_beta.row,Seq: rxml_value_beta.Seq,igid: rxml_value_beta.igid,cat_id: @etsr_cmm,Class: rxml_value_beta.Class,classref: rxml_value_beta.classref,propertyRef: rxml_value_beta.propertyRef,property: rxml_value_beta.property,value: rxml_value_beta.value,datecreated: Time.now,source: rxml_value_beta.source,language: rxml_value_beta.language)
                     end      
                 end 
 
@@ -1099,7 +1099,7 @@ class HomeController < ApplicationController
                         end                 
                     end
 
-                @corp_ignames=CorpIgname.create(username: current_user.name,realname: current_user.name,igid: @igid,igversion: '',igversion: '',igref: @igid,Class_id: @concept_ID,Class_Name: @term_content,Class_Definition: @definition_content,Source: '',Source_registry: '',Source_builder: '',Uploaded_Filename: '',Private: '',igid_ref: '0',Done: '',Files_generated: '',ixml_file: '',organization_ID: current_user.Organization_ID,Copy_From: '',datecreated: Time.now)
+                @corp_ignames=CorpIgname.create(username: current_user.name,realname: current_user.name,igid: @igid,igversion: '',igref: @igid,Class_id: @concept_ID,Class_Name: @term_content,Class_Definition: @definition_content,Source: '',Source_registry: '',Source_builder: '',Uploaded_Filename: '',Private: '',igid_ref: '0',Done: '',Files_generated: '',ixml_file: '',organization_ID: current_user.Organization_ID,Copy_From: '',datecreated: Time.now)
 
                 @val=@prop_name.zip(@prop_value,@prop_concept_ID,@prop_seq,@prop_source,@prop_term_ID,@prop_definition_ID,@prop_definition_content).each do |a,b,c,d,e,f,g,h|
                 @prop_name=a
@@ -1242,7 +1242,7 @@ class HomeController < ApplicationController
                @rxml_value = RxmlValue.where("igid = ?", @igid)
 
                 @rxml_value.each do |rxml_value|
-                    @temp_rxml_value = RxmlValueDelete.create(row: rxml_value.row,Seq: rxml_value.Seq,igid: rxml_value.igid,cat_id: rxml_value.cat_id,Class: rxml_value.Class,classref: rxml_value.classref,propertyRef: rxml_value.propertyRef,property: rxml_value.property,value: rxml_value.value,datecreated: rxml_value.datecreated,datecreated: Time.now,source: rxml_value.source,language: rxml_value.language)
+                    @temp_rxml_value = RxmlValueDelete.create(row: rxml_value.row,Seq: rxml_value.Seq,igid: rxml_value.igid,cat_id: rxml_value.cat_id,Class: rxml_value.Class,classref: rxml_value.classref,propertyRef: rxml_value.propertyRef,property: rxml_value.property,value: rxml_value.value,datecreated: Time.now,source: rxml_value.source,language: rxml_value.language)
                 end 
 
                 @delete_rxml_value = RxmlValue.where("igid = ?", @igid).delete_all
@@ -1251,7 +1251,7 @@ class HomeController < ApplicationController
                     @rxml_value_beta = EtsrRxmlValue.where("igid = ?", @igid)
                     @etsr_cmm="ECCMA.eTSR:"+@cmm
                     @rxml_value_beta.each do |rxml_value_beta|
-                        @temp_rxml_value_beta = EtsrRxmlValueDelete.create(row: rxml_value_beta.row,Seq: rxml_value_beta.Seq,igid: rxml_value_beta.igid,cat_id: @etsr_cmm,Class: rxml_value_beta.Class,classref: rxml_value_beta.classref,propertyRef: rxml_value_beta.propertyRef,property: rxml_value_beta.property,value: rxml_value_beta.value,datecreated: rxml_value_beta.datecreated,datecreated: Time.now,source: rxml_value_beta.source,language: rxml_value_beta.language)
+                        @temp_rxml_value_beta = EtsrRxmlValueDelete.create(row: rxml_value_beta.row,Seq: rxml_value_beta.Seq,igid: rxml_value_beta.igid,cat_id: @etsr_cmm,Class: rxml_value_beta.Class,classref: rxml_value_beta.classref,propertyRef: rxml_value_beta.propertyRef,property: rxml_value_beta.property,value: rxml_value_beta.value,datecreated: Time.now,source: rxml_value_beta.source,language: rxml_value_beta.language)
                     end  
                     @delete_rxml_value_beta = EtsrRxmlValue.where("igid = ?", @igid).delete_all
                 end
