@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+    require 'will_paginate/array'
     def index
         @organization = current_user.Organization_ID
         if params[:search]
@@ -15,8 +16,9 @@ class HomeController < ApplicationController
         @listall = params[:listall]
 
         if @listall=='1'
-            @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.language_code='en' and a.concept_type_ID='0161-1#CT-01#1' and a.term_content!='' ORDER BY `b`.`Class_Name` DESC Limit 100"])            
-
+            
+            @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.language_code='en' and a.concept_type_ID='0161-1#CT-01#1' and a.term_content!='' ORDER BY `b`.`Class_Name` DESC Limit 100"])              
+                   
         elsif @listall=='0' 
             @class_name = params[:class_name]
             @organization = params[:organization]
@@ -26,16 +28,16 @@ class HomeController < ApplicationController
             if @query=="like"
                 if @class_name!=''  && @organization!='' && @language!=''
                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.language_code= ? and a.concept_type_ID= ? and a.term_content!= ? and a.term_organization_name = ? AND a.term_content like ? ORDER BY `b`.`Class_Name` DESC Limit 100",@language,'0161-1#CT-01#1','',@organization,"%#{@class_name}%"])
-
+ 
                 elsif @class_name!='' && @organization=='' && @language==''
                     @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.term_content like ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',"%#{@class_name}%"])
-
+ 
                 elsif @organization!='' && @class_name=='' && @language==''
                     @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.term_organization_name = ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@organization])
 
                 elsif @language!='' && @organization=='' && @class_name==''
                     @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.language_code = ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@language])
-                
+             
                 elsif @class_name!='' && @organization!='' && @language==''
                     @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.term_organization_name = ? AND a.term_content like ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@organization,"%#{@class_name}%"])
 
@@ -44,9 +46,10 @@ class HomeController < ApplicationController
 
                 elsif @class_name=='' && @organization!='' && @language!=''
                     @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.language_code = ? AND a.term_organization_name = ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@language,@organization])
-
+       
                 elsif @class_name=='' && @organization=='' && @language==''
                     @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.language_code='en' and a.concept_type_ID='0161-1#CT-01#1' and a.term_content!='' ORDER BY `b`.`Class_Name` DESC Limit 100"])          
+                 
                 end 
             elsif @query=="startwith"
                 if @class_name!=''  && @organization!='' && @language!=''
@@ -104,6 +107,10 @@ class HomeController < ApplicationController
             @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.language_code='en' and a.concept_type_ID='0161-1#CT-01#1' and a.term_content!='' ORDER BY `b`.`Class_Name` DESC Limit 100"])
         end
 
+      
+              
+
+            
         respond_to do |format|
           format.html {render :layout => false}
         end
@@ -239,12 +246,11 @@ class HomeController < ApplicationController
     end
 
     def addnew
-        @lang = ConceptDn.group(:language_code).select('language_code,language_name')
-        @lang1 = ConceptDn.group(:language_code).select('language_code,language_name').to_sql
+        @lang = Orglanguage.select('language_code, language_name').where("avilable=?",'y')
+        @org = Organization.select('Legal_name').where("avilable = ?",'y')
 
-        @org=ConceptDn.select(:term_organization_name).distinct
+        # @org=ConceptDn.select(:term_organization_name).distinct
         @max_no=(MaterialMaster.maximum("cmm_material_no"))
-        @igid=(CorpIgname.maximum("igid"))    
 
         if(@max_no=='' || @max_no==nil )
           @max_no='2000001'
@@ -252,16 +258,48 @@ class HomeController < ApplicationController
           @max_no = @max_no.to_i + 1
         end
 
-        if(@igid=='' || @igid==nil )
-          @igid='100001' 
-        else
-          @igid = @igid.to_i + 1
-        end 
+        @igid=MaterialMaster.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
+        @igid.map {|i| @igid=i.igid }
+        
+         if(@igid=='' || @igid==nil )
+          @igid='100001'
+        else    
+          @igid=@igid[10,6]
+          @igid=@igid.to_i + 1;
+        end
+        @igid='0161-1#'+'IG-'+@igid.to_s+'#1'
+
+
 
         @class_prop = params[:term_content]
         @template = params[:template]
         if @class_prop
-            @igid = params[:igid].squish!
+            @class_igid=params[:class_igid]
+            @igid1=params[:igid]
+            if @class_igid==0
+                @igid = params[:igid].squish!
+            elsif @class_igid==@igid1 
+                @igid = params[:igid].squish! 
+            elsif  @class_igid!=@igid1  && @igid1!=''
+                @igid = params[:class_igid] 
+            else
+                #  @igid=(CorpIgname.maximum("igid"))
+                # if(@igid=='' || @igid==nil )
+                #   @igid='100001'
+                # else
+                #   @igid = @igid.to_i + 1
+                # end
+                @igid=MaterialMaster.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
+                @igid.map {|i| @igid=i.igid }
+                
+                 if(@igid=='' || @igid==nil )
+                  @igid='100001'
+                else    
+                  @igid=@igid[10,6]
+                  @igid=@igid.to_i + 1;
+                end
+                @igid='0161-1#'+'IG-'+@igid.to_s+'#1'
+            end
             @cmm = params[:cmm].squish!
             @material_id = params[:material_id]
             @term_content = params[:term_content]
@@ -296,14 +334,26 @@ class HomeController < ApplicationController
               @cmm = @cmm.to_i + 1
             end
             @temp_decide = CorpIgname.where("igid = ? ",@igid).count
+          
             
-            if @temp_decide=="" || @temp_decide==nil || @temp_decide=='0'
-                @igid=(CorpIgname.maximum("igid"))
-                if(@igid=='' || @igid==nil )
-                  @igid='100001' 
-                else
-                  @igid = @igid.to_i + 1
+            if  @temp_decide==0
+              
+                # @igid=(CorpIgname.maximum("igid"))
+                # if(@igid=='' || @igid==nil )
+                #   @igid='100001'
+                # else
+                #   @igid = @igid.to_i + 1
+                # end
+                @igid=MaterialMaster.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
+                @igid.map {|i| @igid=i.igid }
+                
+                 if(@igid=='' || @igid==nil )
+                  @igid='100001'
+                else    
+                  @igid=@igid[10,6]
+                  @igid=@igid.to_i + 1;
                 end
+                @igid='0161-1#'+'IG-'+@igid.to_s+'#1'
             end
                 @igid = @igid.to_s
                 @cmm = @cmm.to_s
@@ -405,7 +455,12 @@ class HomeController < ApplicationController
                         @url = request.protocol + request.host+ url1 + n1
                         # @sql=EtsrCountryorigin.create(,image: "",image_id: @etsr_cmm)
                         
+                        if @url
                         @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_image: @url)
+                        else
+                        @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_image: '')
+   
+                        end
 
                         # @originInput=params[:originInput].read
                         # if @originInput.size
@@ -415,22 +470,23 @@ class HomeController < ApplicationController
                     end
                 elsif @country_orgin!="" && @originInput==""
                     # @sql=Countryorigin.create(image_name: @country_orgin,image_id: @cmm,image: "N")   
-                    @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_name: @country_orgin,sts: "N")
+                    @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_image:'',source_name: @country_orgin,sts: "N")
 
                     if params[:upload_etsr]
-                        if params[:pictureInput]
+                        # if params[:pictureInput]
                             @etsr_cmm="ECCMA.eTSR:"+@cmm
                             # @sql=EtsrCountryorigin.create(image_name: @country_orgin,image_id: @etsr_cmm,image: "N")
-                             @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_name: @country_orgin,sts: "N")
-                        end
+                             @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_name: @country_orgin,source_image:'',sts: "N")
+                        # end
                     end
                 elsif @country_orgin!="" && @originInput!=""
-                     @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_name: @country_orgin,sts: "N")
+                     @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_image:'',source_name: @country_orgin,sts: "N")
+
                     if params[:upload_etsr]
-                        if params[:pictureInput]
+                        # if params[:pictureInput]
                             @etsr_cmm="ECCMA.eTSR:"+@cmm
-                            @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_name: @country_orgin,sts: "N")
-                        end
+                            @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_name: @country_orgin,source_image:'',sts: "N")
+                        # end
                     end                 
                 end
 
@@ -449,8 +505,22 @@ class HomeController < ApplicationController
                 @xmlrg.each do |xmlrg|
                 @temp_xmlrg = XmlRgDelete.create(row: xmlrg.row,igid: xmlrg.igid,RGref: xmlrg.RGref,class_name: xmlrg.class_name,propertyRef: xmlrg.propertyRef,termID: xmlrg.termID,property: xmlrg.property,Property_Definition: xmlrg.Property_Definition,igid_ref: xmlrg.igid_ref,definitionID: xmlrg.definitionID,datecreated: xmlrg.datecreated, datedeleted: Time.now)
                 end    
+                 
 
                 @delete_xmlrg = XmlRg.where("igid = ?",@igid).delete_all
+
+                # @val1=@prop_name.zip(@prop1_value,@prop1_concept_ID,@prop1_seq,@prop1_source,@prop1_term_ID,@prop1_definition_ID,@prop1_definition_content).each do |a,b,c,d,e,f,g,h|
+                #     @prop1_name=a
+                #     @prop1_value=b
+                #     @prop1_concept_ID=c
+                #     @prop1_seq=d
+                #     @prop1_source=e
+                #     @prop1_term_ID=f
+                #     @prop1_definition_ID=g
+                #     @prop1_definition_content=h
+
+                #       @rxml_value = XmlRg.create(row: @prop1_seq,igid: @igid,RGref: '',class_name: @term_content,propertyRef: @prop1_concept_ID,termID: @prop1_term_ID,definitionID: @prop1_definition_ID,Property_Definition: @prop1_definition_content,property: @prop1_name,Required: 'Y',datecreated: Time.now)
+                # end
 
                 @id1=params[:pictureInput]
                 if @id1 
@@ -524,24 +594,26 @@ class HomeController < ApplicationController
             end
                
                @rxml_value = RxmlValue.create(row: @prop_seq,Seq: @prop_seq,igid: @igid,cat_id: @cmm,Class: @term_content,classref: @concept_ID,propertyRef: @prop_concept_ID,property: @prop_name,value: @prop_value,source: @prop_source,datecreated: Time.now,lastmodified: Time.now,language: @language_name)
-               
-               if params[:upload_etsr]
+
+                if params[:upload_etsr]
                     @etsr_cmm="ECCMA.eTSR:"+@cmm
                     @etsr_rxml_value = EtsrRxmlValue.create(row: @prop_seq,Seq: @prop_seq,igid: @igid,cat_id: @etsr_cmm,Class: @term_content,classref: @concept_ID,propertyRef: @prop_concept_ID,property: @prop_name,value: @prop_value,source: @prop_source,datecreated: Time.now,lastmodified: Time.now,language: @language_name)
-               end
-                
-                
-
-                if @temp_decide=="" || @temp_decide==nil || @temp_decide=='0'
-                    @corp_ignames=CorpIgname.create(username: current_user.name,realname: current_user.name,igid: @igid,igversion: '',igversion: '',igref: @igid,Class_id: @concept_ID,Class_Name: @term_content,Class_Definition: @definition_content,Source: '',Source_registry: '',Source_builder: '',Uploaded_Filename: '',Private: '',igid_ref: '0',Done: '',Files_generated: '',ixml_file: '',organization_ID: current_user.Organization_ID,Copy_From: '',datecreated: Time.now)
-                    @rxml_value = XmlRg.create(row: @prop_seq,igid: @igid,RGref: '',class_name: @term_content,propertyRef: @prop_concept_ID,termID: @prop_term_ID,definitionID: @prop_definition_ID,Property_Definition: @prop_definition_content,property: @prop_name,Required: 'Y',datecreated: Time.now)
                 end
-             
+
+             if @temp_decide==0 || @template=="existtemplate"
+                 @rxml_value = XmlRg.create(row: @prop_seq,igid: @igid,RGref: '',class_name: @term_content,propertyRef: @prop_concept_ID,termID: @prop_term_ID,definitionID: @prop_definition_ID,Property_Definition: @prop_definition_content,property: @prop_name,Required: 'Y',datecreated: Time.now)
+             end
+                       
             end
+             if @temp_decide==0
+                  
+                    @corp_ignames=CorpIgname.create(username: current_user.name,realname: current_user.name,igid: @igid,igversion: '',igversion: '',igref: @igid,Class_id: @concept_ID,Class_Name: @term_content,Class_Definition: @definition_content,Source: '',Source_registry: '',Source_builder: '',Uploaded_Filename: '',Private: '',igid_ref: '0',Done: '',Files_generated: '',ixml_file: '',organization_ID: current_user.Organization_ID,Copy_From: '',datecreated: Time.now)
+                   
+            end     
+            # return false
             flash[:success] = "Succesfully Saved"
             redirect_to controller: 'home',action: 'view', cat_id: @cmm
-        end 
-        
+        end         
     end
 
     def view
@@ -561,9 +633,10 @@ class HomeController < ApplicationController
         # @imageorigin=Countryorigin.where("image_id = ?",@cat_id)
         # @imagecount=Image.where("image_id = ?",@cat_id).count
 
-        @lang = ConceptDn.group(:language_code).select('language_code,language_name')
-        @org=ConceptDn.select(:term_organization_name).distinct
-
+        # @lang = ConceptDn.group(:language_code).select('language_code,language_name')
+        # @org=ConceptDn.select(:term_organization_name).distinct
+        @lang = Orglanguage.select('language_code, language_name').where("avilable=?",'y')
+        @org = Organization.select('Legal_name').where("avilable = ?",'y')
     end
 
     def dictionary_detail
@@ -769,17 +842,17 @@ class HomeController < ApplicationController
                 @source=d
                 if @val_case=='Lower Case'
                     @cs=@cs.downcase
-                    @dc=@ds.downcase
+                    @ds=@ds.downcase
                     @es=@es.downcase
                     # @source=@source.downcase
                 elsif @val_case=='Sentence Case'
                     @cs=@cs.capitalize
-                    @dc=@ds.capitalize
+                    @ds=@ds.capitalize
                     @es=@es.capitalize
                     # @source=@source.capitalize
                 else
                     @cs=@cs.upcase
-                    @dc=@ds.upcase
+                    @ds=@ds.upcase
                     @es=@es.upcase
                     # @source=@source.upcase
                 end
@@ -808,7 +881,29 @@ class HomeController < ApplicationController
                         # @sql=Countryorigin.where("image_id = ?",@cmm).update_all(image_name: @country_orgin,image: "N")   
                         @update1=EtsrMaterialMaster.where('cat_id = ?',@etsr_cmm).update_all({short_description: @bs,long_description: @class,lastmodified: Time.now,source_name: @country_orgin,sts: "N"})
                     end 
-                    @update=EtsrRxmlValue.where('Seq = ? AND property = ? AND cat_id = ? ',@es,@ds,@etsr_cmm).update_all(value: @cs,source: @source,lastmodified: Time.now)
+                    for a,b,c,d in @b.zip(@c,@a,@d)
+                        @cs=a
+                        @ds=b
+                        @es=c
+                        @source=d
+                        if @val_case=='Lower Case'
+                            @cs=@cs.downcase
+                            @ds=@ds.downcase
+                            @es=@es.downcase
+                            # @source=@source.downcase
+                        elsif @val_case=='Sentence Case'
+                            @cs=@cs.capitalize
+                            @ds=@ds.capitalize
+                            @es=@es.capitalize
+                            # @source=@source.capitalize
+                        else
+                            @cs=@cs.upcase
+                            @ds=@ds.upcase
+                            @es=@es.upcase
+                            # @source=@source.upcase
+                        end
+                        @update=EtsrRxmlValue.where('Seq = ? AND property = ? AND cat_id = ? ',@es,@ds,@etsr_cmm).update_all(value: @cs,source: @source,lastmodified: Time.now)
+                    end
 
                 elsif @check_up==0
                     @mm_value_up = MaterialMaster.where("cat_id = ?", @id)
@@ -859,7 +954,7 @@ class HomeController < ApplicationController
                 @country_orgin=params[:country_orgin]
 
                 @cmm=(MaterialMaster.maximum("cmm_material_no"))
-                @igid=(CorpIgname.maximum("igid"))    
+                # @igid=(CorpIgname.maximum("igid"))    
 
                 if(@cmm=='' || @cmm==nil )
                   @cmm='2000001'
@@ -867,12 +962,22 @@ class HomeController < ApplicationController
                   @cmm = @cmm.to_i + 1
                 end
 
+                # if(@igid=='' || @igid==nil )
+                #   @igid='100001' 
+                # else
+                #   @igid = @igid.to_i + 1
+                # end
+                # @igid = @igid
+                @igid=MaterialMaster.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
+                @igid.map {|i| @igid=i.igid }
+
                 if(@igid=='' || @igid==nil )
-                  @igid='100001' 
-                else
-                  @igid = @igid.to_i + 1
+                @igid='100001'
+                else    
+                @igid=@igid[10,6]
+                @igid=@igid.to_i + 1;
                 end
-                @igid = @igid
+                @igid='0161-1#'+'IG-'+@igid.to_s+'#1'
                 @cmm = @cmm
 
                 results=ActiveRecord::Base.connection.execute("select * from `ests_db`.settings")
@@ -964,14 +1069,18 @@ class HomeController < ApplicationController
                             url1="/assets/"
                             @etsr_cmm="ECCMA.eTSR:"+@cmm
                             @url = params[:imageurlco]
-                            # @sql=EtsrCountryorigin.create(image_name: @url,image: "",image_id: @etsr_cmm)        
+                            # @sql=EtsrCountryorigin.create(image_name: @url,image: "",image_id: @etsr_cmm)     
+                            if @url   
                             @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @etsr_cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_image: @url)
+                            else
+                             @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @etsr_cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_image: '')   
+                            end    
 
                         end
                     elsif @country_orgin!="" && @originInput==""
                         # @sql=Countryorigin.create(image_name: @country_orgin,image_id: @cmm,image: "N")   
 
-                        @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_name: @country_orgin,sts: "N")
+                        @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_image: '',source_name: @country_orgin,sts: "N")
 
                         if params[:upload_etsr]
                             if params[:pictureInput]
@@ -981,7 +1090,7 @@ class HomeController < ApplicationController
                             end
                         end
                     elsif @country_orgin!="" && @originInput!=""
-                        @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_name: @country_orgin,sts: "N")   
+                        @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_image: '',source_name: @country_orgin,sts: "N")   
                         if params[:upload_etsr]
                             if params[:pictureInput]
                                 @etsr_cmm="ECCMA.eTSR:"+@cmm
@@ -1239,12 +1348,22 @@ class HomeController < ApplicationController
         end 
         
         if params[:newigid]
-            @newigid=(CorpIgname.maximum("igid"))
-            if(@newigid=='' || @newigid==nil)
-              @newigid='100001'
-            else
-              @newigid = @newigid.to_i + 1
-            end   
+            # @newigid=(CorpIgname.maximum("igid"))
+            # if(@newigid=='' || @newigid==nil)
+            #   @newigid='100001'
+            # else
+            #   @newigid = @newigid.to_i + 1
+            # end  
+            @igid=MaterialMaster.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
+            @igid.map {|i| @igid=i.igid }
+            
+             if(@igid=='' || @igid==nil )
+              @igid='100001'
+            else    
+              @igid=@igid[10,6]
+              @igid=@igid.to_i + 1;
+            end
+            @igid='0161-1#'+'IG-'+@igid.to_s+'#1' 
 
 
             @newmax_no=(MaterialMaster.maximum("cmm_material_no"))

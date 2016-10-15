@@ -50,8 +50,9 @@
                         <td><b>eSTS ID</b></td>
                         <td>
                         <label>ECCMA.eTSR:<%= @max_no %></label>
+                          <input type="hidden" name="class_igid" id="class_igid">
                         <input type="hidden" name="igid" id="igid" class="form-control input-sm " value="<%= @igid %>">
-                        <input type="hidden" name="old_igid" id="old_igid" class="form-control input-sm " value="<%= @igid %>">
+                        <input type="hidden" name="old_igid" id="old_igid" class="form-control input-sm " >
                         <input type="hidden" name="cmm" class="form-control input-sm" id="cmm" value="<%= @max_no %>">
                         </td>
                       </tr>
@@ -83,6 +84,7 @@
                         <input class="hide"  type="text" name="definition_content" id="definition_content">
                         <input class="hide"  type="text" name="language_name" id="language_name">
                         <!--  <input type="button" name="class_btn" value="BROWSE" onclick="getclass();" %>-->
+                      
                         <a data-toggle="modal" href="#modal-form" style="margin-left: ;">BROWSE</a>
                         </td>
                       </tr>
@@ -388,12 +390,12 @@
                         <td>
                         <input type="hidden" id="test1" />
                         <span id="dynamiclink1"></span>
-                        <input type="text" class="form-control input-sm prop_name hide dupcheck" id="prop_name1" name="prop_name[]" required="required"
+                        <input type="text" class="form-control input-sm prop_name hide " id="prop_name1" name="prop_name[]" required="required"
                         >&nbsp;&nbsp;&nbsp;
                         <a data-toggle="modal" href="#modal-prop" data-id="1" class="modal_prop pull-right">BROWSE</a>
                         <!-- <a data-toggle="modal" href="#modal-prop" data-id="1" class="modal_prop pull-right" onclick="resetvalue(1);">BROWSE</a> -->
                         <input class="hide" type="text" name="prop_concept_ID[]" id="prop_concept_ID1">
-                        <input class="hide" type="text" name="prop_term_ID[]" id="prop_term_ID1">
+                        <input class="hide dupcheck" type="text" name="prop_term_ID[]" id="prop_term_ID1">
                         <input class="hide" type="text" name="prop_definition_ID[]" id="prop_definition_ID1">
                         <input class="hide" type="text" name="prop_term_organization_name[]" id="prop_term_organization_name1">
                         <input class="hide" type="text" name="prop_definition_content[]" id="prop_definition_content1">
@@ -458,7 +460,7 @@
                       <select name="organization" id="organization" class="form-control input-sm">
                       <option value="">select</option>
                          <% @org.each do |org|%>
-                          <option value="<%= org.term_organization_name %>"><%= org.term_organization_name %></option>
+                          <option value="<%= org.Legal_name %>"><%= org.Legal_name %></option>
                         <% end %>
                       </select>
                     </div>
@@ -531,7 +533,7 @@
                       <select name="organization_prop" id="organization_prop" class="form-control input-sm">
                       <option value="">select</option>
                          <% @org.each do |org|%>
-                          <option value="<%= org.term_organization_name %>"><%= org.term_organization_name %></option>
+                          <option value="<%= org.Legal_name %>"><%= org.Legal_name %></option>
                         <% end %>
                       </select>
                     </div>
@@ -578,7 +580,7 @@
 function ajaxindicatorstart(text)
 {
     if(jQuery('body').find('#resultLoading').attr('id') != 'resultLoading'){
-    jQuery('body').append('<div id="resultLoading" style="display:none"><div><img src="assets/ajax-loader.gif"><div>'+text+'</div></div><div class="bg"></div></div>');
+    jQuery('body').append('<div id="resultLoading" style="display:none"><div>'+text+'</div><div class="bg"></div></div>');
     }
 
     jQuery('#resultLoading').css({
@@ -693,7 +695,8 @@ function ajaxindicatorstop()
     // document.getElementById("language_code").value = search_class[10];
     var loadexist = search_class[7];
     var igid = search_class[8]
-    document.getElementById("igid").value= search_class[8];
+    // document.getElementById("igid").value= search_class[8];
+    document.getElementById("class_igid").value=search_class[8];
     document.getElementById("changeigid").value= search_class[8];
     document.getElementById("classlink").innerHTML= "<a  target='_blank' href='dictionary_detail?esci="+search_class[9]+"'>"+search_class[0]+"</a>";
     // alert(test);
@@ -725,10 +728,11 @@ function ajaxindicatorstop()
     else{
       var backorg = 0
        $("#loading_img").hide();
+       document.getElementById("class_igid").value= search_class[8]=document.getElementById("changeigid").value;
       $.ajax({
         type: 'get',
         url: 'loadexisting',
-        data: { backorg:backorg },
+        data: { backorg:backorg,igid:igid },
         success: function(data)
         {  
            $('#resetpreview').html(data);
@@ -772,7 +776,7 @@ function getprop(prop,t)
   {
     var a = prop;
     //alert(t);
-    document.getElementById("t"+t).style.display="none";
+    // document.getElementById("t"+t).style.display="none";
     var v = document.getElementById('auto_inc').value;
        
     search_prop=a.split("||");
@@ -846,7 +850,7 @@ function add_ro(va,v1)
     {
     document.getElementById("add"+v).style.display = "none";
     $("#remove"+v).css("display","block");
-    $('#prop').append('<tr id="pr'+va+'" class="text"><td><input type="hidden" id="test'+va+'" /><span id="dynamiclink'+va+'"></span><input type="text" class="form-control input-sm prop_name hide dupcheck" id="prop_name'+va+'" name="prop_name[]" required="required">&nbsp;&nbsp;&nbsp;<a data-toggle="modal" href="#modal-prop" data-id="'+va+'" class="modal_prop pull-right">BROWSE</a> <input class="hide " type="text" name="prop_concept_ID[]" id="prop_concept_ID'+va+'"><input type="text" name="prop_term_ID[]" id="prop_term_ID'+va+'" class="hide" ><input type="text" name="prop_definition_ID[]" id="prop_definition_ID'+va+'" class="hide" ><input type="text" name="prop_term_organization_name[]" id="prop_term_organization_name'+va+'" class="hide" ><input type="text" name="prop_definition_content[]" id="prop_definition_content'+va+'" class="hide"><input type="text" name="prop_language_name[]" id="prop_language_name'+va+'" class="hide" ></td><td><input type="button" class="btn btn-xs btn-info btn-circle" value="+" name="add'+va+'" id="add'+va+'" onClick="add_ro('+va+');" title="Add property"> <input type="button" class="btn btn-xs btn-danger btn-circle" style="display:" value="-" name="remove'+va+'" id="remove'+va+'" onClick="removetable('+va+');" title="Delete property"></td><td><input type="text" class="form-control input-sm" id="prop_value'+va+'" name="prop_value[]" style="width: 100% !important;"></td><td><input type="text" class="form-control input-sm" id="prop_source'+va+'" name="prop_source[]" style="width: 100% !important;"></td><td class="hide"><select name="prop_mandatory[]" class="form-control input-sm" id="prop_mandatory'+va+'"><option value="NO">NO</option><option value="YES">YES</option></select></td><td class="hide"> <input type="text" name="tab'+va+'" id="tab'+va+'"  value='+va+' /></td></tr>');
+    $('#prop').append('<tr id="pr'+va+'" class="text"><td><input type="hidden" id="test'+va+'" /><span id="dynamiclink'+va+'"></span><input type="text" class="form-control input-sm prop_name hide" id="prop_name'+va+'" name="prop_name[]" required="required">&nbsp;&nbsp;&nbsp;<a data-toggle="modal" href="#modal-prop" data-id="'+va+'" class="modal_prop pull-right">BROWSE</a> <input class="hide " type="text" name="prop_concept_ID[]" id="prop_concept_ID'+va+'"><input type="text" name="prop_term_ID[]" id="prop_term_ID'+va+'" class="hide dupcheck" ><input type="text" name="prop_definition_ID[]" id="prop_definition_ID'+va+'" class="hide" ><input type="text" name="prop_term_organization_name[]" id="prop_term_organization_name'+va+'" class="hide" ><input type="text" name="prop_definition_content[]" id="prop_definition_content'+va+'" class="hide"><input type="text" name="prop_language_name[]" id="prop_language_name'+va+'" class="hide" ></td><td><input type="button" class="btn btn-xs btn-info btn-circle" value="+" name="add'+va+'" id="add'+va+'" onClick="add_ro('+va+');" title="Add property"> <input type="button" class="btn btn-xs btn-danger btn-circle" style="display:" value="-" name="remove'+va+'" id="remove'+va+'" onClick="removetable('+va+');" title="Delete property"></td><td><input type="text" class="form-control input-sm" id="prop_value'+va+'" name="prop_value[]" style="width: 100% !important;"></td><td><input type="text" class="form-control input-sm" id="prop_source'+va+'" name="prop_source[]" style="width: 100% !important;"></td><td class="hide"><select name="prop_mandatory[]" class="form-control input-sm" id="prop_mandatory'+va+'"><option value="NO">NO</option><option value="YES">YES</option></select></td><td class="hide"> <input type="text" name="tab'+va+'" id="tab'+va+'"  value='+va+' /></td></tr>');
     // var i=1,j=1;
     // while(i<=a)
     // {

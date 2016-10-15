@@ -16,9 +16,6 @@ gem 'will_paginate-bootstrap'
 gem 'devise', '3.4.1'
 gem 'devise-i18n-views'
 
-gem 'jquery-datatables-rails'
-gem 'ajax-datatables-rails'
-
 #Using this gem enhances activerecord to change the default behavior for the creation of attribute accessors.Refer =>http://www.rubydoc.info/gems/safe_attributes/1.0.1/
 gem 'safe_attributes'
 

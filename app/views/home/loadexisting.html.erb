@@ -5,7 +5,7 @@
 <%= @split %>
 <% end %>
 <% if @term_content %>
-	<table class="table table-bordered dataTables" id="prop">               
+  <table class="table table-bordered dataTables" id="prop">               
         <thead >
           <tr style="background-color: #dedede; !important">
             <th style="width: 35%;">Property</th>
@@ -18,17 +18,17 @@
         <tbody>       
         
       <% @i=1 %>
-    	<% @load.each do |result_all|%>
+      <% @load.each do |result_all|%>
           <tr id="pr<%= @i %>" class="text">
             <td>
             <input type="hidden" id="test<%= @i %>" value="<%= @i %>"/>
-			       <span id="dynamiclink<%= @i %>"><b> <%= link_to result_all.property , {:controller => :home,:action => :dictionary_detail, :esci => Base64.encode64(result_all.propertyRef)}, :target => "_blank",:def =>'' %> <span class="text-danger" style="font-size: 16px;" %>  </b></span>
-            <input readonly type="text" class="form-control input-sm prop_name hide dupcheck" id="prop_name<%= @i %>" name="prop_name[]" required="required" value="<%= result_all.property %>">
+             <span id="dynamiclink<%= @i %>"><b> <%= link_to result_all.property , {:controller => :home,:action => :dictionary_detail, :esci => Base64.encode64(result_all.propertyRef)}, :target => "_blank",:def =>'' %> <span class="text-danger" style="font-size: 16px;" %>  </b></span>
+            <input readonly type="text" class="form-control input-sm prop_name hide" id="prop_name<%= @i %>" name="prop_name[]" required="required" value="<%= result_all.property %>">
             &nbsp;&nbsp;&nbsp;
             <a data-toggle="modal" href="#modal-prop" data-id="1" class="modal_prop pull-right hide">BROWSE</a>
 
             <input class="hide" type="text" name="prop_concept_ID[]" id="prop_concept_ID<%= @i %>" value="<%= result_all.propertyRef %>">
-            <input class="hide" type="text" name="prop_term_ID[]" id="prop_term_ID<%= @i %>" value="<%= result_all.termID %>">
+            <input class="hide dupcheck" type="text" name="prop_term_ID[]" id="prop_term_ID<%= @i %>" value="<%= result_all.termID %>">
             <input class="hide" type="text" name="prop_definition_ID[]" id="prop_definition_ID<%= @i %>" value="<%= result_all.definitionID %>">
             <input class="hide" type="text" name="prop_term_organization_name[]" id="prop_term_organization_name<%= @i %>">
             <input class="hide" type="text" name="prop_definition_content[]" id="prop_definition_content<%= @i %>" value="<%= result_all.Property_Definition %>">
@@ -48,13 +48,13 @@
               </td>
           </tr>
           <% @i=@i+1 %> 
-      	<% end %>
+        <% end %>
         <input type="text" value="<%= @i-1 %>" id="plusbtn" class="plusbtn hide">
         </tbody>
       </table>
 <% end %>
 <% if @backorg %>
-	<table class="table table-bordered dataTables" id="prop">                
+  <table class="table table-bordered dataTables" id="prop">                
         <thead>
           <tr style="background-color: #dedede; !important">
            <th style="width: 35%;">Property</th>
@@ -67,12 +67,12 @@
         <tbody>
           <tr id="pr1" class="text">
             <td>
-			<input type="hidden" id="test1" />
-            <span id="dynamiclink1"></span><input type="text" class="form-control input-sm prop_name hide dupcheck" id="prop_name1" name="prop_name[]" required="required"
+      <input type="hidden" id="test1" />
+            <span id="dynamiclink1"></span><input type="text" class="form-control input-sm prop_name hide " id="prop_name1" name="prop_name[]" required="required"
             >&nbsp;&nbsp;&nbsp;
             <a data-toggle="modal" href="#modal-prop" data-id="1" class="modal_prop pull-right">BROWSE</a>
             <input class="hide" type="text" name="prop_concept_ID[]" id="prop_concept_ID1">
-            <input class="hide" type="text" name="prop_term_ID[]" id="prop_term_ID1">
+            <input class="hide dupcheck" type="text" name="prop_term_ID[]" id="prop_term_ID1">
             <input class="hide" type="text" name="prop_definition_ID[]" id="prop_definition_ID1">
             <input class="hide" type="text" name="prop_term_organization_name[]" id="prop_term_organization_name1">
             <input class="hide" type="text" name="prop_definition_content[]" id="prop_definition_content1">

@@ -629,7 +629,7 @@ table, th, td {
                       <select name="organization_prop" id="organization_prop" class="form-control">
                       <option value="">select</option>
                          <% @org.each do |org|%>
-                          <option value="<%= org.term_organization_name %>"><%= org.term_organization_name %></option>
+                          <option value="<%= org.Legal_name %>"><%= org.Legal_name %></option>
                         <% end %>
                       </select>
                     </div>

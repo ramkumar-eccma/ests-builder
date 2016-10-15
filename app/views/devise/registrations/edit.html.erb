@@ -62,12 +62,12 @@
                         <% end -%>
                       </div>
                       
-                      <div class="form-group">
+                      <div class="form-group hide">
                         <label>Designation</label> 
                         <%- if I18n.locale== :ar %>
-                          <%= f.text_field :designation,class:'form-control', placeholder:'التعيين',required:"required"%>
+                          <%= f.text_field :designation,class:'form-control', placeholder:'التعيين'%>
                         <% else %>
-                          <%= f.text_field :designation,class:'form-control', placeholder:'Designation',required:"required"%>
+                          <%= f.text_field :designation,class:'form-control', placeholder:'Designation'%>
                         <% end -%>            
                       </div>                                                     
                   </div>
