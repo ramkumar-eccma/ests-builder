@@ -258,7 +258,7 @@ class HomeController < ApplicationController
           @max_no = @max_no.to_i + 1
         end
 
-        @igid=MaterialMaster.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
+        @igid=CorpIgname.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
         @igid.map {|i| @igid=i.igid }
         
          if(@igid=='' || @igid==nil )
@@ -289,7 +289,7 @@ class HomeController < ApplicationController
                 # else
                 #   @igid = @igid.to_i + 1
                 # end
-                @igid=MaterialMaster.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
+                @igid=CorpIgname.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
                 @igid.map {|i| @igid=i.igid }
                 
                  if(@igid=='' || @igid==nil )
@@ -344,7 +344,7 @@ class HomeController < ApplicationController
                 # else
                 #   @igid = @igid.to_i + 1
                 # end
-                @igid=MaterialMaster.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
+                @igid=CorpIgname.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
                 @igid.map {|i| @igid=i.igid }
                 
                  if(@igid=='' || @igid==nil )
@@ -449,46 +449,46 @@ class HomeController < ApplicationController
                   destiny_file = File.join('app','assets','ests_orgin',n2)
                   FileUtils.move tmp.path, destiny_file   
                 
-                    if params[:upload_etsr]
-                        url1="/assets/"
-                        @etsr_cmm="ECCMA.eTSR:"+@cmm
-                        @url = request.protocol + request.host+ url1 + n1
-                        # @sql=EtsrCountryorigin.create(,image: "",image_id: @etsr_cmm)
-                        
-                        if @url
-                        @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_image: @url)
-                        else
-                        @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_image: '')
-   
-                        end
+                if params[:upload_etsr]
+                    url1="/assets/"
+                    @etsr_cmm="ECCMA.eTSR:"+@cmm
+                    @url = request.protocol + request.host+ url1 + n1
+                    # @sql=EtsrCountryorigin.create(,image: "",image_id: @etsr_cmm)
+                    
+                    if @url
+                    @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_image: @url)
+                    else
+                    @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_image: '')
 
-                        # @originInput=params[:originInput].read
-                        # if @originInput.size
-                        #     @etsr_cmm="ECCMA.eTSR:"+@cmm
-                        #     @sql=EtsrCountryorigin.create(image: @originInput,image_id: @etsr_cmm)
-                        # end
                     end
-                elsif @country_orgin!="" && @originInput==""
-                    # @sql=Countryorigin.create(image_name: @country_orgin,image_id: @cmm,image: "N")   
-                    @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_image:'',source_name: @country_orgin,sts: "N")
 
-                    if params[:upload_etsr]
-                        # if params[:pictureInput]
-                            @etsr_cmm="ECCMA.eTSR:"+@cmm
-                            # @sql=EtsrCountryorigin.create(image_name: @country_orgin,image_id: @etsr_cmm,image: "N")
-                             @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_name: @country_orgin,source_image:'',sts: "N")
-                        # end
-                    end
-                elsif @country_orgin!="" && @originInput!=""
-                     @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_image:'',source_name: @country_orgin,sts: "N")
-
-                    if params[:upload_etsr]
-                        # if params[:pictureInput]
-                            @etsr_cmm="ECCMA.eTSR:"+@cmm
-                            @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_name: @country_orgin,source_image:'',sts: "N")
-                        # end
-                    end                 
+                    # @originInput=params[:originInput].read
+                    # if @originInput.size
+                    #     @etsr_cmm="ECCMA.eTSR:"+@cmm
+                    #     @sql=EtsrCountryorigin.create(image: @originInput,image_id: @etsr_cmm)
+                    # end
                 end
+            elsif @country_orgin!="" && @originInput==""
+                # @sql=Countryorigin.create(image_name: @country_orgin,image_id: @cmm,image: "N")   
+                @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_image:'',source_name: @country_orgin,sts: "N")
+
+                if params[:upload_etsr]
+                    # if params[:pictureInput]
+                        @etsr_cmm="ECCMA.eTSR:"+@cmm
+                        # @sql=EtsrCountryorigin.create(image_name: @country_orgin,image_id: @etsr_cmm,image: "N")
+                         @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_name: @country_orgin,source_image:'',sts: "N")
+                    # end
+                end
+            elsif @country_orgin!="" && @originInput!=""
+                 @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_image:'',source_name: @country_orgin,sts: "N")
+
+                if params[:upload_etsr]
+                    # if params[:pictureInput]
+                        @etsr_cmm="ECCMA.eTSR:"+@cmm
+                        @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_name: @country_orgin,source_image:'',sts: "N")
+                    # end
+                end                 
+            end
 
 
             # @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now)
@@ -522,23 +522,23 @@ class HomeController < ApplicationController
                 #       @rxml_value = XmlRg.create(row: @prop1_seq,igid: @igid,RGref: '',class_name: @term_content,propertyRef: @prop1_concept_ID,termID: @prop1_term_ID,definitionID: @prop1_definition_ID,Property_Definition: @prop1_definition_content,property: @prop1_name,Required: 'Y',datecreated: Time.now)
                 # end
 
-                @id1=params[:pictureInput]
-                if @id1 
-                  @name=@id1.original_filename.gsub("-","_")
-                  n1=@cmm+"_"+@name
-                  n2=@cmm+"_"+params[:pictureInput].original_filename.gsub("-","_").to_s
-                  @sql=Image.create(image_name: n1,image_id: @cmm)
-                  tmp=params[:pictureInput].tempfile
-                  destiny_file = File.join('app','assets','ests_image',n2)
-                  FileUtils.move tmp.path, destiny_file
-                    if params[:upload_etsr]
-                        @pictureInput=params[:pictureInput].read
-                        if @pictureInput.size
-                            @etsr_cmm="ECCMA.eTSR:"+@cmm
-                            @sql=EtsrImage.create(image: @pictureInput,image_id: @etsr_cmm)
-                        end
-                    end
-                end
+                # @id1=params[:pictureInput]
+                # if @id1 
+                #   @name=@id1.original_filename.gsub("-","_")
+                #   n1=@cmm+"_"+@name
+                #   n2=@cmm+"_"+params[:pictureInput].original_filename.gsub("-","_").to_s
+                #   @sql=Image.create(image_name: n1,image_id: @cmm)
+                #   tmp=params[:pictureInput].tempfile
+                #   destiny_file = File.join('app','assets','ests_image',n2)
+                #   FileUtils.move tmp.path, destiny_file
+                #     if params[:upload_etsr]
+                #         @pictureInput=params[:pictureInput].read
+                #         if @pictureInput.size
+                #             @etsr_cmm="ECCMA.eTSR:"+@cmm
+                #             @sql=EtsrImage.create(image: @pictureInput,image_id: @etsr_cmm)
+                #         end
+                #     end
+                # end
                 # @originInput=params[:originInput]
                 # @country_orgin=params[:country_orgin]
                 
@@ -576,39 +576,37 @@ class HomeController < ApplicationController
                 # end
             end 
             @val=@prop_name.zip(@prop_value,@prop_concept_ID,@prop_seq,@prop_source,@prop_term_ID,@prop_definition_ID,@prop_definition_content).each do |a,b,c,d,e,f,g,h|
-            @prop_name=a
-            @prop_value=b
-            @prop_concept_ID=c
-            @prop_seq=d
-            @prop_source=e
-            @prop_term_ID=f
-            @prop_definition_ID=g
-            @prop_definition_content=h
+                @prop_name=a
+                @prop_value=b
+                @prop_concept_ID=c
+                @prop_seq=d
+                @prop_source=e
+                @prop_term_ID=f
+                @prop_definition_ID=g
+                @prop_definition_content=h
 
-            if @val_case=='Lower Case'
-                @prop_value=@prop_value.downcase
-            elsif @val_case=='Sentence Case'
-                @prop_value=@prop_value.capitalize
-            else
-                @prop_value=@prop_value.upcase
-            end
-               
-               @rxml_value = RxmlValue.create(row: @prop_seq,Seq: @prop_seq,igid: @igid,cat_id: @cmm,Class: @term_content,classref: @concept_ID,propertyRef: @prop_concept_ID,property: @prop_name,value: @prop_value,source: @prop_source,datecreated: Time.now,lastmodified: Time.now,language: @language_name)
-
-                if params[:upload_etsr]
-                    @etsr_cmm="ECCMA.eTSR:"+@cmm
-                    @etsr_rxml_value = EtsrRxmlValue.create(row: @prop_seq,Seq: @prop_seq,igid: @igid,cat_id: @etsr_cmm,Class: @term_content,classref: @concept_ID,propertyRef: @prop_concept_ID,property: @prop_name,value: @prop_value,source: @prop_source,datecreated: Time.now,lastmodified: Time.now,language: @language_name)
+                if @val_case=='Lower Case'
+                    @prop_value=@prop_value.downcase
+                elsif @val_case=='Sentence Case'
+                    @prop_value=@prop_value.capitalize
+                else
+                    @prop_value=@prop_value.upcase
                 end
-
-             if @temp_decide==0 || @template=="existtemplate"
-                 @rxml_value = XmlRg.create(row: @prop_seq,igid: @igid,RGref: '',class_name: @term_content,propertyRef: @prop_concept_ID,termID: @prop_term_ID,definitionID: @prop_definition_ID,Property_Definition: @prop_definition_content,property: @prop_name,Required: 'Y',datecreated: Time.now)
-             end
-                       
-            end
-             if @temp_decide==0
-                  
-                    @corp_ignames=CorpIgname.create(username: current_user.name,realname: current_user.name,igid: @igid,igversion: '',igref: @igid,Class_id: @concept_ID,Class_Name: @term_content,Class_Definition: @definition_content,Source: '',Source_registry: '',Source_builder: '',Uploaded_Filename: '',Private: '',igid_ref: '0',Done: '',Files_generated: '',ixml_file: '',organization_ID: current_user.Organization_ID,Copy_From: '',datecreated: Time.now)
                    
+                   @rxml_value = RxmlValue.create(row: @prop_seq,Seq: @prop_seq,igid: @igid,cat_id: @cmm,Class: @term_content,classref: @concept_ID,propertyRef: @prop_concept_ID,property: @prop_name,value: @prop_value,source: @prop_source,datecreated: Time.now,lastmodified: Time.now,language: @language_name)
+
+                    if params[:upload_etsr]
+                        @etsr_cmm="ECCMA.eTSR:"+@cmm
+                        @etsr_rxml_value = EtsrRxmlValue.create(row: @prop_seq,Seq: @prop_seq,igid: @igid,cat_id: @etsr_cmm,Class: @term_content,classref: @concept_ID,propertyRef: @prop_concept_ID,property: @prop_name,value: @prop_value,source: @prop_source,datecreated: Time.now,lastmodified: Time.now,language: @language_name)
+                    end
+
+                if @temp_decide==0 || @template=="existtemplate"
+                    @rxml_value = XmlRg.create(row: @prop_seq,igid: @igid,RGref: '',class_name: @term_content,propertyRef: @prop_concept_ID,termID: @prop_term_ID,definitionID: @prop_definition_ID,Property_Definition: @prop_definition_content,property: @prop_name,Required: 'Y',datecreated: Time.now)
+                end
+            end
+             
+            if @temp_decide==0                  
+            @corp_ignames=CorpIgname.create(username: current_user.name,realname: current_user.name,igid: @igid,igversion: '',igref: @igid,Class_id: @concept_ID,Class_Name: @term_content,Class_Definition: @definition_content,Source: '',Source_registry: '',Source_builder: '',Uploaded_Filename: '',Private: '',igid_ref: '0',Done: '',Files_generated: '',ixml_file: '',organization_ID: current_user.Organization_ID,Copy_From: '',datecreated: Time.now)
             end     
             # return false
             flash[:success] = "Succesfully Saved"
@@ -968,7 +966,7 @@ class HomeController < ApplicationController
                 #   @igid = @igid.to_i + 1
                 # end
                 # @igid = @igid
-                @igid=MaterialMaster.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
+                @igid=CorpIgname.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
                 @igid.map {|i| @igid=i.igid }
 
                 if(@igid=='' || @igid==nil )
@@ -1239,13 +1237,13 @@ class HomeController < ApplicationController
                
                @delete_xmlrg = XmlRg.where("igid = ?", @igid).delete_all
 
-               @rxml_value = RxmlValue.where("igid = ?", @igid)
+               @rxml_value = RxmlValue.where("cat_id = ?", @cmm)
 
                 @rxml_value.each do |rxml_value|
                     @temp_rxml_value = RxmlValueDelete.create(row: rxml_value.row,Seq: rxml_value.Seq,igid: rxml_value.igid,cat_id: rxml_value.cat_id,Class: rxml_value.Class,classref: rxml_value.classref,propertyRef: rxml_value.propertyRef,property: rxml_value.property,value: rxml_value.value,datecreated: Time.now,source: rxml_value.source,language: rxml_value.language)
                 end 
 
-                @delete_rxml_value = RxmlValue.where("igid = ?", @igid).delete_all
+                @delete_rxml_value = RxmlValue.where("cat_id = ?", @cmm).delete_all
 
                 if params[:upload_etsr]
                     @rxml_value_beta = EtsrRxmlValue.where("igid = ?", @igid)
@@ -1271,18 +1269,19 @@ class HomeController < ApplicationController
                             @etsr_cmm="ECCMA.eTSR:"+@cmm
                             @url = params[:imageurlco]
                             # @sql=EtsrCountryorigin.create(image_name: @url,image: "",image_id: @etsr_cmm)
-                             @update1=EtsrMaterialMaster.where('cat_id = ?',@etsr_cmm).update_all({short_description: @bs,long_description: @class,lastmodified: Time.now,source_image: @url})  
+                             @update1=EtsrMaterialMaster.where('cat_id = ?',@etsr_cmm).update_all({short_description: @bs,long_description: @class_1,lastmodified: Time.now,source_image: @url})  
                         end
-                    elsif @country_orgin
-                        # @sql=Countryorigin.where("image_id = ?",@cmm).update_all(image_name: @country_orgin,image: "N")   
-                        if params[:upload_etsr]
-                            if params[:pictureInput]
-                                @etsr_cmm="ECCMA.eTSR:"+@cmm
-                                # @sql=EtsrCountryorigin.where("image_id = ?",@etsr_cmm).update_all(image_name: @country_orgin,image: "N")
-                                @update1=EtsrMaterialMaster.where('cat_id = ?',@etsr_cmm).update_all({short_description: @bs,long_description: @class,lastmodified: Time.now,source_name: @country_orgin,sts: "N"})
-                            end
-                        end        
-                    end
+                elsif @country_orgin
+                    # @sql=Countryorigin.where("image_id = ?",@cmm).update_all(image_name: @country_orgin,image: "N") 
+                     @update1=MaterialMaster.where('cat_id = ?',@cmm).update_all({short_description: @bs,long_description: @class_1,lastmodified: Time.now,source_image: n1})  
+                    if params[:upload_etsr]
+                        # if params[:pictureInput]
+                            @etsr_cmm="ECCMA.eTSR:"+@cmm
+                            # @sql=EtsrCountryorigin.where("image_id = ?",@etsr_cmm).update_all(image_name: @country_orgin,image: "N")
+                            @update1=EtsrMaterialMaster.where('cat_id = ?',@etsr_cmm).update_all({short_description: @bs,long_description: @class_1,lastmodified: Time.now,source_name: @country_orgin,sts: "N"})
+                        #   end
+                    end        
+                end
 
                 @val=@prop_name.zip(@prop_value,@prop_concept_ID,@prop_seq,@prop_source,@prop_term_ID,@prop_definition_ID,@prop_definition_content).each do |a,b,c,d,e,f,g,h|
                 @prop_name=a
@@ -1354,7 +1353,7 @@ class HomeController < ApplicationController
             # else
             #   @newigid = @newigid.to_i + 1
             # end  
-            @igid=MaterialMaster.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
+            @igid=CorpIgname.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
             @igid.map {|i| @igid=i.igid }
             
              if(@igid=='' || @igid==nil )

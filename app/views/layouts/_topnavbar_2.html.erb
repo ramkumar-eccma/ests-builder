@@ -112,7 +112,7 @@
             <li>
                <a href="http://eccma.org/etsr_ests" target="_blank"><i class="fa fa-search"></i> <span class="nav-label">View eTSR</span></a> 
             </li>
-            <li class="<% if controller.controller_name == "setting" && controller.action_name == "index" %>active<%end%>">
+            <li class="hide <% if controller.controller_name == "setting" && controller.action_name == "index" %>active<%end%>">
                 <%- if I18n.locale== :ar %> 
                     <%= link_to '<i class="fa fa-cog"></i> <span class="nav-label">إعدادات</span>'.html_safe, settings_path %>
                 <% else %>     
