@@ -11,10 +11,14 @@ gem 'mysql2', '~> 0.3.18'
 # Use wice_grid used for search this is added by me
 gem "wice_grid", '3.6.0.pre4'
 gem 'will_paginate-bootstrap'
+gem 'will_paginate'
 
 # Used for login purpose
 gem 'devise', '3.4.1'
 gem 'devise-i18n-views'
+
+gem 'jquery-datatables-rails'
+gem 'ajax-datatables-rails'
 
 #Using this gem enhances activerecord to change the default behavior for the creation of attribute accessors.Refer =>http://www.rubydoc.info/gems/safe_attributes/1.0.1/
 gem 'safe_attributes'
