@@ -150,7 +150,6 @@ table, th, td {
                                               <td>&nbsp;</td>
                                               <td>&nbsp;</td>
                                               <td>&nbsp;</td>
-                                           
                                           </tr>
                                             <% for a in @data1 %>
                                               <% if a.value2=="VC"
@@ -166,12 +165,9 @@ table, th, td {
                                                 </td>
                                                 <td>
                                                   <input type="button" class="addCF btn btn-xs btn-success btn-circle mainadd<%=a['Seq']%>" name="add<%=a['Seq']%>" style="display: none;" id="addd<%=a['Seq']%>" onClick="add_ro(0);" value="+" title="Add property">
-
                                                 <%  data_count = @data_count.first %>
                                                   <input type="hidden" value="<%= data_count.row %>" name="plusbtn" id="plusbtn">
-                                               
-
-                                                </td> 
+                                               </td> 
                                                 <td>                 
                                                     <%= text_field_tag "prop_value[]",a['value'],class: "form-control input-sm",style:"width: 100% !important"%>
                                                     <%= hidden_field_tag "prop_name[]", a['property'] ,class: "dupcheck"%>
@@ -186,7 +182,8 @@ table, th, td {
                                                     <input class="hidden" type="text" name="prop_definition_ID[]" id="prop_definition_ID" value="<%= xmlrg.definitionID%>">
                                                     <input class="hidden" type="text" name="prop_term_organization_name[]" id="prop_term_organization_name" value="<%= xmlrg.definitionID%>">
                                                     <input class="hidden" type="text" name="prop_definition_content[]" id="prop_definition_content" value="<%= xmlrg.Property_Definition%>">
-                                                    <%= hidden_field_tag "prop_language_name[]", a['language']%>                          
+                                                    <%= hidden_field_tag "prop_language_name[]", a['language']%>     
+                                                    <% end %>                     
                                                 </td>  
                                                 <td>
                                                     <%= text_field_tag "prop_source[]",a['source'],class: "form-control input-sm",style:"width: 100% !important"%> 
@@ -199,8 +196,7 @@ table, th, td {
                                                 <td> 
                                                     <span id="<%= @i %>" onClick="removetablerow(id);" title="Delete property"><i class="fa fa-trash text-danger pull-left"></i></span>
                                                 </td>
-                                              </tr>
-                                            <% end %>
+                                              </tr>                                            
                                             <% @i=@i+1 %> 
                                           <% end %>
                                       </table> 
@@ -276,6 +272,7 @@ table, th, td {
                           <%else%>
                             <%@image.each do |img|%>                  
                              <img alt="image" id ="imgprev" style="width:150px; height:150px;border: 1px solid #1C84C6;" class="img-responsive img-center" src="<%= image_url img.image_name %>"/>  
+                             <%#=image_tag(image_url  img.image_name) , :style => "width:150px; height:150px;border: 1px solid #1C84C6;")%>
                              <input type="hidden" id="imageurl" name="imageurl" value="<%= image_url img.image_name %>">
                              <%#=File.basename(img.image_name)%>                   
                             <% end %>

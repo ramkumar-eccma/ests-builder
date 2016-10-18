@@ -132,7 +132,8 @@
                               <img alt="image" class="img-thumbnail" src="<%= image_url "noimage.jpg" %>"/>
                             <%else%>
                               <%@image.each do |img|%>                  
-                               <img alt="image" class="img-thumbnail"  src="<%= image_url img.image_name %>"/>  
+                               <!-- <img alt="image" class="img-thumbnail"  src="<%= image_url img.image_name %>"/>   -->
+                               <%=image_tag(image_url img.image_name , :class => "img-thumbnail")%>
                                <%#=File.basename(img.image_name)%>                   
                               <% end %>
                             <% end %>
