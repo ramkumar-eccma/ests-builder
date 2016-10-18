@@ -15,9 +15,8 @@ class HomeController < ApplicationController
     def modalclass
         @listall = params[:listall]
 
-        if @listall=='1'
-            
-            @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.language_code='en' and a.concept_type_ID='0161-1#CT-01#1' and a.term_content!='' ORDER BY `b`.`Class_Name` DESC Limit 100"])              
+        if @listall=='1'            
+            @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.language_code='en' and a.concept_type_ID='0161-1#CT-01#1' and a.term_content!='' ORDER BY `b`.`Class_Name` DESC Limit 100"])             
                    
         elsif @listall=='0' 
             @class_name = params[:class_name]
@@ -713,11 +712,11 @@ class HomeController < ApplicationController
             if @imagecount==1
                 @id1=params[:pictureInput]
                 if @id1 
-                  @im= Image.where("image_id = ?",@cmm).delete_all
+                  # @im= Image.where("image_id = ?",@cmm).delete_all
                   @name=@id1.original_filename.gsub("-","_")
                   n1=@cmm+"_"+@name
                   n2=@cmm+"_"+params[:pictureInput].original_filename.gsub("-","_").to_s
-                  @sql=Image.update_all(image_name: n1).where('image_id=?', @cmm)
+                  @sql=Image.where('image_id=?', @cmm).update_all(image_name: n1)
                   tmp=params[:pictureInput].tempfile
                   destiny_file = File.join('app','assets','ests_image',n2)
                   FileUtils.move tmp.path, destiny_file
