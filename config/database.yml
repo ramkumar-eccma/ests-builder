@@ -9,7 +9,7 @@ production:
 
 development:
   adapter: mysql2
-  database: ests_db
+  database: ests_db_test
   pool: 5
   timeout: 5000
   host: 162.144.210.236
@@ -27,7 +27,7 @@ etsr_production:
 
 etsr_development:
   adapter: mysql2
-  database: etsr_beta_new
+  database: etsr_beta_test
   timeout: 5000
   host: 162.144.210.236
   # port: 3306
