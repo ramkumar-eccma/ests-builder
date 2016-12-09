@@ -1,5 +1,10 @@
-<div style="overflow-y: scroll;max-height:500px;">
-  <div id="wait" style="display: none;" align="center"><img alt="image" class="img-responsive" src="<%= image_url '142.gif' %>" /></div> 
+<style>
+.dataTables-example > thead > tr > th{
+  background-color: #1ab394;
+  border-bottom-width: 1px;
+  color:white;
+}
+</style>
   <table class="table table-bordered dataTables-example" id="#example">
     <thead>
       <tr>
@@ -11,6 +16,61 @@
       </tr> 
     </thead> 
     <tbody>  
+      <%@total_pages=(@modal_prop_count.to_f/@per_page.to_i).ceil%>
+       <div class="container">
+          <div class="row  jPager">
+            <%if @listprop=="1" || @listprop=='reset'%>
+            <%if @page=="1"%>
+            <span class=" btn btn-primary btn-xs" disabled><i class="fa fa-angle-left"></i> First</span>
+            <%else%>
+            <span class=" btn btn-primary btn-xs" onclick="func_prop(1);"><i class="fa fa-angle-left"></i> First</span>
+            <%end%>
+            <%if @page=="1"%>
+            <span class=" btn btn-primary btn-xs" disabled><i class="fa fa-angle-double-left"></i> Previous</span>
+            <%else%>
+            <span class=" btn btn-primary btn-xs" onclick="func_prop('<%=@page.to_i-1%>');"><i class="fa fa-angle-double-left"></i> Previous</span>
+            <%end%>
+             <%if @page.to_i==@total_pages.to_f || @total_pages==0%>
+            <span class="btn btn-primary btn-xs"  disabled><i class="fa  fa-angle-double-right"></i> Next</span>
+            <span class="btn btn-primary btn-xs"  disabled><i class="fa  fa-angle-right"></i> Last</span>
+            <%else%>
+            <span class="btn btn-primary btn-xs"  onclick="func_prop('<%=@page.to_i+1%>');"><i class="fa  fa-angle-double-right"></i> Next</span>
+            <span class="btn btn-primary btn-xs"  onclick="func_prop('<%=@total_pages%>');"><i class="fa  fa-angle-right"></i> Last</span>
+            <% end%>
+            <%else%>
+            <%if @page=="1"%>
+             <span class=" btn btn-primary btn-xs" disabled><i class="fa fa-angle-left"></i> First</span>
+            <%else%>
+            <span class=" btn btn-primary btn-xs" onclick="func_prop1(1);"><i class="fa fa-angle-left"></i> First</span>
+            <%end%>
+            <%if @page=="1"%>
+             <span class=" btn btn-primary btn-xs"  disabled><i class="fa fa-angle-double-left"></i> Previous</span>
+            <%else%>
+            <span class=" btn btn-primary btn-xs"  onclick="func_prop1('<%=@page.to_i-1%>');"><i class="fa fa-angle-double-left"></i> Previous</span>
+            <%end%>
+             <%if @page.to_i==@total_pages.to_f || @total_pages==0%>
+             <span class="btn btn-primary btn-xs" disabled><i class="fa  fa-angle-double-right"></i> Next</span>
+             <span class="btn btn-primary btn-xs"  disabled><i class="fa  fa-angle-right"></i> Last</span>
+            <%else%>
+             <span class="btn btn-primary btn-xs"  onclick="func_prop1('<%=@page.to_i+1%>');"><i class="fa  fa-angle-double-right"></i> Next</span>
+            <span class="btn btn-primary btn-xs"  onclick="func_prop1('<%=@total_pages%>');"><i class="fa  fa-angle-right"></i> Last</span>
+            <% end %>
+            <%end%>
+          </div>
+        <%@per_page=10%>
+        <%@startfrom= (@page.to_i-1) * @per_page%>
+        <%@startfrom1=@startfrom+10%>
+    </div>
+    <% if @modal_prop_count.to_i==0%>
+     <span style="color:red">No result found</span>
+    <%else%>
+    <%if @startfrom1>@modal_prop_count%>
+    <span style="color:red">Showing <%=@startfrom.to_i%> to <%=@modal_prop_count.to_i%>  of <%=@modal_prop_count.to_i%> entries</span>
+    <%else%>
+    <span style="color:red">Showing <%=@startfrom.to_i%> to <%=@startfrom1.to_i%>  of <%=@modal_prop_count.to_i%> entries</span>
+    <%end%>
+    <%end%>
+    <br>
     <% @i=0 %>
         <% @modal_prop.each do |modal_prop|%>
         <%
@@ -21,10 +81,8 @@
           @term_organization_name=modal_prop.term_organization_name
           @definition_content=modal_prop.definition_content
           @decode=Base64.encode64(@concept_Id)
-          @a = modal_prop.propertyRef
-
-          # @enable = XmlRg.where("propertyRef = ? AND datedeleted = ?", @concept_Id,'0000-00-00 00').count
-          if @a=="" || @a==nil
+          @a = modal_prop.s
+          if @a=="" || @a=="y"
             @textclr="" 
           else
             @textclr="success"

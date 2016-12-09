@@ -6,7 +6,7 @@ class ConceptDnDatatable < AjaxDatatablesRails::Base
   end
 
   def searchable_columns
-    # Declare strings in this format: ModelName.column_name
+      # Declare strings in this format: ModelName.column_name
     @searchable_columns ||= ['ConceptDn.term_content','ConceptDn.concept_ID','ConceptDn.term_ID','ConceptDn.definition_ID','ConceptDn.term_organization_name','ConceptDn.definition_content']
   end
 
@@ -22,8 +22,7 @@ class ConceptDnDatatable < AjaxDatatablesRails::Base
   end
 
   def get_raw_records
-    # insert query here
+        # insert query here
   end
-
-  # ==== Insert 'presenter'-like methods below if necessary
+    # ==== Insert 'presenter'-like methods below if necessary
 end

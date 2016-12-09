@@ -10,9 +10,9 @@
     <%- if I18n.locale== :ar %>
         <%= stylesheet_link_tag    'applicationrtls', media: 'all', 'data-turbolinks-track' => true %>
         <% else %>
+        <!-- Main javascript files -->
         <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <% end -%>
-    <!-- Main javascript files -->
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
     <style>
@@ -52,22 +52,18 @@
     <% else %>
     <body class="pace-done top-navigation boxed-layout" >
 <% end -%>
-    <!-- Wrapper-->
     <div id="wrapper wrapper-content" class="white-bg check" id="check">
         <% if user_signed_in? %>
             <!-- Navigation -->
             <%#= render 'layouts/navigation' %>
             <!-- Page wraper -->
             <div id="page-wrapper" class="gray-bg">
-
                 <!-- Page wrapper -->
                 <%= render 'layouts/topnavbar_2' %>
-                   
                 <!-- Main view  -->
                 <%= yield %>
                 <!-- Footer -->
                 <%= render 'layouts/footer' %>
-
             </div>
             <!-- End page wrapper-->
         <% else %>

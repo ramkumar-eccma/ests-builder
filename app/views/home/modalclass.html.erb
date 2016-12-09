@@ -1,63 +1,113 @@
-<div style="overflow-y: scroll;max-height:500px;">
-<div id="wait" style="display: none;" align="center"><img alt="image" class="img-responsive" src="<%= image_url '142.gif' %>" /></div> 
+<style>
+.table-bordered > thead > tr > td {
+  background-color: #1ab394;
+  border-bottom-width: 1px;
+  color:white;
+}
+</style>
 <table class="table table-bordered dataTables-example">
-    <thead>
-      <tr>
-    
-        <td>&nbsp;</td>
-        <td>Class ID</td>
-        <td>Class Name</td>
-        <td>Organization</td>
-        <td>Language</td>
-      </tr> 
-
-    </thead> 
-    <tbody>         
-            <% @modal_class.each do |modal_class|%>           
+  <thead>
+    <tr>
+  
+      <td>&nbsp;</td>
+      <td><b>Class ID</b></td>
+      <td><b>Class Name</b></td>
+      <td><b>Organization</b></td>
+      <td><b>Language</b></td>
+    </tr> 
+  </thead> 
+  <tbody> 
+     <%@total_pages=(@modal_class_count.to_f/@per_page.to_i).ceil%>         
+      <div class="container">
+        <div class="row  jPager">                      
+        <%if @listall=="1" || @listall=='reset'%>
+        <%if @page=="1"%>
+        <span class=" btn btn-primary btn-xs" disabled><i class="fa fa-angle-left"></i> First</span>
+        <%else%>
+        <span class=" btn btn-primary btn-xs" onclick="func(1);"><i class="fa fa-angle-left"></i> First</span>
+        <%end%>
+        <%if @page=="1"%>
+        <span class=" btn btn-primary btn-xs"  disabled><i class="fa fa-angle-double-left"></i> Previous</span>
+        <%else%>
+        <span class=" btn btn-primary btn-xs"  onclick="func('<%=@page.to_i-1%>');"><i class="fa fa-angle-double-left"></i> Previous</span>
+        <%end%>
+        <%if @page.to_i==@total_pages.to_f || @total_pages==0%>
+         <span class="btn btn-primary btn-xs"  disabled><i class="fa  fa-angle-double-right"></i> Next</span>
+        <span class="btn btn-primary btn-xs"  disabled><i class="fa  fa-angle-right"></i> Last</span>
+        <%else%>
+          <span class="btn btn-primary btn-xs"  onclick="func('<%=@page.to_i+1%>');"><i class="fa  fa-angle-double-right"></i> Next</span>
+        <span class="btn btn-primary btn-xs"  onclick="func('<%=@total_pages%>');"><i class="fa  fa-angle-right"></i> Last</span>
+        <%end%>
+        <%else%>
+        <%if @page=="1"%>
+         <span class=" btn btn-primary btn-xs"  disabled><i class="fa fa-angle-left"></i> First</span>
+        <%else%>
+         <span class=" btn btn-primary btn-xs"  onclick="func1(1);"><i class="fa fa-angle-left"></i> First</span>
+        <%end%>
+        <%if @page=="1"%>
+         <span class=" btn btn-primary btn-xs"  disabled><i class="fa fa-angle-double-left"></i> Previous</span>
+        <%else%>
+        <span class=" btn btn-primary btn-xs"  onclick="func1('<%=@page.to_i-1%>');"><i class="fa fa-angle-double-left"></i> Previous</span>
+        <%end%>
+         <%if @page.to_i==@total_pages.to_f || @total_pages==0%>
+         <span class="btn btn-primary btn-xs"  disabled><i class="fa  fa-angle-double-right"></i> Next</span>
+        <span class="btn btn-primary btn-xs" disabled><i class="fa  fa-angle-right"></i> Last</span>
+        <%else%>
+        <span class="btn btn-primary btn-xs" onclick="func1('<%=@page.to_i+1%>');"><i class="fa  fa-angle-double-right"></i> Next</span>
+        <span class="btn btn-primary btn-xs"  onclick="func1('<%=@total_pages%>');"><i class="fa  fa-angle-right"></i> Last</span>
+        <%end%>
+        <%end%>
+        </div>
+    <%@per_page=10%>
+        <%@startfrom= (@page.to_i-1) * @per_page%>
+        <%@startfrom1=@startfrom+10%>
+    </div>
+    <% if @modal_class_count.to_i==0%> 
+    <span style="color:red">No result found</span>
+    <%else%>
+    <%if @startfrom1>@modal_class_count%>
+    <span style="color:red">Showing <%=@startfrom.to_i%> to <%=@modal_class_count.to_i%>  of <%=@modal_class_count.to_i%> entries</span>
+    <%else%>
+    <span style="color:red">Showing <%=@startfrom.to_i%> to <%=@startfrom1.to_i%>  of <%=@modal_class_count.to_i%> entries</span>
+    <%end%>
+    <%end%>
+    <br>
+              <% @modal_class.each do |modal_class|%>           
             <div id="modal_class">
               <%
+            
               @term_content=modal_class.term_content
               @concept_Id=modal_class.concept_ID
               @term_ID=modal_class.term_ID
               @definition_ID=modal_class.definition_ID
               @term_organization_name=modal_class.term_organization_name
               @definition_content=modal_class.definition_content               
-              @a = modal_class.Class_id               
+              @a = modal_class.s               
               @decodeclass=Base64.encode64(@term_content)
-              @language_code=modal_class.language_code
+              @language_ID=modal_class.language_ID
              
-             if @a=="" || @a==nil
+             if @a=="" || @a=="y"
                 @textclr="" 
                 @identfy="F"
                 @igid ="0"
-                @concept_name =  @term_content + "||" + @concept_Id + "||" + @term_ID + "||" + @definition_ID + "||" + @term_organization_name + "||" + @definition_content + "||" + modal_class.language_name + "||" + @identfy + "||" + @igid + "||" + @decodeclass + "||" + modal_class.language_code 
+                @concept_name =  @term_content + "||" + @concept_Id + "||" + @term_ID + "||" + @definition_ID + "||" + @term_organization_name + "||" + @definition_content + "||" + modal_class.language_name + "||" + @identfy + "||" + @igid + "||" + @decodeclass + "||" + modal_class.language_ID 
              else
                 @textclr="success" 
-                @identfy="S"
-                @enableigid = CorpIgname.where("Class_id = ? AND datedeleted = ?", @concept_Id,'0000-00-00 00').select(:igid)
-                @enableigid.each do |enableigid|
-                @igid =enableigid.igid 
-                @concept_name =  @term_content + "||" + @concept_Id + "||" + @term_ID + "||" + @definition_ID + "||" + @term_organization_name + "||" + @definition_content + "||" + modal_class.language_name + "||" + @identfy + "||" + @igid + "||" + @decodeclass + "||" + modal_class.language_code 
-                end
-             end
-
-              # @enable = CorpIgname.where("Class_id = ? AND datedeleted = ?", @concept_Id,'0000-00-00 00').select(:Class_id).count
-              # if @enable>=1
-              # else
-              # end             
+                @identfy="S" 
+                @concept_name =  @term_content + "||" + @concept_Id + "||" + @term_ID + "||" + @definition_ID + "||" + @term_organization_name + "||" + @definition_content + "||" + modal_class.language_name + "||" + @identfy + "||" + @decodeclass + "||" + modal_class.language_ID 
+             end                     
             %>
+
               <tr class="<%= @textclr %>">
-                  <td><input type="radio" name="radio_con" id="" value="<%= @concept_name %>" onclick="getclass(this.value);" ></td>
-                  <td><%= modal_class.concept_ID %></td>
-                  <td><%= modal_class.term_content %></td>
-                  <td><%= modal_class.term_organization_name %></td>
-                  <td><%= modal_class.language_name %></td>
+                <td><input type="radio" name="radio_con" id="" value="<%= @concept_name %>" onclick="getclass(this.value);" ></td>
+                <td><%= modal_class.concept_ID %></td>
+                <td><%= modal_class.term_content %></td>
+                <td><%= modal_class.term_organization_name %></td>
+                <td><%= modal_class.language_name %></td>
               </tr>
 
             </div>
-            <% end %>   
-      
-            <%= @modal_class1 %>
+            <% end %>
     </tbody>                   
 </table>
 </div>

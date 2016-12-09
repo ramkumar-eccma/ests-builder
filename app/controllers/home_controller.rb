@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
     require 'will_paginate/array'
+    before_filter :setting, :only => [:index, :view, :update, :addnew]
+
     def index
         @organization = current_user.Organization_ID
         if params[:search]
@@ -14,101 +16,195 @@ class HomeController < ApplicationController
 
     def modalclass
         @listall = params[:listall]
+        @page = params[:page]
+        @per_page=10
+        @startfrom= (@page.to_i-1) * @per_page;
 
-        if @listall=='1'            
-            @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.language_code='en' and a.concept_type_ID='0161-1#CT-01#1' and a.term_content!='' ORDER BY `b`.`Class_Name` DESC Limit 100"])             
-                   
+        if @listall=='1'
+            @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` WHERE  concept_type_ID = '0161-1#CT-01#1'"])
+
+                  @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id  AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE  a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page} "])
+
         elsif @listall=='0' 
             @class_name = params[:class_name]
             @organization = params[:organization]
             @language = params[:language]
             @query = params[:query]
-            
+           
             if @query=="like"
                 if @class_name!=''  && @organization!='' && @language!=''
-                   @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.language_code= ? and a.concept_type_ID= ? and a.term_content!= ? and a.term_organization_name = ? AND a.term_content like ? ORDER BY `b`.`Class_Name` DESC Limit 100",@language,'0161-1#CT-01#1','',@organization,"%#{@class_name}%"])
+
+                @modal_class_count = ConceptDn.count_by_sql(["SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID = ? and term_organization_name = ? and term_content like ?","#{@language}","#{@organization}","%#{@class_name}%"])
+
+                @modal_class = ConceptDn.find_by_sql(["SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID = ?  AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content like ? AND a.term_content <>  '' AND a.term_organization_name = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.language_ID = ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content like ? AND a.term_content <>  '' AND a.term_organization_name = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID = ? AND a.term_content like ? AND a.term_organization_name = ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page} ","#{@language}","%#{@class_name}%","#{@organization}","#{@language}","%#{@class_name}%","#{@organization}","#{@language}","%#{@class_name}%","#{@organization}"]) 
+
  
                 elsif @class_name!='' && @organization=='' && @language==''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.term_content like ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',"%#{@class_name}%"])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and   term_content like ?","%#{@class_name}%"])
+
+                    @modal_class =  ConceptDn.find_by_sql(["SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID =  ? and a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content like ? AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content like ? AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b  WHERE a.language_ID =  ? and a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content like ? AND a.term_content <>  '') LIMIT  #{@startfrom},#{@per_page}","#{@language}","%#{@class_name}%","%#{@class_name}%","#{@language}","%#{@class_name}%"])
+
+
  
                 elsif @organization!='' && @class_name=='' && @language==''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.term_organization_name = ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@organization])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID = '0161-1#LG-000001#1'and term_organization_name = ? ","%#{@organization}%"])
+
+                    @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '' AND a.term_organization_name = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content <>  ''  AND a.term_organization_name = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID = '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  ''AND a.term_organization_name = ?) LIMIT #{@startfrom},#{@per_page} ","#{@organization}","#{@organization}","#{@organization}"]) 
+
 
                 elsif @language!='' && @organization=='' && @class_name==''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.language_code = ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@language])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID  = ?","#{@language}"])
+
+                    @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID = ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  ''  UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID = ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page} ","#{@language}","#{@language}","#{@language}"]) 
              
                 elsif @class_name!='' && @organization!='' && @language==''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.term_organization_name = ? AND a.term_content like ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@organization,"%#{@class_name}%"])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID ='0161-1#LG-000001#1' and term_organization_name = ? and term_content like ?","#{@organization}","%#{@class_name}%"])
+
+                    @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content like ? AND a.term_content <>  '' AND a.term_organization_name = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content like ? AND a.term_content <>  ''  AND a.term_organization_name = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '' AND a.term_content like ? AND a.term_organization_name = ?) LIMIT #{@startfrom},#{@per_page} ","%#{@class_name}%","#{@organization}","%#{@class_name}%","#{@organization}","%#{@class_name}%","#{@organization}"]) 
+
 
                 elsif @class_name!='' && @organization=='' && @language!=''
-                     @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID = ? and a.term_content!= ? AND a.language_code = ? AND a.term_content like ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@language,"%#{@class_name}%"])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID = ? and term_content like ?","#{@language}","%#{@class_name}%"])
+
+                     @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content like  ? AND  a.language_ID =  ? AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content like ? AND a.language_ID = ? AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.term_content like  ? AND a.language_ID = ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '' ) LIMIT #{@startfrom},#{@per_page} ","%#{@class_name}%",
+                         "#{@language}","%#{@class_name}%","#{@language}","%#{@class_name}%","#{@language}"]) 
+
 
                 elsif @class_name=='' && @organization!='' && @language!=''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.language_code = ? AND a.term_organization_name = ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@language,@organization])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID ='#{@language}' and term_organization_name = ? and term_content like ?","#{@organization}","#{@class_name}%"])
+
+                    @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.term_organization_name = ? AND a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  ''  UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.term_organization_name = ? AND a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE  a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '' AND a.term_organization_name = ? AND a.language_ID =  ?) LIMIT #{@startfrom},#{@per_page} ","#{@organization}","#{@language}","#{@organization}","#{@language}","#{@organization}","#{@language}"]) 
+
        
                 elsif @class_name=='' && @organization=='' && @language==''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.language_code='en' and a.concept_type_ID='0161-1#CT-01#1' and a.term_content!='' ORDER BY `b`.`Class_Name` DESC Limit 100"])          
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` WHERE  concept_type_ID = '0161-1#CT-01#1'"])
+
+                    @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id  AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID='0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page} "]) 
+   
                  
                 end 
             elsif @query=="startwith"
                 if @class_name!=''  && @organization!='' && @language!=''
-                   @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.language_code= ? and a.concept_type_ID= ? and a.term_content!= ? and a.term_organization_name = ? AND a.term_content like ? ORDER BY `b`.`Class_Name` DESC Limit 100",@language,'0161-1#CT-01#1','',@organization,"%#{@class_name}%"])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and language_ID = ? and term_organization_name = ? and term_content like ?","#{@language}","#{@organization}","#{@class_name}%"])
+
+                     @modal_class = ConceptDn.find_by_sql(["SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID = ?  AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content like ? AND a.term_content <>  '' AND a.term_organization_name = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.language_ID = ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content like ? AND a.term_content <>  '' AND a.term_organization_name = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID = ? AND a.term_content like ? AND a.term_organization_name = ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page} ","#{@language}","#{@class_name}%","#{@organization}","#{@language}","#{@class_name}%","#{@organization}","#{@language}","#{@class_name}%","#{@organization}"]) 
 
                 elsif @class_name!='' && @organization=='' && @language==''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.term_content like ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',"#{@class_name}%"])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and   term_content like ?","#{@class_name}%"])
+
+                   @modal_class =  ConceptDn.find_by_sql(["SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID =  ? and a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content like ? AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content like ? AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b  WHERE a.language_ID =  ? and a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content like ? AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page}","#{@language}","#{@class_name}%","#{@class_name}%","#{@language}","#{@class_name}%"])
+
+
 
                 elsif @organization!='' && @class_name=='' && @language==''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.term_organization_name = ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@organization])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and   term_organization_name = ? ","#{@organization}"])
+
+                         @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '' AND a.term_organization_name = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content <>  ''  AND a.term_organization_name = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE  a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  ''AND a.term_organization_name = ?) LIMIT #{@startfrom},#{@per_page} ","#{@organization}","#{@organization}","#{@organization}"]) 
 
                 elsif @language!='' && @organization=='' && @class_name==''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.language_code = ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@language])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID = ?","#{@language}"])
+                    
+                    @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID = ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  ''  UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID = ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page} ","#{@language}","#{@language}","#{@language}"]) 
+             
                 
                 elsif @class_name!='' && @organization!='' && @language==''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.term_organization_name = ? AND a.term_content like ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@organization,"#{@class_name}%"])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID ='0161-1#LG-000001#1' and term_organization_name = ? and term_content like ?","#{@organization}","#{@class_name}%"])
+
+                    @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content like ? AND a.term_content <>  '' AND a.term_organization_name = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content like ? AND a.term_content <>  ''  AND a.term_organization_name = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '' AND a.term_content like ? AND a.term_organization_name = ?) LIMIT #{@startfrom},#{@per_page} ","#{@class_name}%","#{@organization}","#{@class_name}%","#{@organization}","#{@class_name}%","#{@organization}"]) 
+
 
                 elsif @class_name!='' && @organization=='' && @language!=''
-                     @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID = ? and a.term_content!= ? AND a.language_code = ? AND a.term_content like ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@language,"#{@class_name}%"])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID = ? and term_content like ?","#{@language}","#{@class_name}%"])
+
+                     @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content like  ? AND  a.language_ID =  ? AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content like ? AND a.language_ID = ? AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.term_content like  ? AND a.language_ID = ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '' ) LIMIT #{@startfrom},#{@per_page} ","#{@class_name}%","#{@language}%","#{@class_name}%","#{@language}","#{@class_name}%","#{@language}"])  
 
                 elsif @class_name=='' && @organization!='' && @language!=''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.language_code = ? AND a.term_organization_name = ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@language,@organization])
+
+                     @modal_class_count = ConceptDn.count_by_sql(["SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID ='#{@language}' and term_organization_name = ? and term_content like ?","#{@organization}","#{@class_name}%"])
+
+                      @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.term_organization_name = ? AND a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  ''  UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.term_organization_name = ? AND a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE  a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '' AND a.term_organization_name = ? AND a.language_ID =  ?) LIMIT #{@startfrom},#{@per_page} ","#{@organization}","#{@language}","#{@organization}","#{@language}","#{@organization}","#{@language}"]) 
+
 
                 elsif @class_name=='' && @organization=='' && @language==''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.language_code='en' and a.concept_type_ID='0161-1#CT-01#1' and a.term_content!='' ORDER BY `b`.`Class_Name` DESC Limit 100"])          
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` WHERE  concept_type_ID = '0161-1#CT-01#1'"])
+
+                  @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id  AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID='0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page} "])  
+         
                 end  
             else
                 if @class_name!=''  && @organization!='' && @language!=''
-                   @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.language_code= ? and a.concept_type_ID= ? and a.term_content!= ? and a.term_organization_name = ? AND a.term_content = ? ORDER BY `b`.`Class_Name` DESC Limit 100",@language,'0161-1#CT-01#1','',@organization,@class_name])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID = ? and term_organization_name = ? and term_content = ?","#{@language}","#{@organization}","#{@class_name}"])
+
+                   @modal_class = ConceptDn.find_by_sql(["SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID = ?  AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content = ? AND a.term_content <>  '' AND a.term_organization_name = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.language_ID = ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content = ? AND a.term_content <>  '' AND a.term_organization_name = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID = ? AND a.term_content = ? AND a.term_organization_name = ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page} ","#{@language}","#{@class_name}","#{@organization}","#{@language}","#{@class_name}","#{@organization}","#{@language}","#{@class_name}","#{@organization}"]) 
 
                 elsif @class_name!='' && @organization=='' && @language==''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.term_content = ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@class_name])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID ='0161-1#LG-000001#1' and term_content = ?","#{@class_name}"])
+
+                   @modal_class =  ConceptDn.find_by_sql(["SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID =  '0161-1#LG-000001#1' and a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content like ? AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content = ? AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b  WHERE a.language_ID =  '0161-1#LG-000001#1' and a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content  = ? AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page}","#{@class_name}","#{@class_name}","#{@class_name}"])
+
 
                 elsif @organization!='' && @class_name=='' && @language==''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.term_organization_name = ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@organization])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID ='0161-1#LG-000001#1' and term_organization_name = ? ","#{@organization}"])
+
+                            @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '' AND a.term_organization_name = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content <>  ''  AND a.term_organization_name = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID = '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  ''AND a.term_organization_name = ?) LIMIT #{@startfrom},#{@per_page} ","#{@organization}","#{@organization}","#{@organization}"]) 
 
                 elsif @language!='' && @organization=='' && @class_name==''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.language_code = ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@language])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID = ? ","#{@language}"])
+                      
+                    @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID = ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  ''  UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID = ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page} ","#{@language}","#{@language}","#{@language}"]) 
+             
                 
                 elsif @class_name!='' && @organization!='' && @language==''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.term_organization_name = ? AND a.term_content = ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@organization,"#{@class_name}%"])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID ='0161-1#LG-000001#1' and  term_organization_name = ? and term_content = ?","#{@organization}","#{@class_name}"])
+
+                       @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content = ? AND a.term_content <>  '' AND a.term_organization_name = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content = ? AND a.term_content <>  ''  AND a.term_organization_name = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '' AND a.term_content = ? AND a.term_organization_name = ?) LIMIT #{@startfrom},#{@per_page} ","#{@class_name}","#{@organization}","#{@class_name}","#{@organization}","#{@class_name}","#{@organization}"]) 
+
 
                 elsif @class_name!='' && @organization=='' && @language!=''
-                     @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID = ? and a.term_content!= ? AND a.language_code = ? AND a.term_content = ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@language,@class_name])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID = ? and term_content = ?","#{@language}","#{@class_name}"])
+
+                        @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content =  ? AND  a.language_ID =  ? AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content = ? AND a.language_ID = ? AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.term_content =  ? AND a.language_ID = ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '' ) LIMIT #{@startfrom},#{@per_page} ","#{@class_name}","#{@language}","#{@class_name}","#{@language}","#{@class_name}","#{@language}"]) 
+
 
                 elsif @class_name=='' && @organization!='' && @language!=''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.concept_type_ID=? and a.term_content!=? AND a.language_code = ? AND a.term_organization_name = ? ORDER BY `b`.`Class_Name` DESC Limit 100",'0161-1#CT-01#1','',@language,@organization])
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-01#1' and  language_ID = ? and term_organization_name = ? ","#{@language}","#{@organization}"])
+
+                     @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.term_organization_name = ? AND a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  ''  UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.term_organization_name = ? AND a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE  a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '' AND a.term_organization_name = ? AND a.language_ID =  ?) LIMIT #{@startfrom},#{@per_page} ","#{@organization}","#{@language}","#{@organization}","#{@language}","#{@organization}","#{@language}"]) 
 
                 elsif @class_name=='' && @organization=='' && @language==''
-                    @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.language_code='en' and a.concept_type_ID='0161-1#CT-01#1' and a.term_content!='' ORDER BY `b`.`Class_Name` DESC Limit 100"])          
+
+                     @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` WHERE  concept_type_ID = '0161-1#CT-01#1'"])
+
+                    @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id  AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID='0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page} "])       
                 end   
             end 
         elsif @listall=='reset' 
-            # @modal_class = ConceptDn.where("language_code = ? AND concept_type_ID = ? AND term_content!= ? ", 'en','0161-1#CT-01#1','').select(:term_content,:concept_ID,:term_ID,:definition_ID,:term_organization_name,:definition_content,:language_name).distinct.order(term_content: :asc).limit(100)
-            @modal_class = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,a.language_code,b.Class_id FROM `concept_dn` a left join `corp_ignames` b ON a.concept_id=b.Class_id where a.language_code='en' and a.concept_type_ID='0161-1#CT-01#1' and a.term_content!='' ORDER BY `b`.`Class_Name` DESC Limit 100"])
-        end
 
-      
-              
+            @modal_class_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` WHERE  concept_type_ID = '0161-1#CT-01#1'"])
 
+                  @modal_class = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'s' FROM  `concept_dn` a,  `corp_ignames` b WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id  AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,a.language_ID,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-01#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `corp_ignames` b WHERE a.language_ID='0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-01#1' AND a.concept_id = b.Class_id AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page} "])
+        end                    
             
         respond_to do |format|
           format.html {render :layout => false}
@@ -117,138 +213,190 @@ class HomeController < ApplicationController
 
     def modalprop
         @listprop = params[:listprop]
+        @page = params[:page]
+        @per_page=10
+        @startfrom= (@page.to_i-1) * @per_page;  
+         
         if @listprop == '1'
-            # @modal_prop = ConceptDn.where("language_code = ? AND concept_type_ID = ? AND term_content!= ? ", 'en','0161-1#CT-02#1','').select(:term_content,:concept_ID,:term_ID,:definition_ID,:term_organization_name,:definition_content,:language_name).distinct.order(term_content: :asc).limit(1000)        
-            @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where a.language_code='en' and a.concept_type_ID='0161-1#CT-02#1' and a.term_content!='' ORDER BY `b`.`Class_Name` DESC Limit 100"])   
+            @modal_prop_count=ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID='0161-1#CT-02#1'"])
+            @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE  a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE  a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE  a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '') LIMIT  #{@startfrom},#{@per_page} "])  
 
         elsif @listprop == '0'
             @property_name = params[:property_name]
             @organization_prop = params[:organization_prop]
             @language_prop = params[:language_prop]
-            @query = params[:query]
-
-            # if params[:reject]
-            #     @reject = params[:reject].reject(&:blank?)
-            #     @reject = @reject.map(&:inspect).join(', ')
-            #     # @reject = @reject.to_s.gsub('"', '')
-            #     if @reject ==""
-            #        @reject = "('"+@reject+"')" 
-            #     else
-            #         @reject = "("+@reject+")"  
-            #     end  
-            # else 
-            #     @reject="('')"  
-            # end          
+            @query = params[:query_prop]
             
             if @query=="like"
+              
+
                 if @property_name!=''  && @organization_prop!='' && @language_prop!=''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_content like ? AND term_organization_name = ? AND language_code = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100","%#{@property_name}%",@organization_prop,@language_prop,'0161-1#CT-02#1',''])
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where  concept_type_ID = '0161-1#CT-02#1' and  language_ID = ? and term_organization_name = ? and term_content like ?","#{@language_prop}","#{@organization_prop}","%#{@property_name}%"])
+
+                    @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name =? AND language_ID = ? AND term_content like ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND term_organization_name = ? AND language_ID = ? AND term_content like ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name =? AND language_ID = ? AND term_content like ?) LIMIT #{@startfrom},#{@per_page}","#{@organization_prop}","#{@language_prop}","%#{@property_name}%","#{@organization_prop}","#{@language_prop}","%#{@property_name}%","#{@organization_prop}","#{@language_prop}","%#{@property_name}%",])  
+
 
                 elsif @property_name!='' && @organization_prop=='' && @language_prop==''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_content like ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100","%#{@property_name}%",'0161-1#CT-02#1',''])       
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and  term_content like ?","%#{@property_name}%"])
+
+                    @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  ''  AND term_content like ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  ''  AND term_content like ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_content like ?) LIMIT #{@startfrom},#{@per_page}","#{@language_prop}","%#{@property_name}%","%#{@property_name}%","#{@language_prop}","%#{@property_name}%"])  
 
                 elsif @organization_prop!='' && @property_name=='' && @language_prop==''
-                   @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_organization_name = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100", @organization_prop,'0161-1#CT-02#1',''])       
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID ='0161-1#LG-000001#1' and term_organization_name = ? ","#{@organization_prop}"])
+
+                    @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND term_organization_name = ?  AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ?) LIMIT #{@startfrom},#{@per_page}","%#{@organization_prop}%","%#{@organization_prop}%","%#{@organization_prop}%"])         
 
                 elsif @language_prop!='' && @organization_prop=='' && @property_name==''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where language_code = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100",@language_prop,'0161-1#CT-02#1',''])       
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID = ?","%#{@language_prop}%"])
+
+                     @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND language_ID = ?  UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND language_ID = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  ''  AND language_ID = ? ) LIMIT #{@startfrom},#{@per_page}","#{@language_prop}","#{@language_prop}","#{@language_prop}"])  
+
                 elsif @property_name!='' && @organization_prop!='' && @language_prop==''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_content like ? AND term_organization_name = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100","%#{@property_name}%",@organization_prop,'0161-1#CT-02#1',''])       
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID ='0161-1#LG-000001#1' and term_organization_name = ? and term_content like ?","#{@organization_prop}","%#{@property_name}%"])
+
+                     @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ?  AND term_content like ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND term_organization_name = ? AND term_content like ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ?  AND term_content like ?) LIMIT #{@startfrom},#{@per_page}","#{@organization_prop}","%#{@property_name}%","#{@organization_prop}","%#{@property_name}%","#{@organization_prop}","%#{@property_name}%"])      
 
                 elsif @property_name!='' && @organization_prop=='' && @language_prop!=''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_content like ? AND language_code = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100","%#{@property_name}%",@language_prop,'0161-1#CT-02#1','']) 
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID = ?  and term_content like ?","#{@language_prop}","%#{@property_name}%"])
+
+                     @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND language_ID =? AND term_content like ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND  language_ID = ? AND term_content like ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND language_ID =? AND term_content like ?) LIMIT #{@startfrom},#{@per_page}","#{@language_prop}","%#{@property_name}%","#{@language_prop}","%#{@property_name}%","#{@language_prop}","%#{@property_name}%"])  
 
                 elsif @property_name=='' && @organization_prop!='' && @language_prop!=''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_content like ? AND language_code = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100","%#{@property_name}%",@language_prop,'0161-1#CT-02#1',''])  
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID ='#{@language_prop}' and term_organization_name = ? and term_content like ?","#{@organization_prop}","#{@property_name}%"])
+
+                     @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ? AND language_ID = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND term_organization_name = ? AND language_ID = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ? AND language_ID = ?) LIMIT #{@startfrom},#{@per_page}","#{@organization_prop}","#{@language_prop}","#{@organization_prop}","#{@language_prop}","#{@organization_prop}","#{@language_prop}"])   
 
                 elsif @property_name=='' && @organization_prop=='' && @language_prop==''
-                   @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where language_code = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100",'en','0161-1#CT-02#1',''])
 
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1'"])
+
+                   @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page}"]) 
                 end    
             elsif @query=="startwith"
                if @property_name!=''  && @organization_prop!='' && @language_prop!=''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_content like ? AND term_organization_name = ? AND language_code = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100","#{@property_name}%",@organization_prop,@language_prop,'0161-1#CT-02#1',''])
+
+                         @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID = ? and term_organization_name = ? and term_content like ?","#{@language_prop}","#{@organization_prop}","#{@property_name}%"])
+
+                        @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ? AND language_ID = ? AND term_content like ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND term_organization_name = ? AND language_ID = ? AND term_content like ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ? AND language_ID = ? AND term_content like ?) LIMIT #{@startfrom},#{@per_page}","#{@organization_prop}","#{@language_prop}","#{@property_name}%","#{@organization_prop}","#{@language_prop}","#{@property_name}%","#{@organization_prop}","#{@language_prop}","#{@property_name}%"]) 
 
                 elsif @property_name!='' && @organization_prop=='' && @language_prop==''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_content like ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100","#{@property_name}%",'0161-1#CT-02#1',''])       
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID ='0161-1#LG-000001#1' and  term_content like ?","#{@property_name}%"])
+
+                      @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  ''  AND term_content like ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  ''  AND term_content like ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_content like ?) LIMIT #{@startfrom},#{@per_page}","#{@property_name}%","#{@property_name}%","#{@property_name}%"])        
 
                 elsif @organization_prop!='' && @property_name=='' && @language_prop==''
-                   @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_organization_name = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100", @organization_prop,'0161-1#CT-02#1',''])       
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and  term_organization_name = ? ","#{@organization_prop}"])
+
+                     @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE  a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND term_organization_name = ?  AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE  a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ?) LIMIT #{@startfrom},#{@per_page}","#{@organization_prop}","#{@organization_prop}","#{@organization_prop}"])        
 
                 elsif @language_prop!='' && @organization_prop=='' && @property_name==''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where language_code = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100",@language_prop,'0161-1#CT-02#1',''])       
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID = ? ","#{@language_prop}"])
+
+                    @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND language_ID = ?  UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND language_ID = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND language_ID = ?) LIMIT #{@startfrom},#{@per_page}","#{@language_prop}","#{@language_prop}","#{@language_prop}","#{@language_prop}","#{@language_prop}","#{@language_prop}"]) 
+
                 elsif @property_name!='' && @organization_prop!='' && @language_prop==''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_content like ? AND term_organization_name = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100","#{@property_name}%",@organization_prop,'0161-1#CT-02#1',''])       
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID ='0161-1#LG-000001#1' and term_organization_name = ? and term_content like ?","#{@organization_prop}","#{@property_name}%"])
+
+                    @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ?  AND term_content like ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND term_organization_name = ? AND term_content like ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ?  AND term_content like ?) LIMIT #{@startfrom},#{@per_page}","#{@organization_prop}","#{@property_name}%","#{@organization_prop}","#{@property_name}%","#{@organization_prop}","#{@property_name}%"])   
 
                 elsif @property_name!='' && @organization_prop=='' && @language_prop!=''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_content like ? AND language_code = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100","#{@property_name}%",@language_prop,'0161-1#CT-02#1','']) 
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID = ? and term_content like ?","#{@language_prop}","#{@property_name}%"])
+
+                   @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_content like? AND language_ID = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND term_content like ? AND language_ID = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_content like ? AND language_ID = ?) LIMIT #{@startfrom},#{@per_page}","#{@property_name}%","#{@language_prop}","#{@property_name}%","#{@language_prop}","#{@property_name}%","#{@language_prop}"])   
 
                 elsif @property_name=='' && @organization_prop!='' && @language_prop!=''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_content like ? AND language_code = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100","#{@property_name}%",@language_prop,'0161-1#CT-02#1',''])  
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID = ? and term_organization_name like ?","#{@language_prop}","#{@organization_prop}"])
+
+                      @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ? AND language_ID = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND term_organization_name = ? AND language_ID = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  ? AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ? AND language_ID = ?) LIMIT #{@startfrom},#{@per_page}","#{@organization_prop}","#{@language_prop}","#{@organization_prop}","#{@language_prop}","#{@organization_prop}","#{@language_prop}","#{@language_prop}","#{@language_prop}","#{@language_prop}"])  
+
 
                 elsif @property_name=='' && @organization_prop=='' && @language_prop==''
-                   @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where language_code = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100",'en','0161-1#CT-02#1',''])
 
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1'"])
+
+                      @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE  a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE  a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE  a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page}"]) 
                 end   
             else
                 if @property_name!=''  && @organization_prop!='' && @language_prop!=''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_content = ? AND term_organization_name = ? AND language_code = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100",@property_name,@organization_prop,@language_prop,'0161-1#CT-02#1',''])
+
+                         @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID = ? and term_organization_name = ? and term_content = ?","#{@language_prop}","#{@organization_prop}","#{@property_name}"])
+
+                        @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ? AND language_ID = ? AND term_content = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND term_organization_name = ? AND language_ID = ? AND term_content = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ? AND language_ID = ? AND term_content = ? ) LIMIT #{@startfrom},#{@per_page}","#{@organization_prop}","#{@language_prop}","#{@property_name}","#{@organization_prop}","#{@language_prop}","#{@property_name}","#{@organization_prop}","#{@language_prop}","#{@property_name}"])  
 
                 elsif @property_name!='' && @organization_prop=='' && @language_prop==''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_content = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100",@property_name,'0161-1#CT-02#1',''])       
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and  term_content = ?","#{@property_name}"])
+
+                      @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE  a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  ''  AND term_content = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE  a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  ''  AND term_content = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE  a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  ''  AND term_content = ? ) LIMIT #{@startfrom},#{@per_page}","#{@property_name}","#{@property_name}","#{@property_name}"])       
 
                 elsif @organization_prop!='' && @property_name=='' && @language_prop==''
-                   @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_organization_name = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100", @organization_prop,'0161-1#CT-02#1',''])       
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID ='0161-1#LG-000001#1' and term_organization_name = ? ","#{@organization_prop}"])
+
+                         @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND term_organization_name = ?  AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  ''  AND term_organization_name = ? ) LIMIT #{@startfrom},#{@per_page}","#{@organization_prop}","#{@organization_prop}","#{@organization_prop}"])          
 
                 elsif @language_prop!='' && @organization_prop=='' && @property_name==''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where language_code = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100",@language_prop,'0161-1#CT-02#1',''])       
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID = ?","#{@language_prop}"])
+
+                     @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND language_ID = ?  UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND language_ID = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  ''AND language_ID = ?) LIMIT #{@startfrom},#{@per_page}","#{@language_prop}","#{@language_prop}","#{@language_prop}"]) 
+
                 elsif @property_name!='' && @organization_prop!='' && @language_prop==''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_content = ? AND term_organization_name = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100",@property_name,@organization_prop,'0161-1#CT-02#1',''])       
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID ='0161-1#LG-000001#1' and term_organization_name = ? and term_content = ?","#{@organization_prop}","#{@property_name}"])
+
+                      @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ?  AND term_content = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND term_organization_name = ? AND term_content = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ?  AND term_content = ? ) LIMIT #{@startfrom},#{@per_page}","#{@organization_prop}","#{@property_name}","#{@organization_prop}","#{@property_name}","#{@organization_prop}","#{@property_name}"])    
 
                 elsif @property_name!='' && @organization_prop=='' && @language_prop!=''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_content = ? AND language_code = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100",@property_name,@language_prop,'0161-1#CT-02#1','']) 
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID = ? and term_content = ?","#{@language_prop}","#{@property_name}"])
+
+                    @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_content = ? AND language_ID = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND term_content = ? AND language_ID = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  ''  AND term_content = ? AND language_ID = ?) LIMIT #{@startfrom},#{@per_page}","#{@property_name}","#{@language_prop}","#{@property_name}","#{@language_prop}","#{@property_name}","#{@language_prop}"])   
 
                 elsif @property_name=='' && @organization_prop!='' && @language_prop!=''
-                    @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where term_content = ? AND language_code = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100",@property_name,@language_prop,'0161-1#CT-02#1',''])  
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1' and language_ID = ? and term_organization_name = ? ","#{@language_prop}","#{@organization_prop}"])
+
+                      @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' AND term_organization_name = ? AND language_ID = ? UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND term_organization_name = ? AND language_ID = ? AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  ''  AND term_organization_name = ? AND language_ID = ?) LIMIT #{@startfrom},#{@per_page}","#{@organization_prop}","#{@language_prop}","#{@organization_prop}","#{@language_prop}","#{@organization_prop}","#{@language_prop}"])      
 
                 elsif @property_name=='' && @organization_prop=='' && @language_prop==''
-                   @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where language_code = ? AND concept_type_ID = ? AND term_content!= ? ORDER BY `b`.`Class_Name` DESC Limit 100",'en','0161-1#CT-02#1',''])
+
+                     @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID = '0161-1#CT-02#1'"])
+
+                      @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.language_ID =  '0161-1#LG-000001#1' AND a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page}"]) 
 
                 end            
             end           
         elsif @listprop == 'reset'
-            # if params[:reject]
-            #     @reject = params[:reject].reject(&:blank?)
-            #     @reject = @reject.map(&:inspect).join(', ')
-            #     # @reject = @reject.to_s.gsub('"', '')
-            #     if @reject ==""
-            #        @reject = "('"+@reject+"')" 
-            #     else
-            #         @reject = "("+@reject+")"  
-            #     end
-            #     @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef"]).distinct.order(term_content: :asc).limit(1000)
 
-            #     # @modal_prop = ConceptDn.where("language_code = ? AND concept_type_ID = ? AND term_content!= ? AND concept_ID not in #{@reject}", 'en','0161-1#CT-02#1','').select(:term_content,:concept_ID,:term_ID,:definition_ID,:term_organization_name,:definition_content,:language_name).distinct.order(term_content: :asc).limit(1000)
-            # else
-                @modal_prop = ConceptDn.find_by_sql(["SELECT distinct a.term_content,a.concept_ID,a.term_ID,a.definition_ID,a.term_organization_name,a.definition_content,a.language_name,b.propertyRef FROM `concept_dn` a left join `xml_rg` b ON a.concept_id=b.propertyRef where a.language_code='en' and a.concept_type_ID='0161-1#CT-02#1' and a.term_content!='' ORDER BY `b`.`Class_Name` DESC Limit 100"]) 
-                # @modal_prop = ConceptDn.where("language_code = ? AND concept_type_ID = ? AND term_content!= ? ", 'en','0161-1#CT-02#1','').select(:term_content,:concept_ID,:term_ID,:definition_ID,:term_organization_name,:definition_content,:language_name).distinct.order(term_content: :asc).limit(1000)            
-            # end
-                
+             @modal_prop_count = ConceptDn.count_by_sql([" SELECT count(*) from `concept_dn` where concept_type_ID='0161-1#CT-02#1'"])
 
-            
-            # @modal_prop = ConceptDn.where("language_code = ? AND concept_type_ID = ? AND term_content!= ? ", 'en','0161-1#CT-02#1','').select(:term_content,:concept_ID,:term_ID,:definition_ID,:term_organization_name,:definition_content,:language_name).distinct.order(term_content: :asc).limit(100)
+                   @modal_prop = ConceptDn.find_by_sql([" SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'s' FROM  `concept_dn` a,  `xml_rg` b WHERE  a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '' UNION SELECT DISTINCT a.term_content, a.concept_ID, a.term_ID, a.definition_ID, a.term_organization_name, a.definition_content, a.language_name,'y' FROM  `concept_dn` a WHERE  a.concept_type_ID =  '0161-1#CT-02#1' AND a.term_content <>  '' AND a.concept_ID not in (SELECT DISTINCT a.concept_ID FROM  `concept_dn` a,  `xml_rg` b WHERE a.concept_type_ID =  '0161-1#CT-02#1' AND a.concept_id = b.propertyRef AND a.term_content <>  '') LIMIT #{@startfrom},#{@per_page}"]) 
+
+           
         end
         respond_to do |format|
           format.html {render :layout => false}
-          # format.json {render :layout => false, :text => @modal_prop.to_json }
         end   
     end
 
     def addnew
-        @lang = Orglanguage.select('language_code, language_name').where("avilable=?",'y')
+        @lang = Orglanguage.select('language_ID, language_name').where("avilable=?",'y')
         @org = Organization.select('Legal_name').where("avilable = ?",'y')
 
-        # @org=ConceptDn.select(:term_organization_name).distinct
         @max_no=(MaterialMaster.maximum("cmm_material_no"))
 
         if(@max_no=='' || @max_no==nil )
@@ -282,12 +430,7 @@ class HomeController < ApplicationController
             elsif  @class_igid!=@igid1  && @igid1!=''
                 @igid = params[:class_igid] 
             else
-                #  @igid=(CorpIgname.maximum("igid"))
-                # if(@igid=='' || @igid==nil )
-                #   @igid='100001'
-                # else
-                #   @igid = @igid.to_i + 1
-                # end
+              
                 @igid=CorpIgname.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
                 @igid.map {|i| @igid=i.igid }
                 
@@ -309,7 +452,6 @@ class HomeController < ApplicationController
             @definition_content = params[:definition_content]
             @language_name = params[:language_name]
             @legacy = params[:legacy]
-
             @prop_name = params[:prop_name]
             @prop_concept_ID = params[:prop_concept_ID]
             @prop_term_ID = params[:prop_term_ID]
@@ -319,7 +461,6 @@ class HomeController < ApplicationController
             @prop_language_name = params[:prop_language_name]
             @prop_value = params[:prop_value]
             @prop_source = params[:prop_source]
-            # @prop_seq = params[:prop_seq]
             @prop_mandatory = params[:prop_mandatory]    
             @prop_seq=params[:prop_name].length
             @prop_seq=1..@prop_seq
@@ -336,13 +477,6 @@ class HomeController < ApplicationController
           
             
             if  @temp_decide==0
-              
-                # @igid=(CorpIgname.maximum("igid"))
-                # if(@igid=='' || @igid==nil )
-                #   @igid='100001'
-                # else
-                #   @igid = @igid.to_i + 1
-                # end
                 @igid=CorpIgname.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
                 @igid.map {|i| @igid=i.igid }
                 
@@ -357,67 +491,57 @@ class HomeController < ApplicationController
                 @igid = @igid.to_s
                 @cmm = @cmm.to_s
 
-            # if @template == "newtemplate"
                @id1=params[:pictureInput]
-                if @id1 
+                if @id1
                   @name=@id1.original_filename.gsub("-","_")
                   n1=@cmm+"_"+@name
                   n2=@cmm+"_"+params[:pictureInput].original_filename.gsub("-","_").to_s
                   @sql=Image.create(image_name: n1,image_id: @cmm)
                   tmp=params[:pictureInput].tempfile
-                  destiny_file = File.join('app','assets','ests_image',n2)
+                  destiny_file = File.join('public','images','ests_images',n2)
                   FileUtils.move tmp.path, destiny_file
 
                     if params[:upload_etsr]
-                        # @pictureInput=params[:pictureInput].read
-                        # if @pictureInput.size
-                            url1="/assets/"
+                     
+                            url1="/images/ests_images/"
                             @etsr_cmm="ECCMA.eTSR:"+@cmm
                             @url = request.protocol + request.host+ url1 + n1
                             @sql=EtsrImage.create(image_name: @url,image: "",image_id: @etsr_cmm)
-                        # end
+                  
                     end
-                end
-                
-            # end
-                
-            results=ActiveRecord::Base.connection.execute("select * from `ests_db`.settings")
-            results.each(:as => :hash) do |res|
-                @z=res["class_prop_sep_SD"]
-                @y=res["prop_value_sep_LD"]
-                @x=res["class_prop_sep_LD"]
-                @sh_case=res["short_desc_case"]
-                @lg_case=res["long_desc_case"]
-                @val_case=res["value_case"]
-                @len_ld=res["length_LD"]
-                @len_sd=res["length_SD"]
-
+                end           
 
                 @b = @prop_name.zip(@prop_value).delete_if{ |x| x[1]==""}.collect{|y| y[0]+@y+y[1]}
                 @v=params[:prop_value].reject(&:blank?)
                 @bs= @term_content 
                 @class_1= @term_content 
-
+                    
                 
                 @v.each do |a|
                     @bs1= @bs+@z+a
                     if @bs1.length <= @len_sd.to_i
                         @bs=@bs+@z+a
+                    elsif @len_sd==0
+                        @bs=@bs+@z+a
                     end       
                 end
-                @b.each do |s|
-                  @lg=@class_1+@x+s
-                  if @lg.length>=@len_ld.to_i && @len_ld=='0'
-                      @class_1=@class_1+@x+s
 
-                  elsif @lg.length<=@len_ld.to_i && @len_ld!='0'
-                      @class_1=@class_1+@x+s
-                  end
-                end   
+                @b.each do |s|
+                      @lg=@class_1+@x+s
+                    
+                       if @lg.length<=@len_ld.to_i
+                         @class_1=@class_1+@x.to_s+s
+
+                        elsif @len_ld.to_i==0
+                            @class_1=@class_1+@x+s
+                        end
+                    end   
+
+                
 
                 if @sh_case=='Lower Case'
                     @bs=@bs.downcase
-                elsif @sh_case=='Sentence Case'|| @lg_case=='Not Set'
+                elsif @sh_case=='Sentence Case'|| @sh_case=='Not Set'
                     @bs=@bs.capitalize
                 else 
                     @bs=@bs.upcase
@@ -430,72 +554,48 @@ class HomeController < ApplicationController
                   else
                     @class_1=@class_1.upcase
                 end
-            end
-            # a = @prop_name
-            # if a.find_all { |e| a.count(e) > 1 }
-            #     flash.now[:success] = 'Message sent!'
-            # else 
+
+        
 
             if @originInput!="" && @country_orgin==""
                   @nameorigin=params[:originInput].original_filename.gsub("-","_")
                   n1=@cmm+"_"+@nameorigin
                   n2=@cmm+"_"+params[:originInput].original_filename.gsub("-","_").to_s
-                  # @sql=Countryorigin.create(image_name: n1,image_id: @cmm)
 
                    @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_image: n1)
 
                   tmp=params[:originInput].tempfile
-                  destiny_file = File.join('app','assets','ests_orgin',n2)
+                  destiny_file = File.join('public','images','ests_orgin',n2)
                   FileUtils.move tmp.path, destiny_file   
                 
                 if params[:upload_etsr]
-                    url1="/assets/"
+                    url1="/images/ests_orgin/"
                     @etsr_cmm="ECCMA.eTSR:"+@cmm
-                    @url = request.protocol + request.host+ url1 + n1
-                    # @sql=EtsrCountryorigin.create(,image: "",image_id: @etsr_cmm)
-                    
+                    @url = request.protocol + request.host+ url1 + n1                    
                     if @url
-                    @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_image: @url)
+                    @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_image: @url,source_name:'')
                     else
-                    @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_image: '')
+                    @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_image: '',source_name:'')
 
                     end
 
-                    # @originInput=params[:originInput].read
-                    # if @originInput.size
-                    #     @etsr_cmm="ECCMA.eTSR:"+@cmm
-                    #     @sql=EtsrCountryorigin.create(image: @originInput,image_id: @etsr_cmm)
-                    # end
                 end
             elsif @country_orgin!="" && @originInput==""
-                # @sql=Countryorigin.create(image_name: @country_orgin,image_id: @cmm,image: "N")   
                 @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_image:'',source_name: @country_orgin,sts: "N")
 
                 if params[:upload_etsr]
-                    # if params[:pictureInput]
                         @etsr_cmm="ECCMA.eTSR:"+@cmm
-                        # @sql=EtsrCountryorigin.create(image_name: @country_orgin,image_id: @etsr_cmm,image: "N")
                          @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_name: @country_orgin,source_image:'',sts: "N")
-                    # end
                 end
             elsif @country_orgin!="" && @originInput!=""
                  @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_image:'',source_name: @country_orgin,sts: "N")
 
                 if params[:upload_etsr]
-                    # if params[:pictureInput]
                         @etsr_cmm="ECCMA.eTSR:"+@cmm
                         @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_name: @country_orgin,source_image:'',sts: "N")
-                    # end
                 end                 
             end
 
-
-            # @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now)
-
-            # if params[:upload_etsr]
-            #     @etsr_cmm="ECCMA.eTSR:"+@cmm
-            #     @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '')
-            # end
             if @template == "existtemplate"
                 @igid = params[:igid].squish!
                 @delete_xmlrg = XmlRgDelete.where("igid = ?",@igid).delete_all
@@ -508,71 +608,6 @@ class HomeController < ApplicationController
 
                 @delete_xmlrg = XmlRg.where("igid = ?",@igid).delete_all
 
-                # @val1=@prop_name.zip(@prop1_value,@prop1_concept_ID,@prop1_seq,@prop1_source,@prop1_term_ID,@prop1_definition_ID,@prop1_definition_content).each do |a,b,c,d,e,f,g,h|
-                #     @prop1_name=a
-                #     @prop1_value=b
-                #     @prop1_concept_ID=c
-                #     @prop1_seq=d
-                #     @prop1_source=e
-                #     @prop1_term_ID=f
-                #     @prop1_definition_ID=g
-                #     @prop1_definition_content=h
-
-                #       @rxml_value = XmlRg.create(row: @prop1_seq,igid: @igid,RGref: '',class_name: @term_content,propertyRef: @prop1_concept_ID,termID: @prop1_term_ID,definitionID: @prop1_definition_ID,Property_Definition: @prop1_definition_content,property: @prop1_name,Required: 'Y',datecreated: Time.now)
-                # end
-
-                # @id1=params[:pictureInput]
-                # if @id1 
-                #   @name=@id1.original_filename.gsub("-","_")
-                #   n1=@cmm+"_"+@name
-                #   n2=@cmm+"_"+params[:pictureInput].original_filename.gsub("-","_").to_s
-                #   @sql=Image.create(image_name: n1,image_id: @cmm)
-                #   tmp=params[:pictureInput].tempfile
-                #   destiny_file = File.join('app','assets','ests_image',n2)
-                #   FileUtils.move tmp.path, destiny_file
-                #     if params[:upload_etsr]
-                #         @pictureInput=params[:pictureInput].read
-                #         if @pictureInput.size
-                #             @etsr_cmm="ECCMA.eTSR:"+@cmm
-                #             @sql=EtsrImage.create(image: @pictureInput,image_id: @etsr_cmm)
-                #         end
-                #     end
-                # end
-                # @originInput=params[:originInput]
-                # @country_orgin=params[:country_orgin]
-                
-                # if @originInput!="" && @country_orgin==""
-                #   @nameorigin=params[:originInput].original_filename.gsub("-","_")
-                #   n1=@cmm+"_"+@nameorigin
-                #   n2=@cmm+"_"+params[:originInput].original_filename.gsub("-","_").to_s
-                #   @sql=Countryorigin.where("cat_id = ?",@cmm).update_all(image_name: n1,image_id: @cmm)
-                #   tmp=params[:originInput].tempfile
-                #   destiny_file = File.join('app','assets','ests_orgin',n2)
-                #   FileUtils.move tmp.path, destiny_file   
-                #     if params[:upload_etsr]
-                #         @originInput=params[:originInput].read
-                #         if @originInput.size
-                #             @etsr_cmm="ECCMA.eTSR:"+@cmm
-                #             @sql=EtsrCountryorigin.where("cat_id = ?",@etsr_cmm).update_all(image: @originInput,image_id: @etsr_cmm)
-                #         end
-                #     end
-                # elsif @country_orgin!="" && @originInput==""
-                #     @sql=Countryorigin.where("cat_id = ?",@cmm).update_all(image_name: @country_orgin,image_id: @cmm,image: "N")   
-                #     if params[:upload_etsr]
-                #         if params[:pictureInput]
-                #             @etsr_cmm="ECCMA.eTSR:"+@cmm
-                #             @sql=EtsrCountryorigin.where("cat_id = ?",@etsr_cmm).update_all(image_name: @country_orgin,image_id: @etsr_cmm,image: "N")
-                #         end
-                #     end
-                # elsif @country_orgin!="" && @originInput!=""
-                #     @sql=Countryorigin.create(image_name: @country_orgin,image_id: @cmm,sts: "N")    
-                #     if params[:upload_etsr]
-                #         if params[:pictureInput]
-                #             @etsr_cmm="ECCMA.eTSR:"+@cmm
-                #             @sql=EtsrCountryorigin.where("cat_id = ?",@etsr_cmm).update_all(image_name: @country_orgin,image_id: @etsr_cmm,image: "N")
-                #         end
-                #     end                 
-                # end
             end 
             @val=@prop_name.zip(@prop_value,@prop_concept_ID,@prop_seq,@prop_source,@prop_term_ID,@prop_definition_ID,@prop_definition_content).each do |a,b,c,d,e,f,g,h|
                 @prop_name=a
@@ -607,13 +642,13 @@ class HomeController < ApplicationController
             if @temp_decide==0                  
             @corp_ignames=CorpIgname.create(username: current_user.name,realname: current_user.name,igid: @igid,igversion: '',igref: @igid,Class_id: @concept_ID,Class_Name: @term_content,Class_Definition: @definition_content,Source: '',Source_registry: '',Source_builder: '',Uploaded_Filename: '',Private: '',igid_ref: '0',Done: '',Files_generated: '',ixml_file: '',organization_ID: current_user.Organization_ID,Copy_From: '',datecreated: Time.now)
             end     
-            # return false
-            flash[:success] = "Succesfully Saved"
+            flash[:success] = "Successfully Saved"
             redirect_to controller: 'home',action: 'view', cat_id: @cmm
         end         
     end
 
-    def view
+    def view        
+
         @cat_id=params[:cat_id]        
         @len=Setting.where("organization_ID=123")
         @data=MaterialMaster.where("cat_id = ?",@cat_id)
@@ -621,33 +656,20 @@ class HomeController < ApplicationController
         
         @data_count=RxmlValue.where("cat_id = ? and datedeleted = ?",@cat_id,'0000-00-00 00:00:00').select(:row,:igid).limit(1).order(row: :desc)
 
-        # @data2=MaterialMaster.where("cat_id = ?",@cat_id).select(:igid).limit(1)
         @image=Image.where("image_id = ?",@cat_id)
         @imagecount=Image.where("image_id = ?",@cat_id).count
         @cmm="ECCMA.eTSR:"+@cat_id
         @etsr_mm=EtsrMaterialMaster.where("cat_id = ? and datedeleted = ?",@cmm,'0000-00-00 00:00:00').count
-
-        # @imageorigin=Countryorigin.where("image_id = ?",@cat_id)
-        # @imagecount=Image.where("image_id = ?",@cat_id).count
-
-        # @lang = ConceptDn.group(:language_code).select('language_code,language_name')
-        # @org=ConceptDn.select(:term_organization_name).distinct
-        @lang = Orglanguage.select('language_code, language_name').where("avilable=?",'y')
+        @lang = Orglanguage.select('language_ID, language_name').where("avilable=?",'y')
         @org = Organization.select('Legal_name').where("avilable = ?",'y')
     end
 
     def dictionary_detail
-        # if session[:user_id]
         vars = request.query_parameters
         @esci = vars['esci']
         @esci = Base64.decode64(@esci)
-        #@mm = User.where("id = ?", 4).select( "user_fname, user_lname")
         @mm =ConceptDn.where("concept_ID = ? ", @esci )
-        #@con_dn =Concept_dn.where("concept_ID = ? AND  ", @esci)
-        #@con_dn =Term_dn.where("concept_ID = ? AND term_ID = ? AND definition_ID = ? ", @esci, @term ,@definition)
-        #   else
-        #   render 'sessions/login'
-        # end
+
     end
 
     def destroy
@@ -662,7 +684,6 @@ class HomeController < ApplicationController
         @destroy= "ECCMA.eTSR:"+@destroy
         @mm = EtsrMaterialMaster.where('cat_id =?',@destroy).delete_all
         @rv = EtsrRxmlValue.where('cat_id =?',@destroy).delete_all
-        # @co = EtsrCountryorigin.where('image_id =?',@destroy).delete_all
         @im = EtsrImage.where('image_id =?',@destroy).delete_all
         redirect_to :back
         flash[:success] = "Deleted Successfully!"
@@ -696,38 +717,21 @@ class HomeController < ApplicationController
             @originInput=params[:originInput]
             @country_orgin=params[:country_orgin]
 
-
-            results=ActiveRecord::Base.connection.execute("select * from `ests_db`.settings")
-            results.each(:as => :hash) do |res|
-            @z=res["class_prop_sep_SD"]
-            @y=res["prop_value_sep_LD"]
-            @x=res["class_prop_sep_LD"]
-            @sh_case=res["short_desc_case"]
-            @lg_case=res["long_desc_case"]
-            @val_case=res["value_case"]
-            @len_ld=res["length_LD"]
-            @len_sd=res["length_SD"]
-
             @imagecount=Image.where("image_id = ?",@id).count
             if @imagecount==1
                 @id1=params[:pictureInput]
                 if @id1 
-                  # @im= Image.where("image_id = ?",@cmm).delete_all
                   @name=@id1.original_filename.gsub("-","_")
                   n1=@cmm+"_"+@name
                   n2=@cmm+"_"+params[:pictureInput].original_filename.gsub("-","_").to_s
+                   
                   @sql=Image.where('image_id=?', @cmm).update_all(image_name: n1)
                   tmp=params[:pictureInput].tempfile
-                  destiny_file = File.join('app','assets','ests_image',n2)
+                  destiny_file = File.join('public','images','ests_images',n2)
                   FileUtils.move tmp.path, destiny_file
 
                     if params[:upload_etsr]
-                        # url1="/assets/"
-                        # @etsr_cmm="ECCMA.eTSR:"+@cmm
-                        # @url = request.protocol + request.host+ url1 + n1
-                        # @sql=EtsrImage.update_all(image_name: @url).where('image_id=?', @etsr_cmm)
-
-                        url1="/assets/"
+                          url1="/images/ests_images/"
                         @etsr_cmm="ECCMA.eTSR:"+@cmm
                         @url = request.protocol + request.host+ url1 + n1
                         @sql=EtsrImage.create(image_name: @url,image: "",image_id: @etsr_cmm)
@@ -740,19 +744,15 @@ class HomeController < ApplicationController
                   @name=@id1.original_filename.gsub("-","_")
                   n1=@cmm+"_"+@name
                   n2=@cmm+"_"+params[:pictureInput].original_filename.gsub("-","_").to_s
+                  
                   @sql=Image.create(image_name: n1,image_id: @cmm)
                   tmp=params[:pictureInput].tempfile
-                  destiny_file = File.join('app','assets','ests_image',n2)
+                  destiny_file = File.join('public','images','ests_images',n2)
                   FileUtils.move tmp.path, destiny_file
 
                     if params[:upload_etsr]
-                        # @pictureInput=params[:pictureInput].read
-                        # if @pictureInput.size
-                        #     @etsr_cmm="ECCMA.eTSR:"+@cmm
-                        #     @im= EtsrImage.where("image_id = ?",@etsr_cmm).delete_all
-                        #     @sql=EtsrImage.create(image: @pictureInput,image_id: @etsr_cmm)
-                        # end
-                        url1="/assets/"
+                      
+                        url1= "/images/ests_images/"
                         @etsr_cmm="ECCMA.eTSR:"+@cmm
                         @url = request.protocol + request.host+ url1 + n1
                         @sql=EtsrImage.create(image_name: @url,image: "",image_id: @etsr_cmm)
@@ -760,26 +760,28 @@ class HomeController < ApplicationController
                 end   
             end
                 
-
+                
                 @v=params[:prop_value].reject(&:blank?)
-
                 @b=@prop.zip(@v1).delete_if{ |x| x[1]==""}.collect{|y| y[0]+@y+y[1]}
                 @b.each do |s|
-                    @v.each do |a|
-                        @bs1=@bs+@z+a
-                        if @bs1.length<=@len_sd.to_i
+                   @v.each do |a|
+                        @bs1= @bs+@z+a
+                        if @bs1.length <= @len_sd.to_i
+                            @bs=@bs+@z+a
+                        elsif @len_sd==0
                             @bs=@bs+@z+a
                         end       
                     end
 
                     @lg=@class+@x+s
-                    
-                    if @lg.length>=@len_ld.to_i && @len_ld=='0'
-                        @class=@class+@x+s
-                    elsif @lg.length<=@len_ld.to_i && @len_ld!='0'
-                        @class=@class+@x+s
+                    if @lg.length<=@len_ld.to_i
+                         @class=@class+@x.to_s+s
+
+                    elsif @len_ld.to_i==0
+                        @class=@class+@x.to_s+s                        
                     end
                 end
+
 
                 if @sh_case=='Lower Case'
                     @bs=@bs.downcase
@@ -796,33 +798,17 @@ class HomeController < ApplicationController
                 else
                     @class=@class.upcase
                 end
-            end
             if @originInput
                   @nameorigin=params[:originInput].original_filename.gsub("-","_")
                   n1=@cmm+"_"+@nameorigin
                   n2=@cmm+"_"+params[:originInput].original_filename.gsub("-","_").to_s
-                  # @sql=Countryorigin.where("image_id = ?",@cmm).update_all(image_name: n1)
                   @update1=MaterialMaster.where('cat_id = ?',@id).update_all({short_description: @bs,long_description: @class,lastmodified: Time.now,source_image: n1})
                   tmp=params[:originInput].tempfile
-                  destiny_file = File.join('app','assets','ests_orgin',n2)
+                  destiny_file = File.join('public','images','ests_orgin',n2)
                   FileUtils.move tmp.path, destiny_file   
-                
-                    # if params[:upload_etsr]                        
-                    #     url1="/assets/"
-                    #     @etsr_cmm="ECCMA.eTSR:"+@cmm
-                    #     @url = request.protocol + request.host+ url1 + n1
-                    #     @sql=EtsrCountryorigin.create(image_name: @url,image: "",image_id: @etsr_cmm)
-                    # end
+            
                 elsif @country_orgin
-                    # @sql=Countryorigin.where("image_id = ?",@cmm).update_all(image_name: @country_orgin,image: "N")   
                     @update1=MaterialMaster.where('cat_id = ?',@id).update_all({short_description: @bs,long_description: @class,lastmodified: Time.now,source_name: @country_orgin,sts: "N"})
-                    # if params[:upload_etsr]
-                    #     # if params[:pictureInput]
-                    #     #     @etsr_cmm="ECCMA.eTSR:"+@cmm
-                    #     #     # @co= Countryorigin.where("image_id = ?",@etsr_cmm).delete_all
-                    #     #     @sql=EtsrCountryorigin.where("image_id = ?",@etsr_cmm).update_all(image_name: @country_orgin,image: "N")
-                    #     # end
-                    # end        
                 end            
 
             @id=params[:cmm]
@@ -841,17 +827,14 @@ class HomeController < ApplicationController
                     @cs=@cs.downcase
                     @ds=@ds.downcase
                     @es=@es.downcase
-                    # @source=@source.downcase
-                elsif @val_case=='Sentence Case'
+                elsif @val_case=='Sentence Case' || @val_case=='Not Set'
                     @cs=@cs.capitalize
                     @ds=@ds.capitalize
                     @es=@es.capitalize
-                    # @source=@source.capitalize
                 else
                     @cs=@cs.upcase
                     @ds=@ds.upcase
                     @es=@es.upcase
-                    # @source=@source.upcase
                 end
                 @update=RxmlValue.where('Seq = ? AND property = ? AND cat_id = ? ',@es,@ds,@id).update_all(value: @cs,source: @source,lastmodified: Time.now)                    
             end
@@ -866,16 +849,14 @@ class HomeController < ApplicationController
                       @nameorigin=params[:originInput].original_filename.gsub("-","_")
                       n1=@cmm+"_"+@nameorigin
                       n2=@cmm+"_"+params[:originInput].original_filename.gsub("-","_").to_s
-                      # @sql=Countryorigin.where("image_id = ?",@cmm).update_all(image_name: n1)
-                        url1="/assets/"
+                        url1="/images/ests_orgin"
                         @etsr_cmm="ECCMA.eTSR:"+@cmm
                         @url = request.protocol + request.host+ url1 + n1
                       @update1=EtsrMaterialMaster.where('cat_id = ?',@etsr_cmm).update_all({short_description: @bs,long_description: @class,lastmodified: Time.now,source_image: @url})  
                       tmp=params[:originInput].tempfile
-                      destiny_file = File.join('app','assets','ests_orgin',n2)
+                      destiny_file = File.join('public','images','ests_orgin',n2)
                       FileUtils.move tmp.path, destiny_file 
                     elsif @country_orgin
-                        # @sql=Countryorigin.where("image_id = ?",@cmm).update_all(image_name: @country_orgin,image: "N")   
                         @update1=EtsrMaterialMaster.where('cat_id = ?',@etsr_cmm).update_all({short_description: @bs,long_description: @class,lastmodified: Time.now,source_name: @country_orgin,sts: "N"})
                     end 
                     for a,b,c,d in @b.zip(@c,@a,@d)
@@ -887,17 +868,14 @@ class HomeController < ApplicationController
                             @cs=@cs.downcase
                             @ds=@ds.downcase
                             @es=@es.downcase
-                            # @source=@source.downcase
                         elsif @val_case=='Sentence Case'
                             @cs=@cs.capitalize
                             @ds=@ds.capitalize
                             @es=@es.capitalize
-                            # @source=@source.capitalize
                         else
                             @cs=@cs.upcase
                             @ds=@ds.upcase
                             @es=@es.upcase
-                            # @source=@source.upcase
                         end
                         @update=EtsrRxmlValue.where('Seq = ? AND property = ? AND cat_id = ? ',@es,@ds,@etsr_cmm).update_all(value: @cs,source: @source,lastmodified: Time.now)
                     end
@@ -915,7 +893,7 @@ class HomeController < ApplicationController
                 end 
 
             end
-            flash[:success] = "Succesfully Saved"
+            flash[:success] = "Successfully Saved"
             redirect_to controller: 'home',action: 'view',cat_id: @cmm
         end
 
@@ -927,9 +905,6 @@ class HomeController < ApplicationController
                 @material_id = params[:material_id]
                 @term_content = params[:class_name]
                 @concept_ID = params[:concept_ID]
-                # @term_ID = params[:term_ID]
-                # @definition_ID = params[:definition_ID]
-                # @term_organization_name = params[:term_organization_name]
                 @definition_content = params[:definition_content]
                 @language_name = params[:language_name]
                 @legacy = params[:legacy]
@@ -938,12 +913,9 @@ class HomeController < ApplicationController
                 @prop_concept_ID = params[:prop_concept_ID]
                 @prop_term_ID = params[:prop_term_ID]
                 @prop_definition_ID = params[:prop_definition_ID]
-                # @prop_term_organization_name = params[:prop_term_organization_name]
                 @prop_definition_content = params[:prop_definition_content]
-                # @prop_language_name = params[:prop_language_name]
                 @prop_value = params[:prop_value]
                 @prop_source = params[:prop_source]
-                # @prop_seq = params[:prop_seq]
                 @prop_mandatory = params[:prop_mandatory]    
                 @prop_seq=params[:prop_name].length
                 @prop_seq=1..@prop_seq
@@ -951,7 +923,6 @@ class HomeController < ApplicationController
                 @country_orgin=params[:country_orgin]
 
                 @cmm=(MaterialMaster.maximum("cmm_material_no"))
-                # @igid=(CorpIgname.maximum("igid"))    
 
                 if(@cmm=='' || @cmm==nil )
                   @cmm='2000001'
@@ -959,12 +930,7 @@ class HomeController < ApplicationController
                   @cmm = @cmm.to_i + 1
                 end
 
-                # if(@igid=='' || @igid==nil )
-                #   @igid='100001' 
-                # else
-                #   @igid = @igid.to_i + 1
-                # end
-                # @igid = @igid
+               
                 @igid=CorpIgname.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
                 @igid.map {|i| @igid=i.igid }
 
@@ -977,16 +943,7 @@ class HomeController < ApplicationController
                 @igid='0161-1#'+'IG-'+@igid.to_s+'#1'
                 @cmm = @cmm
 
-                results=ActiveRecord::Base.connection.execute("select * from `ests_db`.settings")
-                results.each(:as => :hash) do |res|
-                    @z=res["class_prop_sep_SD"]
-                    @y=res["prop_value_sep_LD"]
-                    @x=res["class_prop_sep_LD"]
-                    @sh_case=res["short_desc_case"]
-                    @lg_case=res["long_desc_case"]
-                    @val_case=res["value_case"]
-                    @len_ld=res["length_LD"]
-                    @len_sd=res["length_SD"]
+               
 
                     @imagecount=Image.where("image_id = ?",@cmm).count
 
@@ -995,19 +952,20 @@ class HomeController < ApplicationController
                       @name=@id1.original_filename.gsub("-","_")
                       n1=@cmm+"_"+@name
                       n2=@cmm+"_"+params[:pictureInput].original_filename.gsub("-","_").to_s
+                      
                       @sql=Image.create(image_name: n1,image_id: @cmm)
                       tmp=params[:pictureInput].tempfile
-                      destiny_file = File.join('app','assets','ests_image',n2)
+                      destiny_file = File.join('public','images','ests_images',n2)
                       FileUtils.move tmp.path, destiny_file
 
                         if params[:upload_etsr]
-                            url1="/assets/"
+                            url1="/images/ests_images/"
                             @etsr_cmm="ECCMA.eTSR:"+@cmm
                             @url = request.protocol + request.host+ url1 + n1
                             @sql=EtsrImage.create(image_name: @url,image: "",image_id: @etsr_cmm)
                         end
                     elsif @id1==""
-                        url1="/assets/"
+                        url1="/images/ests_images"
                         @etsr_cmm="ECCMA.eTSR:"+@cmm
                         @url = params[:imageurl]
                         @sql=EtsrImage.create(image_name: @url,image: "",image_id: @etsr_cmm)
@@ -1017,7 +975,7 @@ class HomeController < ApplicationController
                     @v=params[:prop_value].reject(&:blank?)
                     @bs= @term_content 
                     @class_1= @term_content 
-
+                   
                     
                     @v.each do |a|
                         @bs1= @bs+@z+a
@@ -1027,12 +985,13 @@ class HomeController < ApplicationController
                     end
                     @b.each do |s|
                       @lg=@class_1+@x+s
-                      if @lg.length>=@len_ld.to_i && @len_ld=='0'
-                          @class_1=@class_1+@x+s
+                    
+                       if @lg.length<=@len_ld.to_i
+                         @class_1=@class_1+@x.to_s+s
 
-                      elsif @lg.length<=@len_ld.to_i && @len_ld!='0'
-                          @class_1=@class_1+@x+s
-                      end
+                        elsif @len_ld.to_i==0
+                            @class_1=@class_1+@x+s
+                        end
                     end   
 
                     if @sh_case=='Lower Case'
@@ -1050,23 +1009,20 @@ class HomeController < ApplicationController
                       else
                         @class_1=@class_1.upcase
                     end
-                end  
 
                  if @originInput!="" && @country_orgin==""
                       @nameorigin=params[:originInput].original_filename.gsub("-","_")
                       n1=@cmm+"_"+@nameorigin
                       n2=@cmm+"_"+params[:originInput].original_filename.gsub("-","_").to_s
-                      # @sql=Countryorigin.create(image_name: n1,image_id: @cmm)
                       @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_image: n1)
 
                       tmp=params[:originInput].tempfile
-                      destiny_file = File.join('app','assets','ests_orgin',n2)
+                      destiny_file = File.join('public','images','ests_orgin',n2)
                       FileUtils.move tmp.path, destiny_file   
                         if params[:upload_etsr]
-                            url1="/assets/"
+                            url1="/images/ests_orgin"
                             @etsr_cmm="ECCMA.eTSR:"+@cmm
                             @url = params[:imageurlco]
-                            # @sql=EtsrCountryorigin.create(image_name: @url,image: "",image_id: @etsr_cmm)     
                             if @url   
                             @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @etsr_cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_image: @url)
                             else
@@ -1075,14 +1031,12 @@ class HomeController < ApplicationController
 
                         end
                     elsif @country_orgin!="" && @originInput==""
-                        # @sql=Countryorigin.create(image_name: @country_orgin,image_id: @cmm,image: "N")   
 
                         @material_master=MaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class_name: @term_content,class_id: @concept_ID,cmm_material_no: @cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,source_image: '',source_name: @country_orgin,sts: "N")
 
                         if params[:upload_etsr]
                             if params[:pictureInput]
                                 @etsr_cmm="ECCMA.eTSR:"+@cmm
-                                # @sql=EtsrCountryorigin.create(image_name: @country_orgin,image_id: @etsr_cmm,image: "N")
                                 @etsr_material_master=EtsrMaterialMaster.create(username: current_user.name,realname: current_user.name,igid: @igid,cat_id: @etsr_cmm,catalog_name: @term_content,material_id: @material_id,datecreated: Time.now,legacy_description: @legacy,short_description: @bs,long_description: @class_1,class: @term_content,class_id: @concept_ID,cmm_material_no: @etsr_cmm,organization_ID: current_user.Organization_ID,approved_by: '',language: @language_name,lastmodified: Time.now,FACTORY_ID: current_user.Organization_ID,FACTORY_NAME_ECCMA: current_user.name,FACTORY_NAME_TESS: '',source_name: @country_orgin,sts: "N")
                             end
                         end
@@ -1126,7 +1080,7 @@ class HomeController < ApplicationController
                    @rxml_value = XmlRg.create(row: @prop_seq,igid: @igid,RGref: '',class_name: @term_content,propertyRef: @prop_concept_ID,termID: @prop_term_ID,definitionID: @prop_definition_ID,Property_Definition: @prop_definition_content,property: @prop_name,Required: 'Y',datecreated: Time.now)
                   
                 end
-            flash[:success] = "Succesfully Saved"
+            flash[:success] = "Successfully Saved"
             redirect_to controller: 'home',action: 'view',cat_id: @cmm  
 
             elsif @template == "existtemplate"
@@ -1135,9 +1089,6 @@ class HomeController < ApplicationController
                 @material_id = params[:material_id]
                 @term_content = params[:class_name]
                 @concept_ID = params[:concept_ID]
-                # @term_ID = params[:term_ID]
-                # @definition_ID = params[:definition_ID]
-                # @term_organization_name = params[:term_organization_name]
                 @definition_content = params[:definition_content]
                 @language_name = params[:language_name]
                 @legacy = params[:legacy]
@@ -1146,28 +1097,16 @@ class HomeController < ApplicationController
                 @prop_concept_ID = params[:prop_concept_ID]
                 @prop_term_ID = params[:prop_term_ID]
                 @prop_definition_ID = params[:prop_definition_ID]
-                # @prop_term_organization_name = params[:prop_term_organization_name]
                 @prop_definition_content = params[:prop_definition_content]
-                # @prop_language_name = params[:prop_language_name]
                 @prop_value = params[:prop_value]
                 @prop_source = params[:prop_source]
-                # @prop_seq = params[:prop_seq]
                 @prop_mandatory = params[:prop_mandatory]    
                 @prop_seq=params[:prop_name].length
                 @prop_seq=1..@prop_seq
                 @originInput=params[:originInput]
                 @country_orgin=params[:country_orgin]
 
-                results=ActiveRecord::Base.connection.execute("select * from `ests_db`.settings")
-                results.each(:as => :hash) do |res|
-                    @z=res["class_prop_sep_SD"]
-                    @y=res["prop_value_sep_LD"]
-                    @x=res["class_prop_sep_LD"]
-                    @sh_case=res["short_desc_case"]
-                    @lg_case=res["long_desc_case"]
-                    @val_case=res["value_case"]
-                    @len_ld=res["length_LD"]
-                    @len_sd=res["length_SD"]
+              
 
                     @imagecount=Image.where("image_id = ?",@cmm).count
 
@@ -1177,12 +1116,13 @@ class HomeController < ApplicationController
                       @name=@id1.original_filename.gsub("-","_")
                       n1=@cmm+"_"+@name
                       n2=@cmm+"_"+params[:pictureInput].original_filename.gsub("-","_").to_s
+                     
                       @sql=Image.create(image_name: n1,image_id: @cmm)
                       tmp=params[:pictureInput].tempfile
-                      destiny_file = File.join('app','assets','ests_image',n2)
+                      destiny_file = File.join('public','images','ests_images',n2)
                       FileUtils.move tmp.path, destiny_file
                     elsif @id1==""
-                        url1="/assets/"
+                        url1="/images/ests_images"
                         @etsr_cmm="ECCMA.eTSR:"+@cmm
                         @url = params[:imageurl]
                         @sql=EtsrImage.create(image_name: @url,image: "",image_id: @etsr_cmm)
@@ -1194,7 +1134,7 @@ class HomeController < ApplicationController
                     @bs= @term_content 
                     @class_1= @term_content 
 
-                    
+                         
                     @v.each do |a|
                         @bs1= @bs+@z+a
                         if @bs1.length <= @len_sd.to_i
@@ -1203,12 +1143,13 @@ class HomeController < ApplicationController
                     end
                     @b.each do |s|
                       @lg=@class_1+@x+s
-                      if @lg.length>=@len_ld.to_i && @len_ld=='0'
-                          @class_1=@class_1+@x+s
+                      
+                       if @lg.length<=@len_ld.to_i
+                         @class_1=@class_1+@x.to_s+s
 
-                      elsif @lg.length<=@len_ld.to_i && @len_ld!='0'
-                          @class_1=@class_1+@x+s
-                      end
+                            elsif @len_ld.to_i==0
+                                @class_1=@class_1+@x+s
+                            end
                     end   
 
                     if @sh_case=='Lower Case'
@@ -1226,7 +1167,7 @@ class HomeController < ApplicationController
                       else
                         @class_1=@class_1.upcase
                     end
-                end
+                
 
                 @xmlrg = XmlRg.where("igid = ?", @igid)
 
@@ -1257,30 +1198,24 @@ class HomeController < ApplicationController
                       @nameorigin=params[:originInput].original_filename.gsub("-","_")
                       n1=@cmm+"_"+@nameorigin
                       n2=@cmm+"_"+params[:originInput].original_filename.gsub("-","_").to_s
-                      # @sql=Countryorigin.where("image_id = ?",@cmm).update_all(image_name: n1)
                        @update1=MaterialMaster.where('cat_id = ?',@cmm).update_all({short_description: @bs,long_description: @class_1,lastmodified: Time.now,source_image: n1})
                       tmp=params[:originInput].tempfile
-                      destiny_file = File.join('app','assets','ests_orgin',n2)
+                      destiny_file = File.join('public','images','ests_orgin',n2)
                       FileUtils.move tmp.path, destiny_file   
                     
                         if params[:upload_etsr]
-                            url1="/assets/"
+                            url1="/images/ests_orgin"
                             @etsr_cmm="ECCMA.eTSR:"+@cmm
                             @url = params[:imageurlco]
-                            # @sql=EtsrCountryorigin.create(image_name: @url,image: "",image_id: @etsr_cmm)
                              @update1=EtsrMaterialMaster.where('cat_id = ?',@etsr_cmm).update_all({short_description: @bs,long_description: @class_1,lastmodified: Time.now,source_image: @url})  
                         end
-                elsif @country_orgin
-                    # @sql=Countryorigin.where("image_id = ?",@cmm).update_all(image_name: @country_orgin,image: "N") 
-                     @update1=MaterialMaster.where('cat_id = ?',@cmm).update_all({short_description: @bs,long_description: @class_1,lastmodified: Time.now,source_image: n1})  
-                    if params[:upload_etsr]
-                        # if params[:pictureInput]
-                            @etsr_cmm="ECCMA.eTSR:"+@cmm
-                            # @sql=EtsrCountryorigin.where("image_id = ?",@etsr_cmm).update_all(image_name: @country_orgin,image: "N")
-                            @update1=EtsrMaterialMaster.where('cat_id = ?',@etsr_cmm).update_all({short_description: @bs,long_description: @class_1,lastmodified: Time.now,source_name: @country_orgin,sts: "N"})
-                        #   end
-                    end        
-                end
+                    elsif @country_orgin
+                          @update1=MaterialMaster.where('cat_id = ?',@cmm).update_all({short_description: @bs,long_description: @class_1,lastmodified: Time.now,source_image: n1})
+                        if params[:upload_etsr]
+                                @etsr_cmm="ECCMA.eTSR:"+@cmm
+                        @update1=EtsrMaterialMaster.where('cat_id = ?',@etsr_cmm).update_all({short_description: @bs,long_description: @class_1,lastmodified: Time.now,source_name: @country_orgin,sts: "N"})
+                        end        
+                    end
 
                 @val=@prop_name.zip(@prop_value,@prop_concept_ID,@prop_seq,@prop_source,@prop_term_ID,@prop_definition_ID,@prop_definition_content).each do |a,b,c,d,e,f,g,h|
                 @prop_name=a
@@ -1298,8 +1233,7 @@ class HomeController < ApplicationController
                     @prop_value=@prop_value.capitalize
                 else
                     @prop_value=@prop_value.upcase
-                end
-                   
+                end                   
                    @rxml_value = RxmlValue.create(row: @prop_seq,Seq: @prop_seq,igid: @igid,cat_id: @cmm,Class: @term_content,classref: @concept_ID,propertyRef: @prop_concept_ID,property: @prop_name,value: @prop_value,source: @prop_source,datecreated: Time.now,lastmodified: Time.now,language: @language_name)
 
                     if params[:upload_etsr]
@@ -1309,12 +1243,10 @@ class HomeController < ApplicationController
                    
                    @rxml_value = XmlRg.create(row: @prop_seq,igid: @igid,RGref: '',class_name: @term_content,propertyRef: @prop_concept_ID,termID: @prop_term_ID,definitionID: @prop_definition_ID,Property_Definition: @prop_definition_content,property: @prop_name,Required: 'Y',datecreated: Time.now)
                 end
-                flash[:success] = "Succesfully Saved"
+                flash[:success] = "Successfully Saved"
                 redirect_to controller: 'home',action: 'view',cat_id: @cmm 
-
             end
         end
-
     end
     def loadexisting
         if params[:concept_ID]
@@ -1326,10 +1258,15 @@ class HomeController < ApplicationController
             end
         end
 
-        if params[:term_content]
+        if params[:term_content] && params[:con]
             @term_content = params[:term_content]
-            @igid = params[:igid].squish!
-            @load = XmlRg.where("class_name = ? AND datedeleted = ? AND igid = ?", @term_content,'0000-00-00 00',@igid).select(:property,:propertyRef,:termID,:definitionID,:Property_Definition).order(row: :asc)
+             @concept_Id=params[:con]
+             @results=CorpIgname.where("class_id = ? AND datedeleted = ?", @concept_Id,'0000-00-00 00').all
+            @results.map {|i| 
+                @igid_1=i.igid 
+            }
+               
+            @load = XmlRg.where("class_name = ? AND datedeleted = ? AND igid = ?", @term_content,'0000-00-00 00',@igid_1).select(:property,:propertyRef,:termID,:definitionID,:Property_Definition).order(row: :asc)
 
             @loadcount=XmlRg.where("class_name = ? AND datedeleted = ?", @term_content,'0000-00-00 00').select(:property).count
 
@@ -1340,18 +1277,18 @@ class HomeController < ApplicationController
 
         if params[:backorg]
             @backorg = params[:backorg]
+            @concept_Id=params[:con]
+             @results=CorpIgname.where("class_id = ? AND datedeleted = ?", @concept_Id,'0000-00-00 00').all
+            @results.map {|i| 
+                @igid_1=i.igid 
+            }
             respond_to do |format|
                 format.html {render :layout => false}
             end
         end 
         
         if params[:newigid]
-            # @newigid=(CorpIgname.maximum("igid"))
-            # if(@newigid=='' || @newigid==nil)
-            #   @newigid='100001'
-            # else
-            #   @newigid = @newigid.to_i + 1
-            # end  
+           
             @igid=CorpIgname.find_by_sql(["SELECT max(igid) as igid FROM `corp_ignames`"])
             @igid.map {|i| @igid=i.igid }
             
@@ -1387,4 +1324,19 @@ class HomeController < ApplicationController
             format.html {render :layout => false}
         end
     end  
+
+    private
+    def setting
+            @results=Setting.where("organization_ID = ?", "123").all
+            @results.map {|i| 
+                @z=i.class_prop_sep_SD 
+                @y=i.prop_value_sep_LD 
+                @x=i.class_prop_sep_LD 
+                @sh_case=i.short_desc_case 
+                @lg_case=i.long_desc_case 
+                @val_case=i.value_case 
+                @len_ld=i.length_LD 
+                @len_sd=i.length_SD 
+            }
+    end
 end

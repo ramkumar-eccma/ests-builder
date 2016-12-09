@@ -1,0 +1,212 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-12">      
+   <div class="clearfix"></div><br><br><br><br>
+   <ol class="breadcrumb" style="background:#F3F3F4; padding:6px;">
+      <li>
+        <%- if I18n.locale== :ar %>
+          <span class="">
+              <a href="<%= url_for :controller => 'home', :action => 'index' %>">الصفحة الرئيسية</a>                   
+          </span>
+        <% else %>
+          <span class="">
+           <a href="<%= url_for :controller => 'home', :action => 'index' %>">Home</a>
+          </span>
+        <% end -%>         
+      </li>
+       <li class="active">
+          <%- if I18n.locale== :ar %>
+          <span class="">إعدادات
+             <!--  <a href="<%= url_for :controller => 'settings', :action => 'index' %>">إعدادات</a> -->                   
+          </span>
+        <% else %>
+          <span class="">Settings
+           <!-- <a href="<%= url_for :controller => 'settings', :action => 'index' %>">Settings</a>  -->                  
+          </span>
+        <% end -%>
+      </li>
+    </ol>
+  </div>
+</div>
+<%= form_tag(settings_path) do %>
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox">
+          <div class="ibox-title hide" style="background:#1C84C6; color:#f3f3f4 !important;">
+            <h2> Settings</h2>
+          </div>
+          <div class="tabs-container custom-tab">
+            <ul class="nav nav-tabs" >
+              <li class="active">
+              <a data-toggle="tab" href="#tab-2" >Separators</a>
+              </li>
+              <li class="">
+              <a data-toggle="tab" href="#tab-1" >Length</a>
+              </li>
+
+              <li class="">
+              <a data-toggle="tab" href="#tab-3">Case Settings</a>
+              </li>
+            </ul>
+            <div class="tab-content" style="border:1px solid #1C84C6;">
+              <div id="tab-1" class="tab-pane">
+                <div class="panel-body">
+                  <span id="tech_spec" class="tech_spec" style="margin-left:100px !important;"></span>
+                  <div class="row" style="padding-top:10px;">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <% @len.each do |l| %>
+                        <div class="col-md-6"> 
+                          <h3>Short Description Length</h3>
+                        </div>
+                        <div class="col-md-6"> 
+                          <input type="text" name="length_sd" value="<%= l.length_SD==""? 40:(l.length_SD) %>" class="form-control">
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                      <div class="col-md-6"> 
+                        <h3>Long Description Length</h3>
+                      </div>
+                      <div class="col-md-6"> 
+                        <input type="text" name="length_ld" value="<%= l.length_LD==""? 0:(l.length_LD) %>" class="form-control">
+                      </div>
+                        <% end %>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                      <input type="submit" name="length_submit" value="Set Length" class="btn btn-success pull-right"><br>
+                      <font color="#FF0000">*set 0 (zero) for unlimited value</font>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+
+              <div id="tab-2" class="tab-pane active">
+                <div class="panel-body">
+                  <span id="tech_spec" class="tech_spec" style="margin-left:100px !important;"></span>
+                    <div class="row" style="padding-top:;">
+                      <div class="col-md-6">
+                        <h2>Short Description</h2>
+                        <br>
+                        <% @len.each do |l|%>
+                        <div class="row">
+                          <div class="col-md-2"><h4>Class</h4></div>
+                          <div class="col-md-4">
+                            <b><input type="text" name="class_prop_sep_SD" class="form-control" value="<%= l.class_prop_sep_SD==""? ':':(l.class_prop_sep_SD)%>"></b>
+                          </div>
+                          <div class="col-md-2"><h4>Property</h4></div>
+                        </div>
+                        <br>
+                        <div class="row">
+                          <div class="col-md-2"><h4>Property</h4></div>
+                          <div class="col-md-4"><b><input type="text" name="prop_val_sep_SD" size="2px" class="form-control" value="<%= l.prop_value_sep_SD==""? '=':(l.prop_value_sep_SD)%>"></b></div>
+                          <div class="col-md-2"><h4>Value</h4></div>
+                        </div>
+                        <br>
+                        <div class="row">
+                          <div class="col-md-2"><h4>Characteristics</h4></div>
+                          <div class="col-md-4"><b><input type="text" name="charac_sep_SD" size="2px" value="<%= l.charac_sep_SD==""? ',':(l.charac_sep_SD)%>" class="form-control"></b></div>
+                          <div class="col-md-2"><h4>Characteristics</h4></div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <h2>Long Description</h2>
+                        <br>
+                        <div class="row">
+                          <div class="col-md-2"><h4>Class</h4></div>
+                          <div class="col-md-4"><b><input type="text" name="class_prop_sep_LD" class="form-control" value="<%= l.class_prop_sep_LD==""? ':':(l.class_prop_sep_LD)%>"></b></div>
+                          <div class="col-md-2"><h4>Property</h4></div>
+                        </div>
+                        <br>
+                        <div class="row">
+                          <div class="col-md-2"><h4>Property</h4></div>
+                          <div class="col-md-4"><b><input type="text" name="prop_val_sep_LD" size="2px" value="<%= l.prop_value_sep_LD==""? '=':(l.prop_value_sep_LD)%>" class="form-control"></b></div>
+                          <div class="col-md-2"><h4>Value</h4></div>
+                        </div>
+                        <br>
+                        <div class="row">
+                          <div class="col-md-2"><h4>Characteristics</h4></div>
+                          <div class="col-md-4"><b><input type="text" name="charac_sep_LD" size="2px" value="<%= l.charac_sep_LD==""? ',':(l.charac_sep_LD)%>" class="form-control"></b></div>
+                          <div class="col-md-2"><h4>Characteristics</h4></div>
+                        </div>
+                      </div>
+                    <% end %>
+                    <br>
+                    <div class="col-md-12">
+                      <input type="submit" name="sep_submit" value="Set Separators" class="btn btn-success pull-right">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="tab-3" class="tab-pane">
+                <div class="panel-body">
+                  <span id="tech_spec" class="tech_spec" style="margin-left:100px !important;"></span>
+                  <div class="row" style="padding-top:;">
+                    <div class="col-md-6">
+                      <div class="row">
+                          <% @len.each do |l| %>
+                        <div class="col-md-6">
+                          <h4>Short Description</h4>
+                        </div>
+                        <div class="col-md-6">
+                         
+                          <select name="sh_case" class='form-control'>
+                            <option value="Not Set" "<% if l.short_desc_case=="Not Set" %>" selected="selected" <% end %>>Not Set</option>
+                            <option value="Upper Case" "<% if l.short_desc_case=="Upper Case"%>"  selected="selected" <% end %>>Upper Case</option>  
+                            <option value="Lower Case" "<% if l.short_desc_case=="Lower Case" %>" selected="selected" <% end %>>Lower Case</option>  
+                            <option value="Sentence Case" "<% if l.short_desc_case=="Sentence Case" %>" selected="selected" <% end %>   >Sentence Case</option> 
+                          </select>
+
+                        <% end %>
+                          
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                       <% @len.each do |l| %>
+                        <div class="col-md-6">
+                          <h4>Long Description</h4>
+                        </div>
+                        <div class="col-md-6">
+                           <select name="lg_case" class='form-control'>
+                            <option value="Not Set" "<% if l.long_desc_case=="Not Set" %>" selected="selected" <% end %>>Not Set</option>
+                            <option value="Upper Case" "<% if l.long_desc_case=="Upper Case"%>"  selected="selected" <% end %>>Upper Case</option>  
+                            <option value="Lower Case" "<% if l.long_desc_case=="Lower Case" %>" selected="selected" <% end %>>Lower Case</option>  
+                            <option value="Sentence Case" "<% if l.long_desc_case=="Sentence Case" %>" selected="selected" <% end %>   >Sentence Case</option> 
+                          </select>
+                           <% end %>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <% @len.each do |l| %>
+                        <div class="col-md-6">
+                          <h4>Value</h4>
+                        </div>
+                        <div class="col-md-6">
+                             <select name="Val_case" class='form-control'>
+                            <option value="Not Set" "<% if l.value_case=="Not Set" %>" selected="selected" <% end %>>Not Set</option>
+                            <option value="Upper Case" "<% if l.value_case=="Upper Case"%>"  selected="selected" <% end %>>Upper Case</option>  
+                            <option value="Lower Case" "<% if l.value_case=="Lower Case" %>" selected="selected" <% end %>>Lower Case</option>  
+                            <option value="Sentence Case" "<% if l.value_case=="Sentence Case" %>" selected="selected" <% end %>   >Sentence Case</option> 
+                          </select>
+                          <% end %>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="col-md-12">
+                      <input type="submit" name="case_submit" value="Set Case" class="btn btn-success pull-right">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %> 

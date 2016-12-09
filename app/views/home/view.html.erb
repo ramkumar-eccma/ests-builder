@@ -6,10 +6,6 @@
 table, th, td {
     padding: 2px;
 }
-/*.img-center{
-    margin: 0 auto;
-}*/
-
 .ribbon {
   position: absolute;
   left: 10px; top: -5px;
@@ -22,7 +18,6 @@ table, th, td {
   font-size: 15px;
   font-weight: bold;
   color: #FFF;
-  /*text-transform: uppercase;*/
   text-align: center;
   line-height: 20px;
   transform: rotate(-45deg);
@@ -56,55 +51,52 @@ table, th, td {
 
 </style>
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-12">
-        <!-- <img alt="image" class="img-responsive" src="<%= image_url 'headerlogo.jpg' %> " height="50px" /> -->
-         <div class="clearfix"></div><br><br><br><br>
-         <ol class="breadcrumb" style="background:#F3F3F4; padding:6px;">
-            <li>
-              <%- if I18n.locale== :ar %>
-                <span class="">
-                    <a href="<%= url_for :controller => 'home', :action => 'index' %>">الصفحة الرئيسية</a>                   
-                </span>
-              <% else %>
-                <span class="">
-                 <a href="<%= url_for :controller => 'home', :action => 'index' %>">Home</a>
-                </span>
-              <% end -%>
-              
-            </li>
-             <li class="active">
-                <%- if I18n.locale== :ar %>
-                <span class="">
-                    ">عرض البند         
-                </span>
-              <% else %>
-                <span class="">
-                 View Item
-                </span>
-              <% end -%>
-            </li>
-        </ol>        
+  <div class="col-lg-12">
+    <div class="clearfix"></div><br><br><br><br>
+     <ol class="breadcrumb" style="background:#F3F3F4; padding:6px;">
+        <li>
+          <%- if I18n.locale== :ar %>
+            <span class="">
+                <a href="<%= url_for :controller => 'home', :action => 'index' %>">الصفحة الرئيسية</a>                   
+            </span>
+          <% else %>
+            <span class="">
+             <a href="<%= url_for :controller => 'home', :action => 'index' %>">Home</a>
+            </span>
+          <% end -%>   
+        </li>
+         <li class="active">
+            <%- if I18n.locale== :ar %>
+            <span class="">
+                ">عرض البند         
+            </span>
+          <% else %>
+            <span class="">
+             View Item
+            </span>
+          <% end -%>
+        </li>
+      </ol>        
     </div>
-</div>
-<%= form_tag(update_path,:method => "post", class: "navbar-form",:multipart => true,name:"myform") do  %>
-<div class="wrapper wrapper-content animated fadeInRight">
+  </div>
+  <%= form_tag(update_path,:method => "post", class: "navbar-form",:multipart => true,name:"myform") do  %>
+  <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
      <div class="col-lg-12">
-    
-        <% if flash[:success] %>
-          <div class="alert alert-success alert-dismissable">
-            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-            <p><%= flash[:success] %></p>
-          </div>
-        <% end %> 
-        <% if flash[:alert] %>
-          <div class="alert alert-danger alert-dismissable">
-            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-            <p><%= flash[:alert] %></p>
-          </div>
-        <% end %>         
+      <% if flash[:success] %>
+        <div class="alert alert-success alert-dismissable">
+          <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= flash[:success] %></p>
+        </div>
+      <% end %> 
+      <% if flash[:alert] %>
+        <div class="alert alert-danger alert-dismissable">
+          <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+          <p><%= flash[:alert] %></p>
+        </div>
+      <% end %>         
         <div class="ibox">
-           <% a= @data.first %> 
+          <% a= @data.first %> 
           <div class="ibox-title" style="background:#1C84C6; color:#f3f3f4 !important;">
             <%- if I18n.locale== :ar %>
               <h3><span class="pull-right">Item # <b><%= current_user.name.upcase %><%=a.material_id%></span>  <%=a.short_description%></b></h3>
@@ -113,8 +105,7 @@ table, th, td {
           </div>
           <div class="ibox-content" style="border:1px solid #1C84C6;">            
             <div class="row">
-                 <div class="col-lg-8">
-                 
+              <div class="col-lg-8">  
                   <div class="tabs-container">
                       <div class="">
                           <ul class="nav nav-tabs">
@@ -124,8 +115,7 @@ table, th, td {
                           <div class="tab-content ">
                               <div id="tab-6" class="tab-pane active">
                                   <div class="panel-body">
-                                      <!-- <table class="table borderless" id="change_class1" name="change_class1"> -->
-                                      <table class="" id="change_class1" name="change_class1" style="border:1px solid #ffffff">
+                                      <table class="" id="change_class1" name="change_class1" style="border:1px solid #ffffff" >
                                           <thead>
                                             <tr style="background-color: #dedede">
                                               <th style="width:20% !important;"><h3><span class=""><b><%=t('Property')%></b></span></h3></th>
@@ -150,6 +140,7 @@ table, th, td {
                                               <td>&nbsp;</td>
                                               <td>&nbsp;</td>
                                               <td>&nbsp;</td>
+                                           
                                           </tr>
                                             <% for a in @data1 %>
                                               <% if a.value2=="VC"
@@ -164,13 +155,15 @@ table, th, td {
                                                   <b> <%= link_to a.property , {:controller => :home,:action => :dictionary_detail, :esci => Base64.encode64(a.propertyRef) }, :target => "_blank",:def =>'' %> <span class="text-danger" style="font-size: 16px;" %>  </b>
                                                 </td>
                                                 <td>
-                                                  <input type="button" class="addCF btn btn-xs btn-success btn-circle mainadd<%=a['Seq']%>" name="add<%=a['Seq']%>" style="display: none;" id="addd<%=a['Seq']%>" onClick="add_ro(0);" value="+" title="Add property">
+                                                  <input type="button" class="addCF btn btn-xs btn-success btn-circle mainadd<%=a['Seq']%>" name="add<%=a['Seq']%>" style="display: none;" id="add<%=a['Seq']%>" onClick="add_ro(<%=a['Seq']%>);" value="+" title="Add property">
+                                                  <input type="button" class="btn btn-xs btn-danger btn-circle" style="display:none;" value="-" name="delete'<%=a['Seq']%>'" id="del_remove'<%=a['Seq']%>'" onClick="removetable(<%=a['Seq']%>);" title="Delete property">
+
                                                 <%  data_count = @data_count.first %>
                                                   <input type="hidden" value="<%= data_count.row %>" name="plusbtn" id="plusbtn">
-                                               </td> 
+                                                </td> 
                                                 <td>                 
                                                     <%= text_field_tag "prop_value[]",a['value'],class: "form-control input-sm",style:"width: 100% !important"%>
-                                                    <%= hidden_field_tag "prop_name[]", a['property'] ,class: "dupcheck"%>
+                                                    <input type="hidden" value="<%= a['property'] %>" name="prop_name[]" id="prop_name<%= @i %>" class="dupcheck">
                                                     <%= hidden_field_tag "prop_concept_ID[]", a['propertyRef']  %>
                                                     <%= hidden_field_tag "prop_seq[]", a['Seq']%>
                                                     <%= hidden_field_tag :cat_id, params[:cat_id], class: "form-control input-sm hide", value: params[:cat_id] %> 
@@ -178,12 +171,12 @@ table, th, td {
                                                     @xmlrg =XmlRg.where("igid = ? AND property = ?", a.igid, a.property)
                                                     @xmlrg.each do |xmlrg|                
                                                     %>
-                                                    <input class="hidden" type="text" name="prop_term_ID[]" id="prop_term_ID" value="<%= xmlrg.termID%>" >
-                                                    <input class="hidden" type="text" name="prop_definition_ID[]" id="prop_definition_ID" value="<%= xmlrg.definitionID%>">
-                                                    <input class="hidden" type="text" name="prop_term_organization_name[]" id="prop_term_organization_name" value="<%= xmlrg.definitionID%>">
-                                                    <input class="hidden" type="text" name="prop_definition_content[]" id="prop_definition_content" value="<%= xmlrg.Property_Definition%>">
-                                                    <%= hidden_field_tag "prop_language_name[]", a['language']%>     
-                                                    <% end %>                     
+                                                      <input class="hidden" type="text" name="prop_term_ID[]" id="prop_term_ID" value="<%= xmlrg.termID%>" >
+                                                      <input class="hidden" type="text" name="prop_definition_ID[]" id="prop_definition_ID" value="<%= xmlrg.definitionID%>">
+                                                      <input class="hidden" type="text" name="prop_term_organization_name[]" id="prop_term_organization_name" value="<%= xmlrg.definitionID%>">
+                                                      <input class="hidden" type="text" name="prop_definition_content[]" id="prop_definition_content" value="<%= xmlrg.Property_Definition%>">
+                                                      <%= hidden_field_tag "prop_language_name[]", a['language']%> 
+                                                    <% end %>                         
                                                 </td>  
                                                 <td>
                                                     <%= text_field_tag "prop_source[]",a['source'],class: "form-control input-sm",style:"width: 100% !important"%> 
@@ -229,8 +222,8 @@ table, th, td {
                                                 </span>
                                               <% end -%>
                                           </div>
-                                          <!-- <input type="" id="changeoccur" class="changeoccur"> -->
-                                          </td>
+                                         <!-- <input type="" id="changeoccur" class="changeoccur"> -->
+                                          </td> 
                                           <td><% if @etsr_mm==1 %>
                                                 &nbsp;&nbsp;<a title="Click here to delete" class="btn btn-xs btn-danger pull-right" href="<%= url_for :controller => 'home', :action => 'etsr',:id => params[:cat_id]  %>" onclick="return confirm('Are you sure you want to delete this item?')">Delete eTSR</a>
                                               <% end  %></td>
@@ -270,11 +263,10 @@ table, th, td {
                           <% if @imagecount==0 %>
                           <img alt="image" id='imgprev' style="width:150px; height: 150px;border: 1px solid #1C84C6;" class="img-responsive img-center" src="<%= image_url "noimage.jpg" %>"/>
                           <%else%>
-                            <%@image.each do |img|%>                  
-                             <img alt="image" id ="imgprev" style="width:150px; height:150px;border: 1px solid #1C84C6;" class="img-responsive img-center" src="<%= image_url img.image_name %>"/>  
-                             <%#=image_tag(image_url  img.image_name) , :style => "width:150px; height:150px;border: 1px solid #1C84C6;")%>
+                            <%@image.each do |img|%>     
+                        
+                             <img alt="image" id ="imgprev" style="width:150px; height:150px;border: 1px solid #1C84C6;" class="img-responsive img-center" src="<%= image_url  "ests_images/#{img.image_name}" %>"/>  
                              <input type="hidden" id="imageurl" name="imageurl" value="<%= image_url img.image_name %>">
-                             <%#=File.basename(img.image_name)%>                   
                             <% end %>
                           <% end %> <br>
                           
@@ -296,10 +288,10 @@ table, th, td {
                           <%= hidden_field_tag "material_id",c.material_id %>
                           <%=hidden_field_tag "concept_ID",c.class_id %>
                           <%=hidden_field_tag "legacy",c.legacy_description %>
-                          <% @concept=ConceptDn.where("concept_ID = ? and language_code =? OR language_name=?",c.class_id,c.language,c.language).select(:definition_content,:language_name,:term_ID,:language_code)
+                          <% @concept=ConceptDn.where("concept_ID = ? and language_ID =? OR language_name=?",c.class_id,c.language,c.language).select(:definition_content,:language_name,:term_ID,:language_ID)
                           for con in @concept %>
                           <%=hidden_field_tag "definition_content",con.definition_content %>
-                          <%=hidden_field_tag "language_name",con.language_code %>
+                          <%=hidden_field_tag "language_name",con.language_ID %>
                           <%=hidden_field_tag "term_ID",con.term_ID %>
                           <% end %>                         
 
@@ -311,9 +303,7 @@ table, th, td {
                         </div>
                    
                      
-                  </div>
-                <!-- </div>  
-                 <div class="col-md-2" style="border-right: 1px solid #E4E4E4;"> -->
+                  </div>               
                     <div class="row"> 
                         <div class="col-md-4 col-lg-6 col-xs-12">
                          <br> <img id='imageresourceqr' alt="image" class="img-responsive img-center" src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://eccma.org/etsr_ests/search.php?cat_id=ECCMA.eTSR:<%= @cat_id %>' />
@@ -330,7 +320,7 @@ table, th, td {
                               <% if org.sts == "N"%>
                                 <h3><b>Country of origin:<span class="text-danger"> 
                                 </span></b></h3>
-                                <select name="country_orgin" id="country_orgin" class="form-control chosen-select" style="width: 100%;">
+                                 <select name="country_orgin" id="country_orgin" class="form-control chosen-select" style="width: 100%;">
                                   <option value="<%= org.source_name %>" selected><%= org.source_name %></option>
                                   <option value="">Select</option>
                                   <option value="Afghanistan - AF">Afghanistan - AF</option>
@@ -585,10 +575,10 @@ table, th, td {
                             </select>
                               <% else %>
                                 <h3><b>Country of origin:</b></h3>
-                               <a href="<%= image_url org.source_image %>" target="_blank"><p>Click here to download</p></a>  
+                               <a href="<%= image_url ("ests_orgin/#{org.source_image}") %>"><p>Click here to download</p></a>  
                                 
                                 <input type="file" id="originInput" name="originInput"> 
-                                <input type="hidden" id="imageurlco" name="imageurlco" value="<%= image_url org.source_image %>"> 
+                                <input type="hidden" id="imageurlco" name="imageurlco" value="<%= image_url "ests_orgin/#{org.source_image}" %>"
                              
                             <% end %>
                         </div>
@@ -607,8 +597,8 @@ table, th, td {
 <% end %>
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modal-prop">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content" style="border:2px solid #8A6D3B;">
-        <div class="modal-header" style="background:#8A6D3B;">
+    <div class="modal-content" style="border:2px solid #1C84C6;">
+        <div class="modal-header" style="background:#1C84C6;">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"  style="color:#f3f3f4 !important;"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="gridSystemModalLabel" style="color:#f3f3f4 !important;">Property Names</h4>
         </div>
@@ -616,66 +606,59 @@ table, th, td {
         <div class="modal-body">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="form-group">
-                    <input type="hidden" name="auto_inc" id="auto_inc">
-                      <label for="">Search Property Name</label>
-                      <input type="text"  name="property_name" id="property_name" class="form-control">
-                    </div>
+                  <div class="form-group">
+                  <input type="hidden" name="auto_inc" id="auto_inc">
+                    <label for="">Search Property Name</label>
+                    <input type="text"  name="property_name" id="property_name" class="form-control input-sm">
+                  </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="form-group">
-                      <label for="">Operation</label>
-                      <select name="query" id="query" class="form-control">
-                         <option value="startwith">start with</option>
-                         <option value="like">contains</option>
-                         <option value="=">equal to</option>
-                      </select>
-                    </div>
+                  <div class="form-group">
+                    <label for="">Operation</label>
+                    <select name="query_prop" id="query_prop" class="form-control input-sm">
+                       <option value="startwith">start with</option>
+                       <option value="like">contains</option>
+                       <option value="=">equal to</option>
+                    </select>
+                  </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="form-group">
-                      <label for="">Organization</label>
-                      <select name="organization_prop" id="organization_prop" class="form-control">
-                      <option value="">select</option>
-                         <% @org.each do |org|%>
-                          <option value="<%= org.Legal_name %>"><%= org.Legal_name %></option>
-                        <% end %>
-                      </select>
-                    </div>
+                  <div class="form-group">
+                    <label for="">Organization</label>
+                    <select name="organization_prop" id="organization_prop" class="form-control input-sm">
+                    <option value="">select</option>
+                       <% @org.each do |org|%>
+                        <option value="<%= org.Legal_name %>"><%= org.Legal_name %></option>
+                      <% end %>
+                    </select>
+                  </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="form-group">
-                      <label for="">Language</label>
-                      <select name="language_prop" id="language_prop" class="form-control">
-                      <option value="">select</option>
-                        <% @lang.each do |lang|%>
-                          <option value="<%= lang.language_code %>" <% if lang.language_code=="en" %>selected<% end %>><%= lang.language_name %></option>
-                        <% end %>
-                      </select>
-                    </div>
+                  <div class="form-group">
+                    <label for="">Language</label>
+                    <select name="language_prop" id="language_prop" class="form-control input-sm">
+                    <option value="">select</option>
+                      <% @lang.each do |lang|%>
+                        <option value="<%= lang.language_ID %>" <% if lang.language_ID=="0161-1#LG-000001#1" %>selected<% end %>><%= lang.language_name %></option>
+                      <% end %>
+                    </select>
+                  </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                      <label for="">&nbsp;</label><br>
-                      <input type="submit" class="btn btn-success" value="Search" name="search_prop">
-                      <input type="hidden" name="class_prop">
-                      <input type="button" class="btn btn-danger" value="Show All" name="reset_prop" id="reset" onclick="prop(id)">
-                    </div>
+                <div class="col-md-12">
+                  <input type="submit" class="btn btn-success btn-sm" value="Search" name="search_prop" id="search_prop1">
+                  <input type="hidden" name="class_prop">
+                  <input type="button" class="btn btn-danger btn-sm" value="Show All" name="reset_prop" id="reset" onclick="prop(id)">
+                  <img src=" <%= image_url 'load.gif' %>" class="pull-right" alt="image" id ="prop_img1" class="img-responsive" style="display: none;"> 
                 </div>                
             </div>  
             <br>
             <div class="row">
               <div class="col-md-12 pane">
-                <span class="text-danger">It shows only top 100 results</span><br>
-                 <div id="image1" align="center">
-                <img alt="image" class="img-responsive" src="<%= image_url 'loader.gif' %> " height="80px" id="imgprev1" />   
-                 </div><br>
                  <div id="preview-prop"></div>
               </div>
             </div>
-
         </div>  
-        <% end %>
+      <% end %>
     </div>
   </div>
 </div>
@@ -687,27 +670,26 @@ table, th, td {
         <h4 class="modal-title" id="myModalLabel">Existing Template</h4>
       </div>
       <div class="modal-body">
-          <table class="table table-bordered dataTables">
-            <thead>
-              <tr>
-                <th>Seq</th>
-                <th>Property</th>
-                <th>Property Ref</th>
-              </tr>
-            </thead>  
-            <%=  r = @data_count.first%>
-            <% @xml=XmlRg.where("igid = ? and datedeleted = ?",r.igid,'0000-00-00 00:00:00').order(row: :asc) %>
-              <% for d in @xml %>                             
-                  <tbody>
-                    <tr>
-                      <td><%= d.row%></td>
-                      <td><%= d.property%></td>
-                      <td><%= d.propertyRef%></td>
-                    </tr>
-                  </tbody>
-              <% end %>
-           
-          </table>
+        <table class="table table-bordered dataTables">
+          <thead>
+            <tr>
+              <th>Seq</th>
+              <th>Property</th>
+              <th>Property Ref</th>
+            </tr>
+          </thead>  
+          <%  r = @data_count.first%>
+          <% @xml=XmlRg.where("igid = ? and datedeleted = ?",r.igid,'0000-00-00 00:00:00').order(row: :asc) %>
+            <% for d in @xml %>                             
+              <tbody>
+                <tr>
+                  <td><%= d.row%></td>
+                  <td><%= d.property%></td>
+                  <td><%= d.propertyRef%></td>
+                </tr>
+              </tbody>
+            <% end %>
+        </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-md btn-success" data-dismiss="modal">Close</button>
@@ -715,13 +697,14 @@ table, th, td {
     </div>
   </div>
 </div>
+
 <% content_for :javascript do %>
 <script type="text/javascript">
  $(window).load(function() { $("#spinner").fadeOut("slow"); })
-function ajaxindicatorstart(text)
-{
-    if(jQuery('body').find('#resultLoading').attr('id') != 'resultLoading'){
-    jQuery('body').append('<div id="resultLoading" style="display:none"><div><img alt="image" class="img-responsive" src="<%= image_url 'ajax-loader.gif' %> " height="50px" /><div>'+text+'</div></div><div class="bg"></div></div>');
+  function ajaxindicatorstart(text)
+  {
+      if(jQuery('body').find('#resultLoading').attr('id') != 'resultLoading'){
+      jQuery('body').append('<div id="resultLoading" style="display:none"><div><img alt="image" class="img-responsive" src="<%= image_url 'ajax-loader.gif' %> " height="50px" /><div>'+text+'</div></div><div class="bg"></div></div>');
     }
 
     jQuery('#resultLoading').css({
@@ -764,13 +747,13 @@ function ajaxindicatorstart(text)
     jQuery('#resultLoading .bg').height('100%');
        jQuery('#resultLoading').fadeIn(300);
     jQuery('body').css('cursor', 'wait');
-}
+  }
 
 function ajaxindicatorstop()
 {
-    jQuery('#resultLoading .bg').height('100%');
-       jQuery('#resultLoading').fadeOut(300);
-    jQuery('body').css('cursor', 'default');
+  jQuery('#resultLoading .bg').height('100%');
+     jQuery('#resultLoading').fadeOut(300);
+  jQuery('body').css('cursor', 'default');
 }
 $(document).ready(function(){ 
   $(".clip").click(function(){        
@@ -799,30 +782,22 @@ $(function() {
 });
 function getprop(prop,t)
 {
-
-    // $("#image1").show();
   var a = prop;
-  // document.getElementById("t"+t).style.display="none";
   var v = document.getElementById('auto_inc').value;
-  // alert(v);
   search_prop=a.split("||");
   document.getElementById("reject"+t).value = search_prop[1];
-    document.getElementById("prop_name"+v).value = search_prop[0];
-    document.getElementById("dynamiclink"+v).innerHTML = "<a  target='_blank' href='dictionary_detail?esci="+search_prop[7]+"'>"+search_prop[0]+"</a>";
-    document.getElementById("prop_concept_ID"+v).value = search_prop[1];
-    document.getElementById("prop_term_ID"+v).value = search_prop[2];
-    document.getElementById("prop_definition_ID"+v).value = search_prop[3];
-    document.getElementById("prop_term_organization_name"+v).value = search_prop[4];
-    document.getElementById("prop_definition_content"+v).value = search_prop[5];
-    document.getElementById("prop_language_name"+v).value = search_prop[6];      
-  $('#modal-prop').modal('hide'); 
+  document.getElementById("prop_name"+v).value = search_prop[0];
+  document.getElementById("dynamiclink"+v).innerHTML = "<a  target='_blank' href='dictionary_detail?esci="+search_prop[7]+"'>"+search_prop[0]+"</a>";
+  document.getElementById("prop_concept_ID"+v).value = search_prop[1];
+  document.getElementById("prop_term_ID"+v).value = search_prop[2];
+  document.getElementById("prop_definition_ID"+v).value = search_prop[3];
+  document.getElementById("prop_term_organization_name"+v).value = search_prop[4];
+  document.getElementById("prop_definition_content"+v).value = search_prop[5];
+  document.getElementById("prop_language_name"+v).value = search_prop[6];      
   document.getElementById("test"+v).value = t;
-  //document.getElementById("changeoccur").value = 1;
-  // alert(search_prop[2]);
-
- var textValues = new Array();
-    $("input.dupcheck").each(function() {
-      
+  var textValues = new Array();
+  var hide_flag = "true";
+    $("input.dupcheck").each(function() { 
       doesExisit = ($.inArray($(this).val(), textValues) == -1) ? false : true;
       console.log(textValues)
       if (!doesExisit) {
@@ -841,24 +816,19 @@ function getprop(prop,t)
         document.getElementById("prop_definition_content"+v).value = '';
         document.getElementById("prop_language_name"+v).value = '';
         document.getElementById("dynamiclink"+v).innerHTML = '';
-        document.getElementById("changeoccur").value = '';
-           
-        return false;
+        hide_flag = "false";
       }
     });
-
+     if (hide_flag == "true") {$('#modal-prop').modal('hide');}
 }
 
 function getbackigid()
 {
   var ig = document.getElementById("old_igid").value;
   var old_cmm = document.getElementById("old_cmm").value;
-  // // alert(ig);
-  // if (ig!=0) {
   document.getElementById("igid").value = ig;
   document.getElementById("cmm").value = old_cmm;
   $('.class_prop').css("display","block");
-  // }   
 }
 function resetigid()
 {
@@ -875,80 +845,113 @@ function resetigid()
       document.getElementById("cmm").value = splitnew[1];
       $('.class_prop').css("display","block");
     }
-  });
-  // var ig = document.getElementById("changeigid").value;
-  // // alert(ig);
-  // if (ig!=0) {
-  //   document.getElementById("igid").value = ig;
-  // }   
+  }); 
 }
 
-function add_ro(va)
-{
+function add_ro(va){
   v2=va;
-  // alert(v2);
-  va=+va+1;
-  var v=+va-1;    
-  // alert(va);
-   // alert(v);    
-    if (v2==0) {       
-      var r = document.getElementById("plusbtn").value;
-      $("#addd"+r).css("display","none");
-      $("#add"+v).css("display","none");      
-      $("#remove"+v).css("display","block");
-       $('#change_class1').append('<tr id="pr'+va+'" class="text"><td><input type="hidden" id="test'+va+'" /><span id="dynamiclink'+va+'"></span><input type="text" class="form-control prop_name hide dupcheck" id="prop_name'+va+'" name="prop_name[]" required="required">&nbsp;&nbsp;&nbsp;<a data-toggle="modal" href="#modal-prop" data-id="'+va+'" class="modal_prop pull-right" onclick="resetvalue('+va+');">BROWSE</a> <input class="hide " type="text" name="prop_concept_ID[]" id="prop_concept_ID'+va+'"><input type="text" name="prop_term_ID[]" id="prop_term_ID'+va+'" class="hide" ><input type="text" name="prop_definition_ID[]" id="prop_definition_ID'+va+'" class="hide" ><input type="text" name="prop_term_organization_name[]" id="prop_term_organization_name'+va+'" class="hide" ><input type="text" name="prop_definition_content[]" id="prop_definition_content'+va+'" class="hide"><input type="text" name="prop_language_name[]" id="prop_language_name'+va+'" class="hide" ></td><td><input type="button" class="btn btn-xs btn-info btn-circle" value="+" name="add'+va+'" id="add'+va+'" onClick="add_ro('+va+');" title="Add property"> &nbsp;&nbsp;<input type="button" class="btn btn-xs btn-danger btn-circle" style="display:" value="-" name="remove'+va+'" id="remove'+va+'" onClick="removetable('+va+');" title="Delete property"></td><td><input type="text" class="form-control input-sm" id="prop_value'+va+'" name="prop_value[]" style="width: 100% !important;"></td><td><input type="text" class="form-control input-sm" id="prop_source'+va+'" name="prop_source[]" style="width: 100% !important;"></td><td class=""><select name="prop_mandatory[]" class="form-control hide" id="prop_mandatory'+va+'"><option value="NO">NO</option><option value="YES">YES</option></select></td><td class="hide"> <input type="text" name="tab'+va+'" id="tab'+va+'"  value='+va+' /></td></tr>');
-    } 
-    else {
-      if(document.getElementById("prop_name"+v2).value!="")
-      {
-      $("#add"+v).css("display","none");
-      $("#remove"+v).css("display","block");
-      // document.getElementById("add"+v).style.display = "none";     
-      $('#change_class1').append('<tr id="pr'+va+'" class="text"><td><input type="hidden" id="test'+va+'" /><span id="dynamiclink'+va+'"></span><input type="text" class="form-control prop_name hide dupcheck" id="prop_name'+va+'" name="prop_name[]" required="required">&nbsp;&nbsp;&nbsp;<a data-toggle="modal" href="#modal-prop" data-id="'+va+'" class="modal_prop pull-right" onclick="resetvalue('+va+');">BROWSE</a> <input class="hide " type="text" name="prop_concept_ID[]" id="prop_concept_ID'+va+'"><input type="text" name="prop_term_ID[]" id="prop_term_ID'+va+'" class="hide" ><input type="text" name="prop_definition_ID[]" id="prop_definition_ID'+va+'" class="hide" ><input type="text" name="prop_term_organization_name[]" id="prop_term_organization_name'+va+'" class="hide" ><input type="text" name="prop_definition_content[]" id="prop_definition_content'+va+'" class="hide"><input type="text" name="prop_language_name[]" id="prop_language_name'+va+'" class="hide" ></td><td><input type="button" class="btn btn-xs btn-info btn-circle" value="+" name="add'+va+'" id="add'+va+'" onClick="add_ro('+va+');" title="Add property"> &nbsp;&nbsp;<input type="button" class="btn btn-xs btn-danger btn-circle" style="display:" value="-" name="remove'+va+'" id="remove'+va+'" onClick="removetable('+va+');" title="Delete property"></td><td><input type="text" class="form-control input-sm" id="prop_value'+va+'" name="prop_value[]" style="width: 100% !important;"></td><td><input type="text" class="form-control input-sm" id="prop_source'+va+'" name="prop_source[]" style="width: 100% !important;"></td><td class=""><select name="prop_mandatory[]" class="form-control hide" id="prop_mandatory'+va+'"><option value="NO">NO</option><option value="YES">YES</option></select></td><td class="hide"> <input type="text" name="tab'+va+'" id="tab'+va+'"  value='+va+' /></td></tr>');
-      
-      }
-      else
-      {
-        alert("Please Fill Existing row");
-      }
+  var ar = new Array();
+    $('[id^="add"]').each(
+    function(){
+      var z = parseInt( $(this).attr('id').replace('add','') );
+      ar.push(
+       parseInt( $(this).attr('id').replace('add','') )
+      );
+    });
+    var max_array = ar.length;
+    var maxid = Math.max.apply( Math, ar );
+    va = maxid+1;
+    if($('#prop_name'+maxid).val().length == 0)
+    {
+       alert("Please Fill Existing row");
+    }
+    else
+    {
+      $("#add"+v2).css("display","none");
+      $("#delete"+v2).css("display","block");
+      $('#change_class1').append('<tr id="pr'+va+'" class="text"><td><input type="hidden" id="test'+va+'" /><span id="dynamiclink'+va+'"></span><input type="text" class="form-control prop_name hide dupcheck" id="prop_name'+va+'" name="prop_name[]" required="required">&nbsp;&nbsp;&nbsp;<a data-toggle="modal" href="#modal-prop" data-id="'+va+'" class="modal_prop pull-right" >BROWSE</a> <input class="hide " type="text" name="prop_concept_ID[]" id="prop_concept_ID'+va+'"><input type="text" name="prop_term_ID[]" id="prop_term_ID'+va+'" class="hide" ><input type="text" name="prop_definition_ID[]" id="prop_definition_ID'+va+'" class="hide" ><input type="text" name="prop_term_organization_name[]" id="prop_term_organization_name'+va+'" class="hide" ><input type="text" name="prop_definition_content[]" id="prop_definition_content'+va+'" class="hide"><input type="text" name="prop_language_name[]" id="prop_language_name'+va+'" class="hide" ></td><td><input type="button" class="btn btn-xs btn-info btn-circle" value="+" name="add'+va+'" id="add'+va+'" onClick="add_ro('+va+');" title="Add property"> <br><input type="button" class="btn btn-xs btn-danger btn-circle" style="display:" value="-" name="delete'+va+'" id="del_remove'+va+'" onClick="removetable('+va+');" title="Delete property"></td><td><input type="text" class="form-control input-sm" id="prop_value'+va+'" name="prop_value[]" style="width: 100% !important;"></td><td><input type="text" class="form-control input-sm" id="prop_source'+va+'" name="prop_source[]" style="width: 100% !important;"></td><td class=""><select name="prop_mandatory[]" class="form-control hide" id="prop_mandatory'+va+'"><option value="NO">NO</option><option value="YES">YES</option></select></td><td class="hide"> <input type="text" name="tab'+va+'" id="tab'+va+'"  value='+va+' /></td></tr>');
+
     }
 }
 
 function removetablerow(id){
   if (confirm('Are you sure you want to delete this?')) {
-    var p = document.getElementById("plusbtn").value;
-    var v = id;
-    // alert(p);
-    // alert(v);
-    if(v==p) {
-      d=v-1;
+   
+      if ($('#change_class1 tr').length<4) 
+      {
+      alert ('class must have at least one row')
+      } else 
+      {
+
+      jQuery('#removerow'+id).remove();
+      var p = document.getElementById("plusbtn").value;
+      var v = id;
+      var ar = new Array();
+      $('[id^="add"]').each(
+      function(){
+        ar.push(
+         parseInt( $(this).attr('id').replace('add','') )
+        );
+      });
+      //     var max_array = ar.length;
+      //     var count = 0;
+      //     for(var i = 0; i < ar.length; ++i)
+      //     {
+      //         // if(ar[i] == 1)
+      //         var count= count+1;    
+      //     }
+      // alert(count);
+      var maxid = Math.max.apply( Math, ar );
+      // if(maxid==id) {
+      // d=count-1;
+      // alert(maxid);
       // alert(d);
-      $('#plusbtn').val(d);
-      $('.mainadd'+d).css("display","block");
-    }  
-    jQuery('#removerow'+id).remove();
-     document.getElementById("submit").innerHTML='<div class="col-md-12 text-danger"><h3>We have noticed there are some changes in this template. Please choose the below options to update the changes.</h3></div><div class="col-lg-12"><span class="text-danger"><h3><input type="radio" name="template" value="existtemplate" required onclick="getbackigid();"/>  Update the changes to the existing template. <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal">View Existing Template</button></h3></span></div><div class="col-lg-12"><span class="text-danger"><h3><input type="radio" name="template" value="newtemplate" required onclick="resetigid();"/> Create this as a New template.</h3></span><% if @etsr_mm==1 %><span class="text-success"><h3><input type="checkbox" checked name="upload_etsr" id="upload_etsr"/>&nbsp;&nbsp; <i class="fa fa-share"></i> Update to eTSR</h3></span><%  else %><span class="text-success"><h3><input type="checkbox" name="upload_etsr" id="upload_etsr"/>&nbsp;&nbsp; <i class="fa fa-share"></i> Move to eTSR</h3></span><% end  %></div><div class="col-md-12"><input type="submit" class="btn btn-success pull-left class_prop" style=" padding-right:10px;" id= "update_prop" name="update_prop" value="Submit"></div><br> <br><br> <br><br> <br><br> <br>';
-            $("#resetsub").empty();
+      // if('.mainadd'+d=='')
+      // {
+      //   alert("test");
+      //    d=count-2;
+      //    $('.mainadd'+d).css("display","block");
+      // }
+      // else
+      // {
+      // $('.mainadd'+maxid).css("display","block"); 
+      // }
+      // }
+      // else{
+      // alert(id);
+      $('.mainadd'+maxid).css("display","block");
+      // }     
+      var a=$('#change_class1 tr').length;
+      document.getElementById("submit").innerHTML='<div class="col-md-12 text-danger"><h3>We have noticed there are some changes in this template. Please choose the below options to update the changes.</h3></div><div class="col-lg-12"><span class="text-danger"><h3><input type="radio" name="template" value="existtemplate" required onclick="getbackigid();"/>  Update the changes to the existing template. <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal">View Existing Template</button></h3></span></div><div class="col-lg-12"><span class="text-danger"><h3><input type="radio" name="template" value="newtemplate" required onclick="resetigid();"/> Create this as a New template.</h3></span><% if @etsr_mm==1 %><span class="text-success"><h3><input type="checkbox" checked name="upload_etsr" id="upload_etsr"/>&nbsp;&nbsp; <i class="fa fa-share"></i> Update to eTSR</h3></span><%  else %><span class="text-success"><h3><input type="checkbox" name="upload_etsr" id="upload_etsr"/>&nbsp;&nbsp; <i class="fa fa-share"></i> Move to eTSR</h3></span><% end  %></div><div class="col-md-12"><input type="submit" class="btn btn-success pull-left class_prop" style=" padding-right:10px;" id= "update_prop" name="update_prop" value="Submit"></div><br> <br><br> <br><br> <br><br> <br>';
+        $("#resetsub").empty();
+      }
   }
 }
 
 function removetable(id){
   if (confirm('Are you sure you want to delete this?')) {
-    var v= id-1;
-    if (id==1) {
-      var p = document.getElementById("plusbtn").value;
-      // alert(p);
-      $('.mainadd'+p).css("display","block");
-    }
+    var a=$('#change_class1 tr').length;
+    if ($('#change_class1 tr').length<4) 
+    {
+    alert ('class must have at least one row')
+    } 
     else{
-      $('#add'+v).css("display","block");
-    }  
     var r = document.getElementById("test"+id).value;
     jQuery('#reject'+r).val("");
-    // $("#reject"+r).css({"display": "block"});
     jQuery('#pr'+id).remove();
-    $('.class_prop').css("display","block");
-  }
+    $("#resetsub").empty();
+    var ar = new Array();
+    $('[id^="del_remove"]').each(
+    function(){
+      ar.push(
+       parseInt(this.id.replace(/\D/g, ''))
+      );
+    });
+    var max_array = ar.length;
+    var maxid = Math.max.apply( Math, ar );  
+    $('#add'+maxid).css("display","block");
+    }
+  } 
 }
 
 $(document).on("click", ".modal_prop", function () {
@@ -968,84 +971,89 @@ $(document).ready(function(){
   }); 
 
   $("#search_prop").submit(function(event) {  
+    $("#prop_img1").css("display","block");
     event.preventDefault();   
-    $.post( 'modalprop?listprop=0', $("#search_prop").serialize(),  
+    $.post( 'modalprop?listprop=0&page=1', $("#search_prop").serialize(),  
     function( data ) {  
-      // alert('success');
+      $("#prop_img1").css("display","none");
       $("#preview-prop").html(data); 
     });
-    $(document).ajaxStart(function(){
-        $("#image1").css("display","block");
-      });
-      $(document).ajaxStop(function(){
-        $("#image1").css("display","none");
-      });
   }); 
   var r = document.getElementById("plusbtn").value;
   $(".mainadd"+r).css("display","block");
 });  
 
 function prop(dat){  
-     // $("#image1").show();
+     $("#prop_img1").show();
     $.ajax({
       type: 'get',
       url: 'modalprop',
-      data: { listprop:dat },
+      data: { listprop:dat,page:1 },
       success: function(data)
       {
-          $("#image1").hide();
+          $("#prop_img1").hide();
           $('#preview-prop').html(data);
-      }
-   
-
+      } 
   });
 }  
 
 $(function(){
-        // ajaxindicatorstart('loading data.. please wait..');
-// xhr.abort();
-  $.get('modalprop?listprop=1', function(data) {
-    $('#preview-prop').html(data);
-    // ajaxindicatorstop();
-       $("#image1").hide();
-    // alert('asdfa');    
-  });
+  $("#prop_img1").show();
+    $.get('modalprop?listprop=1&page=1', function(data) {
+      $('#preview-prop').html(data);
+         $("#prop_img1").hide();
+    });
 });
 
 $(function() {
     var config = {
         '.chosen-select': {},
-        // '.chosen-select-deselect': { allow_single_deselect: true },
-        // '.chosen-select-no-single': { disable_search_threshold: 10 },
-        // '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
-        // '.chosen-select-width': { width: "95%" }
     }
     for (var selector in config) {
         $(selector).chosen(config[selector]);
     }
 });
-// $(document).ready(function(){
-//   $(".addCF").click(function(){
-//      $("#box").css("display","block");
-//     $("#addproperty").append('<tr valign="top"><th scope="row"><label for="customFieldName">Custom Field</label></th><td><input type="text" class="code" id="customFieldName" name="customFieldName[]" value="" placeholder="Input Name" /> &nbsp; <input type="text" class="code" id="customFieldValue" name="customFieldValue[]" value="" placeholder="Input Value" /> &nbsp; <a href="javascript:void(0);" class="remCF">Remove</a></td></tr>');
-//   });
-//     $("#addproperty").on('click','.remCF',function(){
-//         $(this).parent().parent().remove();
-//     });
-// });
 
+function func_prop(val)
+{
+    $("#prop_img1").show();
+ $.ajax({
 
-// function imgres()
-// {
-// $('#imagepreview').attr('src', $('#imageresource').attr('src')); 
-// $('#imagemodal').modal('show'); 
-// }
+        type: 'get',
+        url: 'modalprop',
+        data: { listprop:1,page:val },
+        success: function(data, status, jqXHR)
+        {
+            $("#prop_img1").hide();
+            $('#preview-prop').html(data); 
+        }
+        });
+}
+function func_prop1(val)
+{
+    var prop_name=document.getElementById("property_name").value;
+    var query=document.getElementById("query_prop").value;
+    var language=document.getElementById("language_prop").value;
+    var organization=document.getElementById("organization_prop").value;
+      $("#prop_img1").show(); 
+      $.ajax({
 
-// function imgresqr()
-// {
-// $('#imagepreviewqr').attr('src', $('#imageresourceqr').attr('src')); 
-// $('#imagemodalqr').modal('show'); 
-// }
+        type: 'get',
+        url: 'modalprop',
+        data: { listprop:0,page:val,property_name:prop_name,query_prop:query,organization_prop:organization,language_prop:language },
+        success: function(data, status, jqXHR)
+        {
+            $("#prop_img1").hide();
+            $('#preview-prop').html(data);
+        }
+      });
+}
+
+$("#search_prop1").on('click',function() 
+   {
+  var str = document.getElementById("property_name").value;
+  str = str.trimLeft();
+   });
 </script>
 
 <% end %>

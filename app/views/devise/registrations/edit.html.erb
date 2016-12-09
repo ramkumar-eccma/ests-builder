@@ -5,21 +5,20 @@
 }
 </style>
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-12">
-        <!-- <img alt="image" class="img-responsive" src="<%= image_url 'headerlogo.jpg' %> " height="50px" />       -->
-        <div class="clearfix"></div><br>
-        <ol class="breadcrumb">
-            <li>
-              Home
-            </li>
-            <li>
-              Dashboard
-            </li>
-             <li class="active">
-               Edit Profile
-            </li>
-        </ol>
-    </div>
+  <div class="col-lg-12">
+    <div class="clearfix"></div><br>
+    <ol class="breadcrumb">
+        <li>
+          Home
+        </li>
+        <li>
+          Dashboard
+        </li>
+         <li class="active">
+           Edit Profile
+        </li>
+    </ol>
+  </div>
 </div>
 
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -28,149 +27,149 @@
       <%= devise_error_messages! %>                  
     </div>
     <div class="col-lg-12">
-        <div class="panel panel-primary">
+      <div class="panel panel-primary">
           <div class="panel-heading">
               <h4>Edit Profile</h4>
           </div>
-          <div class="panel-body">
-              <div class="row">
-                <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-                  <div class="col-sm-4 b-r">
-                      <div class="form-group">
-                        <label>Email</label> 
-                        <%- if I18n.locale== :ar %>
-                          <%= f.email_field :email,class:'form-control',placeholder:'البريد الإلكتروني',required:"required", autofocus: true %>
-                        <% else %>
-                          <%= f.email_field :email,class:'form-control',placeholder:'Email',required:"required", autofocus: true %>
-                        <% end -%>
-                      </div>      
+        <div class="panel-body">
+            <div class="row">
+              <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+                <div class="col-sm-4 b-r">
+                    <div class="form-group">
+                      <label>Email</label> 
+                      <%- if I18n.locale== :ar %>
+                        <%= f.email_field :email,class:'form-control',placeholder:'البريد الإلكتروني',required:"required", autofocus: true %>
+                      <% else %>
+                        <%= f.email_field :email,class:'form-control',placeholder:'Email',required:"required", autofocus: true %>
+                      <% end -%>
+                    </div>      
 
-                      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-                        <%- if I18n.locale== :ar %>
-                          <div>حاليا في انتظار تأكيد ل: <%= resource.unconfirmed_email %></div>
-                        <% else %>
-                          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-                        <% end -%>
-                      <% end %>
+                    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                      <%- if I18n.locale== :ar %>
+                        <div>حاليا في انتظار تأكيد ل: <%= resource.unconfirmed_email %></div>
+                      <% else %>
+                        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+                      <% end -%>
+                    <% end %>
 
-                      <div class="form-group">
-                        <label>Factory Name</label> 
-                        <%- if I18n.locale== :ar %>
-                          <%= f.text_field :Organization_name,class:'form-control', placeholder:'اسم المؤسسة',required:"required"%>
-                        <% else %>
-                          <%= f.text_field :Organization_name,class:'form-control', placeholder:'Organization Name',required:"required"%>
-                        <% end -%>
-                      </div>
-                      
-                      <div class="form-group hide">
-                        <label>Designation</label> 
-                        <%- if I18n.locale== :ar %>
-                          <%= f.text_field :designation,class:'form-control', placeholder:'التعيين'%>
-                        <% else %>
-                          <%= f.text_field :designation,class:'form-control', placeholder:'Designation'%>
-                        <% end -%>            
-                      </div>                                                     
-                  </div>
+                    <div class="form-group">
+                      <label>Factory Name</label> 
+                      <%- if I18n.locale== :ar %>
+                        <%= f.text_field :Organization_name,class:'form-control', placeholder:'اسم المؤسسة',required:"required"%>
+                      <% else %>
+                        <%= f.text_field :Organization_name,class:'form-control', placeholder:'Organization Name',required:"required"%>
+                      <% end -%>
+                    </div>
+                    
+                    <div class="form-group hide">
+                      <label>Designation</label> 
+                      <%- if I18n.locale== :ar %>
+                        <%= f.text_field :designation,class:'form-control', placeholder:'التعيين'%>
+                      <% else %>
+                        <%= f.text_field :designation,class:'form-control', placeholder:'Designation'%>
+                      <% end -%>            
+                    </div>                                                     
+                </div>
 
-                  <div class="col-sm-4">
-                      <div class="form-group">
-                        <label>Change Password</label> 
-                        <%- if I18n.locale== :ar %>
-                          <%= f.password_field :password,class:'form-control',placeholder:'الرمز السري', autocomplete: "off" %><span class="text-danger"><i>(ترك فارغا إذا كنت لا ترغب في تغييره)</i></span>
-                        <% else %>
-                          <%= f.password_field :password,class:'form-control',placeholder:'Password', autocomplete: "off" %><span class="text-danger"><i>(leave blank if you don't want to change it)</i></span>
-                        <% end -%>            
-                      </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Change Password</label> 
+                      <%- if I18n.locale== :ar %>
+                        <%= f.password_field :password,class:'form-control',placeholder:'الرمز السري', autocomplete: "off" %><span class="text-danger"><i>(ترك فارغا إذا كنت لا ترغب في تغييره)</i></span>
+                      <% else %>
+                        <%= f.password_field :password,class:'form-control',placeholder:'Password', autocomplete: "off" %><span class="text-danger"><i>(leave blank if you don't want to change it)</i></span>
+                      <% end -%>            
+                    </div>
 
-                      <div class="form-group">
-                        <label>Confirm Password</label> 
-                        <%- if I18n.locale== :ar %>
-                          <%= f.password_field :password_confirmation,class:'form-control',placeholder:'تأكيد كلمة المرور', autocomplete: "off"%>
-                        <% else %>
-                          <%= f.password_field :password_confirmation,class:'form-control',placeholder:'Password Confirmation', autocomplete: "off"%>
-                        <% end -%>            
-                      </div>                            
+                    <div class="form-group">
+                      <label>Confirm Password</label> 
+                      <%- if I18n.locale== :ar %>
+                        <%= f.password_field :password_confirmation,class:'form-control',placeholder:'تأكيد كلمة المرور', autocomplete: "off"%>
+                      <% else %>
+                        <%= f.password_field :password_confirmation,class:'form-control',placeholder:'Password Confirmation', autocomplete: "off"%>
+                      <% end -%>            
+                    </div>                            
 
-                      <div class="form-group">
-                        <label>Current Password</label> 
-                        <%- if I18n.locale== :ar %>
-                          <%= f.password_field :current_password,class:'form-control', placeholder:'كلمة السر الحالية', autocomplete: "off",required:"required" %><span class="text-danger"><i>(نحن بحاجة إلى كلمة المرور الحالية لتأكيد التغييرات)</i></span>
-                        <% else %>
-                          <%= f.password_field :current_password,class:'form-control', placeholder:'Current Password', autocomplete: "off",required:"required" %> <span class="text-danger"><i>(we need your current password to confirm your changes)</i></span>
-                        <% end -%>
-                      </div>
+                    <div class="form-group">
+                      <label>Current Password</label> 
+                      <%- if I18n.locale== :ar %>
+                        <%= f.password_field :current_password,class:'form-control', placeholder:'كلمة السر الحالية', autocomplete: "off",required:"required" %><span class="text-danger"><i>(نحن بحاجة إلى كلمة المرور الحالية لتأكيد التغييرات)</i></span>
+                      <% else %>
+                        <%= f.password_field :current_password,class:'form-control', placeholder:'Current Password', autocomplete: "off",required:"required" %> <span class="text-danger"><i>(we need your current password to confirm your changes)</i></span>
+                      <% end -%>
+                    </div>
 
-                      <div class="form-group hide">
-                        <label>Organization #</label> 
-                        <%- if I18n.locale== :ar %>
-                          <%= f.text_field :Organization_ID,class:'form-control', placeholder:'ID منظمة'%>
-                        <% else %>
-                          <%= f.text_field :Organization_ID,class:'form-control', placeholder:'Organization ID'%>
-                        <% end -%>            
-                      </div>
-                          
-                      <div class="form-group hide">
-                        <label>Indivdual #</label> 
-                        <%- if I18n.locale== :ar %>
-                          <%= f.text_field :Individual_ID,class:'form-control', placeholder:'ID الفردية'%>
-                        <% else %>
-                          <%= f.text_field :Individual_ID,class:'form-control', placeholder:'Individual ID'%>
-                        <% end -%> 
-                      </div>
-                          
-                      
+                    <div class="form-group hide">
+                      <label>Organization #</label> 
+                      <%- if I18n.locale== :ar %>
+                        <%= f.text_field :Organization_ID,class:'form-control', placeholder:'ID منظمة'%>
+                      <% else %>
+                        <%= f.text_field :Organization_ID,class:'form-control', placeholder:'Organization ID'%>
+                      <% end -%>            
+                    </div>
+                        
+                    <div class="form-group hide">
+                      <label>Indivdual #</label> 
+                      <%- if I18n.locale== :ar %>
+                        <%= f.text_field :Individual_ID,class:'form-control', placeholder:'ID الفردية'%>
+                      <% else %>
+                        <%= f.text_field :Individual_ID,class:'form-control', placeholder:'Individual ID'%>
+                      <% end -%> 
+                    </div>
+                        
+                    
 
-                      <div class="form-group hide">
-                        <%- if I18n.locale== :ar %>
-                          <%= f.text_field :level,class:'form-control', placeholder:'مستوى'%>
-                        <% else %>
-                          <%= f.text_field :level,class:'form-control', placeholder:'Level'%>
-                        <% end -%>
-                      </div>
+                    <div class="form-group hide">
+                      <%- if I18n.locale== :ar %>
+                        <%= f.text_field :level,class:'form-control', placeholder:'مستوى'%>
+                      <% else %>
+                        <%= f.text_field :level,class:'form-control', placeholder:'Level'%>
+                      <% end -%>
+                    </div>
 
-                      <div class="form-group hide">
-                        <%- if I18n.locale== :ar %>
-                          <%= f.text_field :role,class:'form-control', placeholder:'دور'%>
-                        <% else %>
-                          <%= f.text_field :role,class:'form-control', placeholder:'Role'%>
-                        <% end -%>
-                      </div>
+                    <div class="form-group hide">
+                      <%- if I18n.locale== :ar %>
+                        <%= f.text_field :role,class:'form-control', placeholder:'دور'%>
+                      <% else %>
+                        <%= f.text_field :role,class:'form-control', placeholder:'Role'%>
+                      <% end -%>
+                    </div>
 
-                      <div class="actions">
+                    <div class="actions">
+                      <%- if I18n.locale== :ar %>
+                        <%= f.submit "تحديث",class:"btn btn-success block pull-right" %>
+                      <% else %>
+                        <%= f.submit "Update",class:"btn btn-success block pull-right" %>
+                      <% end -%>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                  <h4><%- if I18n.locale== :ar %>تعيس?<% else %>Unhappy?<% end -%></h4>
+                    <p>
                         <%- if I18n.locale== :ar %>
-                          <%= f.submit "تحديث",class:"btn btn-success block pull-right" %>
+                         إلغاء حسابي
                         <% else %>
-                          <%= f.submit "Update",class:"btn btn-success block pull-right" %>
+                          Cancel my account
                         <% end -%>
-                      </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <h4><%- if I18n.locale== :ar %>تعيس?<% else %>Unhappy?<% end -%></h4>
-                      <p>
-                          <%- if I18n.locale== :ar %>
-                           إلغاء حسابي
-                          <% else %>
-                            Cancel my account
-                          <% end -%>
-                      </p>
-                      <p class="text-center"> 
-                         <%- if I18n.locale== :ar %>
-                        <%= button_to "إلغاء حسابي", registration_path(resource_name), method: :delete,data: { confirm: "هل أنت متأكد?" },class:"btn btn-danger block m-b" %>
-                        <% else %>
-                        <%= button_to "Cancel my account", registration_path(resource_name),method: :delete, data: { confirm: "Are you sure?" },class:"btn btn-danger block m-b" %>
-                        <% end -%>
-                      </p>
-                      <p class="hide">
-                        <%- if I18n.locale== :ar %>
-                          <%= link_to "الى الخلف", :back %></br></br></br></br>
-                        <% else %>
-                            <%= link_to "Back", :back %></br></br></br></br>
-                        <% end -%>
-                      </p>
-                  </div>
-                <% end -%>
-              </div>
-          </div>
+                    </p>
+                    <p class="text-center"> 
+                       <%- if I18n.locale== :ar %>
+                      <%= button_to "إلغاء حسابي", registration_path(resource_name), method: :delete,data: { confirm: "هل أنت متأكد?" },class:"btn btn-danger block m-b" %>
+                      <% else %>
+                      <%= button_to "Cancel my account", registration_path(resource_name),method: :delete, data: { confirm: "Are you sure?" },class:"btn btn-danger block m-b" %>
+                      <% end -%>
+                    </p>
+                    <p class="hide">
+                      <%- if I18n.locale== :ar %>
+                        <%= link_to "الى الخلف", :back %></br></br></br></br>
+                      <% else %>
+                          <%= link_to "Back", :back %></br></br></br></br>
+                      <% end -%>
+                    </p>
+                </div>
+              <% end -%>
+            </div>
+        </div>
       </div>
     </div>
   </div> 
