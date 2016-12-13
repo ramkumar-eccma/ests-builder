@@ -21,7 +21,7 @@ Myapp::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
-  config.serve_static_files = true
+  config.serve_static_files = false
   ENKEY = "ksademo"
 
   # Compress JavaScripts and CSS.
@@ -29,7 +29,7 @@ Myapp::Application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = true
+  config.assets.compile = false
 
   # Generate digests for assets URLs.
   config.assets.digest = true

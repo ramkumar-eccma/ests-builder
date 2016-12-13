@@ -1,0 +1,1707 @@
+
+
+Started GET "/modalclass?listall=1&page=2" for 127.0.0.1 at 2016-12-13 10:29:30 +0530
+Processing by HomeController#modalclass as HTML
+  Parameters: {"listall"=>"1", "page"=>"2"}
+Completed 401 Unauthorized in 17ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/auth/login" for 127.0.0.1 at 2016-12-13 10:29:32 +0530
+Processing by Devise::SessionsController#new as HTML
+  [1m[36mLanguage Load (390.2ms)[0m  [1mSELECT `languages`.`language_property` FROM `languages` WHERE (language_id = '1' AND controller_name = 'sessions' AND page_name = 'new.html.erb' AND language_type = 'en' )[0m
+  [1m[35mLanguage Load (392.5ms)[0m  SELECT `languages`.`language_property` FROM `languages` WHERE (language_id = '2' AND controller_name = 'sessions' AND page_name = 'new.html.erb' AND language_type = 'en' )
+  [1m[36mLanguage Load (389.3ms)[0m  [1mSELECT `languages`.`language_property` FROM `languages` WHERE (language_id = '3' AND controller_name = 'sessions' AND page_name = 'new.html.erb' AND language_type = 'en' )[0m
+  [1m[35mLanguage Load (394.3ms)[0m  SELECT `languages`.`language_property` FROM `languages` WHERE (language_id = '4' AND controller_name = 'sessions' AND page_name = 'new.html.erb' AND language_type = 'en' )
+  [1m[36mLanguage Load (390.0ms)[0m  [1mSELECT `languages`.`language_property` FROM `languages` WHERE (language_id = '5' AND controller_name = 'sessions' AND page_name = 'new.html.erb' AND language_type = 'en' )[0m
+  Rendered devise/shared/_links.html.erb (5.1ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (2969.7ms)
+Completed 200 OK in 7402ms (Views: 3447.6ms | ActiveRecord: 3921.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2016-12-13 10:29:40 +0530
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2016-12-13 10:29:41 +0530
+
+
+Started GET "/assets/chosen/chosen.css?body=1" for 127.0.0.1 at 2016-12-13 10:29:42 +0530
+
+
+Started GET "/assets/animate/animate.css?body=1" for 127.0.0.1 at 2016-12-13 10:29:42 +0530
+
+
+Started GET "/assets/font-awesome.css?body=1" for 127.0.0.1 at 2016-12-13 10:29:43 +0530
+
+
+Started GET "/assets/dataTables/dataTables.bootstrap.css?body=1" for 127.0.0.1 at 2016-12-13 10:29:44 +0530
+
+
+Started GET "/assets/dataTables/dataTables.responsive.css?body=1" for 127.0.0.1 at 2016-12-13 10:29:44 +0530
+
+
+Started GET "/assets/dataTables/dataTables.tableTools.min.css?body=1" for 127.0.0.1 at 2016-12-13 10:29:45 +0530
+
+
+Started GET "/assets/jquery/jquery-2.1.1.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:45 +0530
+
+
+Started GET "/assets/bootstrap/affix.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:46 +0530
+
+
+Started GET "/assets/bootstrap/alert.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:46 +0530
+
+
+Started GET "/assets/bootstrap/button.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:47 +0530
+
+
+Started GET "/assets/bootstrap/carousel.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:47 +0530
+
+
+Started GET "/assets/bootstrap/collapse.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:47 +0530
+
+
+Started GET "/assets/bootstrap/dropdown.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:48 +0530
+
+
+Started GET "/assets/bootstrap/tab.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:48 +0530
+
+
+Started GET "/assets/bootstrap/transition.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:49 +0530
+
+
+Started GET "/assets/bootstrap/scrollspy.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:50 +0530
+
+
+Started GET "/assets/bootstrap/modal.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:50 +0530
+
+
+Started GET "/assets/bootstrap/tooltip.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:50 +0530
+
+
+Started GET "/assets/bootstrap/popover.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:51 +0530
+
+
+Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:51 +0530
+
+
+Started GET "/assets/metisMenu/jquery.metisMenu.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:52 +0530
+
+
+Started GET "/assets/pace/pace.min.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:52 +0530
+
+
+Started GET "/assets/slimscroll/jquery.slimscroll.min.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:52 +0530
+
+
+Started GET "/assets/wice_grid_processor.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:53 +0530
+
+
+Started GET "/assets/wice_grid_init.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:53 +0530
+
+
+Started GET "/assets/wice_grid_saved_queries_init.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:54 +0530
+
+
+Started GET "/assets/wice_grid.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:54 +0530
+
+
+Started GET "/assets/inspinia.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:54 +0530
+
+
+Started GET "/assets/chosen/chosen.jquery.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:55 +0530
+
+
+Started GET "/assets/clipboard.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:55 +0530
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2016-12-13 10:29:56 +0530
+
+
+Started GET "/assets/eSTS.png" for 127.0.0.1 at 2016-12-13 10:29:56 +0530
+
+
+Started GET "/assets/login1.jpg" for 127.0.0.1 at 2016-12-13 10:29:56 +0530
+
+
+Started GET "/assets/patterns/shattered.png" for 127.0.0.1 at 2016-12-13 10:29:57 +0530
+
+
+Started POST "/en/auth/login" for 127.0.0.1 at 2016-12-13 10:32:31 +0530
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"bexf13TlSQQYjWOTkSqiNKqDBp5DsGjVl4SARepEB6kW9RP38H0pzjz+4CsgqHOsnViD4OoKpmuTx/3Co0XG1A==", "user"=>{"email"=>"rfi@eccma.org", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in", "locale"=>"en"}
+  [1m[35mUser Load (389.3ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`email` = 'rfi@eccma.org'  ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36m (389.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (992.8ms)[0m  UPDATE `users` SET `last_sign_in_at` = '2016-12-13 04:00:15', `current_sign_in_at` = '2016-12-13 05:02:32', `sign_in_count` = 142, `updated_at` = '2016-12-13 05:02:32' WHERE `users`.`id` = 27
+  [1m[36m (387.7ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/en/home/index
+Completed 302 Found in 2345ms (ActiveRecord: 2158.9ms)
+
+
+Started POST "/en/auth/login" for 127.0.0.1 at 2016-12-13 10:32:34 +0530
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"bexf13TlSQQYjWOTkSqiNKqDBp5DsGjVl4SARepEB6kW9RP38H0pzjz+4CsgqHOsnViD4OoKpmuTx/3Co0XG1A==", "user"=>{"email"=>"rfi@eccma.org", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in", "locale"=>"en"}
+  [1m[35mUser Load (390.1ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`email` = 'rfi@eccma.org'  ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36m (389.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (393.9ms)[0m  UPDATE `users` SET `last_sign_in_at` = '2016-12-13 05:02:32', `current_sign_in_at` = '2016-12-13 05:02:35', `sign_in_count` = 143, `updated_at` = '2016-12-13 05:02:36' WHERE `users`.`id` = 27
+  [1m[36m (394.9ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/en/home/index
+Completed 302 Found in 1633ms (ActiveRecord: 1568.1ms)
+
+
+Started GET "/en/home/index" for 127.0.0.1 at 2016-12-13 10:32:37 +0530
+Processing by HomeController#index as HTML
+  Parameters: {"locale"=>"en"}
+  [1m[35mUser Load (389.9ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 27  ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mSetting Load (393.5ms)[0m  [1mSELECT `settings`.* FROM `settings` WHERE (organization_ID = '123')[0m
+  [1m[35m (390.1ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (organization_ID = '71' and datedeleted = '0000-00-00 00:00:00')
+  [1m[36mMaterialMaster Load (392.9ms)[0m  [1mSELECT  `material_master`.* FROM `material_master` WHERE (organization_ID = '71' and datedeleted = '0000-00-00 00:00:00') LIMIT 12 OFFSET 0[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (organization_ID = '71' and datedeleted = '0000-00-00 00:00:00')
+  [1m[36m (390.8ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000003)[0m
+DEPRECATION WARNING: Passing a string to ActiveRecord::Base.establish_connection for a configuration lookup is deprecated, please pass a symbol (:etsr_development) instead. (called from <class:Mm> at /home/2016/Dec/etsr-bkup-09-12-16/ests-builder/app/models/etsr_material_master.rb:4)
+  [1m[35m (1222.4ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000003')
+  [1m[36mImage Load (392.6ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000003)[0m
+  [1m[35mRxmlValue Load (537.5ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000003 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (988.0ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000005)[0m
+  [1m[35m (393.1ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000005')
+  [1m[36mImage Load (398.5ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000005)[0m
+  [1m[35mRxmlValue Load (389.8ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000005 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (392.4ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000006)[0m
+  [1m[35m (393.3ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000006')
+  [1m[36mImage Load (392.6ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000006)[0m
+  [1m[35mRxmlValue Load (404.0ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000006 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (397.9ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000007)[0m
+  [1m[35m (390.4ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000007')
+  [1m[36mRxmlValue Load (389.5ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000007 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  [1m[35m (396.7ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000008)
+  [1m[36m (392.5ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000008')[0m
+  [1m[35mImage Load (391.4ms)[0m  SELECT `images`.* FROM `images` WHERE (image_id = 2000008)
+  [1m[36mRxmlValue Load (393.0ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000008 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  [1m[35m (389.9ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000009)
+  [1m[36m (398.8ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000009')[0m
+  [1m[35mRxmlValue Load (392.9ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000009 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (392.8ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000011)[0m
+  [1m[35m (387.7ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000011')
+  [1m[36mImage Load (391.4ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000011)[0m
+  [1m[35mRxmlValue Load (389.8ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000011 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (390.9ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000012)[0m
+  [1m[35m (388.5ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000012')
+  [1m[36mRxmlValue Load (389.2ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000012 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  [1m[35m (389.3ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000013)
+  [1m[36m (392.0ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000013')[0m
+  [1m[35mRxmlValue Load (391.5ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000013 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (388.9ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000014)[0m
+  [1m[35m (389.3ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000014')
+  [1m[36mRxmlValue Load (388.7ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000014 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  [1m[35m (385.5ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000015)
+  [1m[36m (393.0ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000015')[0m
+  [1m[35mRxmlValue Load (391.6ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000015 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (390.9ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000016)[0m
+  [1m[35m (389.7ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000016')
+  [1m[36mRxmlValue Load (390.9ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000016 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  Rendered home/index.html.erb within layouts/application (23515.1ms)
+  Rendered layouts/_topnavbar_2.html.erb (13.6ms)
+  Rendered layouts/_footer.html.erb (2.2ms)
+Completed 200 OK in 26130ms (Views: 2243.2ms | ActiveRecord: 23768.8ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2016-12-13 10:33:03 +0530
+
+
+Started GET "/assets/font-awesome.css?body=1" for 127.0.0.1 at 2016-12-13 10:33:04 +0530
+
+
+Started GET "/assets/animate/animate.css?body=1" for 127.0.0.1 at 2016-12-13 10:33:04 +0530
+
+
+Started GET "/assets/chosen/chosen.css?body=1" for 127.0.0.1 at 2016-12-13 10:33:04 +0530
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2016-12-13 10:33:05 +0530
+
+
+Started GET "/assets/dataTables/dataTables.bootstrap.css?body=1" for 127.0.0.1 at 2016-12-13 10:33:05 +0530
+
+
+Started GET "/assets/dataTables/dataTables.responsive.css?body=1" for 127.0.0.1 at 2016-12-13 10:33:05 +0530
+
+
+Started GET "/assets/dataTables/dataTables.tableTools.min.css?body=1" for 127.0.0.1 at 2016-12-13 10:33:06 +0530
+
+
+Started GET "/assets/jquery/jquery-2.1.1.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:06 +0530
+
+
+Started GET "/assets/bootstrap/affix.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:07 +0530
+
+
+Started GET "/assets/bootstrap/alert.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:07 +0530
+
+
+Started GET "/assets/bootstrap/button.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:07 +0530
+
+
+Started GET "/assets/bootstrap/carousel.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:08 +0530
+
+
+Started GET "/assets/bootstrap/collapse.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:08 +0530
+
+
+Started GET "/assets/bootstrap/dropdown.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:09 +0530
+
+
+Started GET "/assets/bootstrap/tab.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:09 +0530
+
+
+Started GET "/assets/bootstrap/transition.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:09 +0530
+
+
+Started GET "/assets/bootstrap/scrollspy.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:10 +0530
+
+
+Started GET "/assets/bootstrap/modal.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:10 +0530
+
+
+Started GET "/assets/bootstrap/tooltip.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:11 +0530
+
+
+Started GET "/assets/bootstrap/popover.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:11 +0530
+
+
+Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:11 +0530
+
+
+Started GET "/assets/metisMenu/jquery.metisMenu.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:12 +0530
+
+
+Started GET "/assets/pace/pace.min.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:12 +0530
+
+
+Started GET "/assets/slimscroll/jquery.slimscroll.min.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:13 +0530
+
+
+Started GET "/assets/wice_grid_processor.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:13 +0530
+
+
+Started GET "/assets/wice_grid_init.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:13 +0530
+
+
+Started GET "/assets/wice_grid_saved_queries_init.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:14 +0530
+
+
+Started GET "/assets/wice_grid.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:14 +0530
+
+
+Started GET "/assets/inspinia.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:15 +0530
+
+
+Started GET "/assets/chosen/chosen.jquery.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:15 +0530
+
+
+Started GET "/assets/clipboard.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:15 +0530
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2016-12-13 10:33:16 +0530
+
+
+Started GET "/images/ests_images/2000003_cmt2.png" for 127.0.0.1 at 2016-12-13 10:33:16 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/2000003_cmt2.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (2.0ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (12.5ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.2ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (36.2ms)
+
+
+Started GET "/images/ests_images/2000005_cmt.jpg" for 127.0.0.1 at 2016-12-13 10:33:17 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/2000005_cmt.jpg"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (2.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (20.6ms)
+
+
+Started GET "/images/ests_images/2000006_sample.png" for 127.0.0.1 at 2016-12-13 10:33:18 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/2000006_sample.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (2.0ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (23.4ms)
+
+
+Started GET "/assets/noimage.jpg" for 127.0.0.1 at 2016-12-13 10:33:18 +0530
+
+
+Started GET "/images/ests_images/2000011_overvieww.png" for 127.0.0.1 at 2016-12-13 10:33:18 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/2000011_overvieww.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.2ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.6ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (21.7ms)
+
+
+Started GET "/images/ests_images/2000008_Cute_Barbie.jpg" for 127.0.0.1 at 2016-12-13 10:33:19 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/2000008_Cute_Barbie.jpg"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (3.6ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (22.7ms)
+
+
+Started GET "/assets/fontawesome-webfont.woff2?v=4.3.0" for 127.0.0.1 at 2016-12-13 10:33:19 +0530
+
+
+Started GET "/assets/banner.jpg" for 127.0.0.1 at 2016-12-13 10:33:20 +0530
+
+
+Started GET "/assets/patterns/shattered.png" for 127.0.0.1 at 2016-12-13 10:33:20 +0530
+
+
+Started GET "/assets/login1.jpg" for 127.0.0.1 at 2016-12-13 10:33:20 +0530
+
+
+Started GET "/assets/eSTS.png" for 127.0.0.1 at 2016-12-13 10:33:21 +0530
+
+
+Started GET "/en/home/index" for 127.0.0.1 at 2016-12-13 10:38:55 +0530
+Processing by HomeController#index as HTML
+  Parameters: {"locale"=>"en"}
+  [1m[36mUser Load (397.4ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 27  ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mSetting Load (401.8ms)[0m  SELECT `settings`.* FROM `settings` WHERE (organization_ID = '123')
+  [1m[36m (402.9ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (organization_ID = '71' and datedeleted = '0000-00-00 00:00:00')[0m
+  [1m[35mMaterialMaster Load (399.1ms)[0m  SELECT  `material_master`.* FROM `material_master` WHERE (organization_ID = '71' and datedeleted = '0000-00-00 00:00:00') LIMIT 12 OFFSET 0
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (organization_ID = '71' and datedeleted = '0000-00-00 00:00:00')[0m
+  [1m[35m (397.1ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000001)
+DEPRECATION WARNING: Passing a string to ActiveRecord::Base.establish_connection for a configuration lookup is deprecated, please pass a symbol (:etsr_development) instead. (called from <class:Mm> at /home/2016/Dec/etsr-bkup-09-12-16/ests-builder/app/models/etsr_material_master.rb:4)
+  [1m[36m (400.4ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000001')[0m
+  [1m[35mImage Load (399.9ms)[0m  SELECT `images`.* FROM `images` WHERE (image_id = 2000001)
+  [1m[36mRxmlValue Load (403.0ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000001 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  [1m[35m (398.2ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000002)
+  [1m[36m (398.5ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000002')[0m
+  [1m[35mImage Load (398.1ms)[0m  SELECT `images`.* FROM `images` WHERE (image_id = 2000002)
+  [1m[36mRxmlValue Load (403.6ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000002 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  [1m[35m (398.4ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000003)
+  [1m[36m (398.7ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000003')[0m
+  [1m[35mImage Load (399.6ms)[0m  SELECT `images`.* FROM `images` WHERE (image_id = 2000003)
+  [1m[36mRxmlValue Load (403.7ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000003 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  [1m[35m (400.2ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000004)
+  [1m[36m (400.3ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000004')[0m
+  [1m[35mImage Load (398.7ms)[0m  SELECT `images`.* FROM `images` WHERE (image_id = 2000004)
+  [1m[36mRxmlValue Load (404.6ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000004 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  [1m[35m (397.7ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000005)
+  [1m[36m (399.7ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000005')[0m
+  [1m[35mImage Load (399.3ms)[0m  SELECT `images`.* FROM `images` WHERE (image_id = 2000005)
+  [1m[36mRxmlValue Load (403.1ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000005 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  [1m[35m (399.1ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000006)
+  [1m[36m (398.6ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000006')[0m
+  [1m[35mImage Load (398.3ms)[0m  SELECT `images`.* FROM `images` WHERE (image_id = 2000006)
+  [1m[36mRxmlValue Load (1409.3ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000006 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  [1m[35m (1007.0ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000007)
+  [1m[36m (1068.4ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000007')[0m
+  [1m[35mImage Load (401.9ms)[0m  SELECT `images`.* FROM `images` WHERE (image_id = 2000007)
+  [1m[36mRxmlValue Load (405.8ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000007 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  [1m[35m (400.8ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000008)
+  [1m[36m (473.0ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000008')[0m
+  [1m[35mImage Load (399.7ms)[0m  SELECT `images`.* FROM `images` WHERE (image_id = 2000008)
+  [1m[36mRxmlValue Load (1002.6ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000008 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  [1m[35m (396.9ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000009)
+  [1m[36m (400.0ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000009')[0m
+  [1m[35mImage Load (395.8ms)[0m  SELECT `images`.* FROM `images` WHERE (image_id = 2000009)
+  [1m[36mRxmlValue Load (400.5ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000009 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  [1m[35m (400.6ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000010)
+  [1m[36m (402.1ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000010')[0m
+  [1m[35mImage Load (397.9ms)[0m  SELECT `images`.* FROM `images` WHERE (image_id = 2000010)
+  [1m[36mRxmlValue Load (399.9ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000010 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  [1m[35m (399.2ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000011)
+  [1m[36m (399.6ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000011')[0m
+  [1m[35mImage Load (398.7ms)[0m  SELECT `images`.* FROM `images` WHERE (image_id = 2000011)
+  [1m[36mRxmlValue Load (1445.8ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000011 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  [1m[35m (398.4ms)[0m  SELECT COUNT(*) FROM `images` WHERE (image_id = 2000012)
+  [1m[36m (400.8ms)[0m  [1mSELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000012')[0m
+  [1m[35mImage Load (399.6ms)[0m  SELECT `images`.* FROM `images` WHERE (image_id = 2000012)
+  [1m[36mRxmlValue Load (1456.5ms)[0m  [1mSELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000012 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3[0m
+  Rendered home/index.html.erb within layouts/application (29509.0ms)
+  Rendered layouts/_topnavbar_2.html.erb (6.5ms)
+  Rendered layouts/_footer.html.erb (0.9ms)
+Completed 200 OK in 33617ms (Views: 2743.9ms | ActiveRecord: 30664.4ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2016-12-13 10:39:31 +0530
+
+
+Started GET "/assets/font-awesome.css?body=1" for 127.0.0.1 at 2016-12-13 10:39:32 +0530
+
+
+Started GET "/assets/animate/animate.css?body=1" for 127.0.0.1 at 2016-12-13 10:39:32 +0530
+
+
+Started GET "/assets/dataTables/dataTables.bootstrap.css?body=1" for 127.0.0.1 at 2016-12-13 10:39:33 +0530
+
+
+Started GET "/assets/chosen/chosen.css?body=1" for 127.0.0.1 at 2016-12-13 10:39:33 +0530
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2016-12-13 10:39:33 +0530
+
+
+Started GET "/assets/dataTables/dataTables.responsive.css?body=1" for 127.0.0.1 at 2016-12-13 10:39:34 +0530
+
+
+Started GET "/assets/dataTables/dataTables.tableTools.min.css?body=1" for 127.0.0.1 at 2016-12-13 10:39:34 +0530
+
+
+Started GET "/assets/jquery/jquery-2.1.1.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:35 +0530
+
+
+Started GET "/assets/bootstrap/affix.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:35 +0530
+
+
+Started GET "/assets/bootstrap/alert.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:35 +0530
+
+
+Started GET "/assets/bootstrap/button.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:36 +0530
+
+
+Started GET "/assets/bootstrap/carousel.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:36 +0530
+
+
+Started GET "/assets/bootstrap/collapse.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:37 +0530
+
+
+Started GET "/assets/bootstrap/dropdown.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:37 +0530
+
+
+Started GET "/assets/bootstrap/tab.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:37 +0530
+
+
+Started GET "/assets/bootstrap/transition.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:38 +0530
+
+
+Started GET "/assets/bootstrap/scrollspy.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:38 +0530
+
+
+Started GET "/assets/bootstrap/modal.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:39 +0530
+
+
+Started GET "/assets/bootstrap/tooltip.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:39 +0530
+
+
+Started GET "/assets/bootstrap/popover.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:40 +0530
+
+
+Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:40 +0530
+
+
+Started GET "/assets/metisMenu/jquery.metisMenu.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:40 +0530
+
+
+Started GET "/assets/pace/pace.min.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:41 +0530
+
+
+Started GET "/assets/slimscroll/jquery.slimscroll.min.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:41 +0530
+
+
+Started GET "/assets/wice_grid_processor.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:42 +0530
+
+
+Started GET "/assets/wice_grid_init.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:42 +0530
+
+
+Started GET "/assets/wice_grid_saved_queries_init.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:42 +0530
+
+
+Started GET "/assets/wice_grid.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:43 +0530
+
+
+Started GET "/assets/inspinia.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:43 +0530
+
+
+Started GET "/assets/chosen/chosen.jquery.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:44 +0530
+
+
+Started GET "/assets/clipboard.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:44 +0530
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2016-12-13 10:39:44 +0530
+
+
+Started GET "/images/ests_images/8831-1860-SW.png" for 127.0.0.1 at 2016-12-13 10:39:45 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/8831-1860-SW.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (5.5ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (18.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (5.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (78.9ms)
+
+
+Started GET "/images/ests_images/39806R.png" for 127.0.0.1 at 2016-12-13 10:39:45 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/39806R.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.0ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (2.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (1.0ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (3.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (33.6ms)
+
+
+Started GET "/images/ests_images/28818R.png" for 127.0.0.1 at 2016-12-13 10:39:46 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/28818R.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.1ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (5.1ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (37.4ms)
+
+
+Started GET "/images/ests_images/39774.png" for 127.0.0.1 at 2016-12-13 10:39:46 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/39774.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (2.2ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (3.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (29.7ms)
+
+
+Started GET "/images/ests_images/39806.png" for 127.0.0.1 at 2016-12-13 10:39:47 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/39806.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (2.2ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (3.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (31.9ms)
+
+
+Started GET "/images/ests_images/28862.png" for 127.0.0.1 at 2016-12-13 10:39:47 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/28862.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.6ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (24.0ms)
+
+
+Started GET "/images/ests_images/39881.png" for 127.0.0.1 at 2016-12-13 10:39:48 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/39881.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.1ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (2.3ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (3.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (32.0ms)
+
+
+Started GET "/images/ests_images/SCB80-74.png" for 127.0.0.1 at 2016-12-13 10:39:48 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/SCB80-74.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.0ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (3.1ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (25.3ms)
+
+
+Started GET "/images/ests_images/10726.png" for 127.0.0.1 at 2016-12-13 10:39:48 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/10726.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (5.5ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (3.2ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (29.2ms)
+
+
+Started GET "/images/ests_images/T4D11.png" for 127.0.0.1 at 2016-12-13 10:39:49 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/T4D11.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (4.2ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (1.6ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (25.5ms)
+
+
+Started GET "/images/ests_images/10727.png" for 127.0.0.1 at 2016-12-13 10:39:49 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/10727.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.1ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (4.3ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.1ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (26.9ms)
+
+
+Started GET "/images/ests_images/T4D10.png" for 127.0.0.1 at 2016-12-13 10:39:50 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/T4D10.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.3ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (23.1ms)
+
+
+Started GET "/assets/patterns/shattered.png" for 127.0.0.1 at 2016-12-13 10:39:50 +0530
+
+
+Started GET "/assets/login1.jpg" for 127.0.0.1 at 2016-12-13 10:39:51 +0530
+
+
+Started GET "/assets/banner.jpg" for 127.0.0.1 at 2016-12-13 10:39:51 +0530
+
+
+Started GET "/assets/eSTS.png" for 127.0.0.1 at 2016-12-13 10:39:51 +0530
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2016-12-13 10:40:18 +0530
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2016-12-13 10:40:19 +0530
+
+
+Started GET "/assets/font-awesome.css?body=1" for 127.0.0.1 at 2016-12-13 10:40:19 +0530
+
+
+Started GET "/assets/chosen/chosen.css?body=1" for 127.0.0.1 at 2016-12-13 10:40:19 +0530
+
+
+Started GET "/assets/dataTables/dataTables.bootstrap.css?body=1" for 127.0.0.1 at 2016-12-13 10:40:20 +0530
+
+
+Started GET "/assets/animate/animate.css?body=1" for 127.0.0.1 at 2016-12-13 10:40:20 +0530
+
+
+Started GET "/assets/dataTables/dataTables.responsive.css?body=1" for 127.0.0.1 at 2016-12-13 10:40:21 +0530
+
+
+Started GET "/assets/dataTables/dataTables.tableTools.min.css?body=1" for 127.0.0.1 at 2016-12-13 10:40:21 +0530
+
+
+Started GET "/en/home/index" for 127.0.0.1 at 2016-12-13 10:41:48 +0530
+Processing by HomeController#index as HTML
+  Parameters: {"locale"=>"en"}
+  [1m[35mUser Load (398.7ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 27  ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mSetting Load (399.6ms)[0m  [1mSELECT `settings`.* FROM `settings` WHERE (organization_ID = '123')[0m
+  [1m[35m (393.4ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (organization_ID = '71' and datedeleted = '0000-00-00 00:00:00')
+  [1m[36mMaterialMaster Load (793.7ms)[0m  [1mSELECT  `material_master`.* FROM `material_master` WHERE (organization_ID = '71' and datedeleted = '0000-00-00 00:00:00') LIMIT 12 OFFSET 0[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (organization_ID = '71' and datedeleted = '0000-00-00 00:00:00')
+  [1m[36m (394.2ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000001)[0m
+  [1m[35m (393.8ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000001')
+  [1m[36mImage Load (392.0ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000001)[0m
+  [1m[35mRxmlValue Load (400.4ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000001 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (394.7ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000002)[0m
+  [1m[35m (399.4ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000002')
+  [1m[36mImage Load (1009.5ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000002)[0m
+  [1m[35mRxmlValue Load (801.0ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000002 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (395.4ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000003)[0m
+  [1m[35m (396.6ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000003')
+  [1m[36mImage Load (397.9ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000003)[0m
+  [1m[35mRxmlValue Load (408.2ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000003 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (393.7ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000004)[0m
+  [1m[35m (399.4ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000004')
+  [1m[36mImage Load (399.8ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000004)[0m
+  [1m[35mRxmlValue Load (405.0ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000004 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (406.0ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000005)[0m
+  [1m[35m (403.5ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000005')
+  [1m[36mImage Load (396.7ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000005)[0m
+  [1m[35mRxmlValue Load (403.8ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000005 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (399.6ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000006)[0m
+  [1m[35m (400.1ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000006')
+  [1m[36mImage Load (398.0ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000006)[0m
+  [1m[35mRxmlValue Load (1001.0ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000006 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (1599.5ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000007)[0m
+  [1m[35m (403.3ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000007')
+  [1m[36mImage Load (403.9ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000007)[0m
+  [1m[35mRxmlValue Load (407.4ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000007 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (1002.9ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000008)[0m
+  [1m[35m (402.3ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000008')
+  [1m[36mImage Load (403.6ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000008)[0m
+  [1m[35mRxmlValue Load (404.1ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000008 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (396.6ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000009)[0m
+  [1m[35m (399.6ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000009')
+  [1m[36mImage Load (404.8ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000009)[0m
+  [1m[35mRxmlValue Load (401.3ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000009 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (384.4ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000010)[0m
+  [1m[35m (391.6ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000010')
+  [1m[36mImage Load (399.0ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000010)[0m
+  [1m[35mRxmlValue Load (406.4ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000010 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (399.5ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000011)[0m
+  [1m[35m (399.6ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000011')
+  [1m[36mImage Load (402.2ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000011)[0m
+  [1m[35mRxmlValue Load (404.3ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000011 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  [1m[36m (398.7ms)[0m  [1mSELECT COUNT(*) FROM `images` WHERE (image_id = 2000012)[0m
+  [1m[35m (400.9ms)[0m  SELECT COUNT(*) FROM `material_master` WHERE (cat_id = 'ECCMA.eTSR:2000012')
+  [1m[36mImage Load (400.7ms)[0m  [1mSELECT `images`.* FROM `images` WHERE (image_id = 2000012)[0m
+  [1m[35mRxmlValue Load (403.0ms)[0m  SELECT  `rxml_value`.* FROM `rxml_value` WHERE (cat_id = 2000012 and datedeleted = '0000-00-00 00:00:00' and value!='')  ORDER BY `rxml_value`.`row` ASC LIMIT 3
+  Rendered home/index.html.erb within layouts/application (23915.0ms)
+  Rendered layouts/_topnavbar_2.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 25127ms (Views: 526.1ms | ActiveRecord: 24594.8ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2016-12-13 10:42:13 +0530
+
+
+Started GET "/assets/font-awesome.css?body=1" for 127.0.0.1 at 2016-12-13 10:42:14 +0530
+
+
+Started GET "/assets/chosen/chosen.css?body=1" for 127.0.0.1 at 2016-12-13 10:42:14 +0530
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2016-12-13 10:42:15 +0530
+
+
+Started GET "/assets/dataTables/dataTables.bootstrap.css?body=1" for 127.0.0.1 at 2016-12-13 10:42:15 +0530
+
+
+Started GET "/assets/animate/animate.css?body=1" for 127.0.0.1 at 2016-12-13 10:42:15 +0530
+
+
+Started GET "/assets/dataTables/dataTables.responsive.css?body=1" for 127.0.0.1 at 2016-12-13 10:42:16 +0530
+
+
+Started GET "/assets/dataTables/dataTables.tableTools.min.css?body=1" for 127.0.0.1 at 2016-12-13 10:42:17 +0530
+
+
+Started GET "/assets/jquery/jquery-2.1.1.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:17 +0530
+
+
+Started GET "/assets/bootstrap/affix.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:18 +0530
+
+
+Started GET "/assets/bootstrap/alert.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:18 +0530
+
+
+Started GET "/assets/bootstrap/button.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:19 +0530
+
+
+Started GET "/assets/bootstrap/carousel.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:19 +0530
+
+
+Started GET "/assets/bootstrap/collapse.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:19 +0530
+
+
+Started GET "/assets/bootstrap/dropdown.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:20 +0530
+
+
+Started GET "/assets/bootstrap/tab.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:20 +0530
+
+
+Started GET "/assets/bootstrap/transition.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:21 +0530
+
+
+Started GET "/assets/bootstrap/scrollspy.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:21 +0530
+
+
+Started GET "/assets/bootstrap/modal.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:21 +0530
+
+
+Started GET "/assets/bootstrap/tooltip.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:22 +0530
+
+
+Started GET "/assets/bootstrap/popover.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:23 +0530
+
+
+Started GET "/assets/bootstrap-sprockets.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:23 +0530
+
+
+Started GET "/assets/metisMenu/jquery.metisMenu.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:24 +0530
+
+
+Started GET "/assets/pace/pace.min.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:24 +0530
+
+
+Started GET "/assets/slimscroll/jquery.slimscroll.min.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:24 +0530
+
+
+Started GET "/assets/wice_grid_processor.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:25 +0530
+
+
+Started GET "/assets/wice_grid_init.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:28 +0530
+
+
+Started GET "/assets/wice_grid_saved_queries_init.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:28 +0530
+
+
+Started GET "/assets/wice_grid.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:28 +0530
+
+
+Started GET "/assets/inspinia.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:29 +0530
+
+
+Started GET "/assets/chosen/chosen.jquery.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:29 +0530
+
+
+Started GET "/assets/clipboard.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:30 +0530
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2016-12-13 10:42:30 +0530
+
+
+Started GET "/images/ests_images/8831-1860-SW.png" for 127.0.0.1 at 2016-12-13 10:42:30 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/8831-1860-SW.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.4ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (4.4ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (1.5ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.4ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (38.5ms)
+
+
+Started GET "/images/ests_images/28818R.png" for 127.0.0.1 at 2016-12-13 10:42:31 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/28818R.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.6ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (24.4ms)
+
+
+Started GET "/images/ests_images/39806.png" for 127.0.0.1 at 2016-12-13 10:42:31 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/39806.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (2.2ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (1.5ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.5ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (22.5ms)
+
+
+Started GET "/images/ests_images/28862.png" for 127.0.0.1 at 2016-12-13 10:42:32 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/28862.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.1ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.5ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (24.5ms)
+
+
+Started GET "/images/ests_images/39774.png" for 127.0.0.1 at 2016-12-13 10:42:32 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/39774.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.6ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.6ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (1.2ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (22.6ms)
+
+
+Started GET "/images/ests_images/39806R.png" for 127.0.0.1 at 2016-12-13 10:42:33 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/39806R.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (3.1ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (22.1ms)
+
+
+Started GET "/assets/patterns/shattered.png" for 127.0.0.1 at 2016-12-13 10:42:34 +0530
+
+
+Started GET "/assets/login1.jpg" for 127.0.0.1 at 2016-12-13 10:42:34 +0530
+
+
+Started GET "/assets/banner.jpg" for 127.0.0.1 at 2016-12-13 10:42:34 +0530
+
+
+Started GET "/assets/eSTS.png" for 127.0.0.1 at 2016-12-13 10:42:35 +0530
+
+
+Started GET "/images/ests_images/39881.png" for 127.0.0.1 at 2016-12-13 10:42:35 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/39881.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.4ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (1.1ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (20.0ms)
+
+
+Started GET "/images/ests_images/SCB80-74.png" for 127.0.0.1 at 2016-12-13 10:42:36 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/SCB80-74.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (3.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (22.2ms)
+
+
+Started GET "/images/ests_images/T4D10.png" for 127.0.0.1 at 2016-12-13 10:42:36 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/T4D10.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.6ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (20.2ms)
+
+
+Started GET "/images/ests_images/T4D11.png" for 127.0.0.1 at 2016-12-13 10:42:36 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/T4D11.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.6ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (2.6ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (22.5ms)
+
+
+Started GET "/images/ests_images/10726.png" for 127.0.0.1 at 2016-12-13 10:42:37 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/10726.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.6ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (24.7ms)
+
+
+Started GET "/images/ests_images/10727.png" for 127.0.0.1 at 2016-12-13 10:42:37 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/ests_images/10727.png"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/eccma-04/.rvm/rubies/ruby-2.1.0/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.5ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (0.7ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /home/eccma-04/.rvm/gems/ruby-2.1.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (22.5ms)
